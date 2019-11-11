@@ -1,0 +1,40 @@
+<div>
+  <nz-page-header nzBackIcon [nzGhost]="false">
+    <nz-page-header-title>Workorder Creation</nz-page-header-title>
+    <nz-page-header-content>
+      <div class="workorder-content">
+        <nz-descriptions [nzColumn]="3">
+          <nz-descriptions-item nzTitle="Work Order No" [nzSpan]="1">1234</nz-descriptions-item>
+        </nz-descriptions>
+        <div nz-row>
+          <div nz-col nzXs="4" nzSm="4" nzMd="4" nzLg="4" nzXl="4">
+            <div style="background-color: #f4f4f5;width: 100%;height: 150px;"></div>
+          </div>
+          <div nz-col nzXs="3" nzSm="3" nzMd="3" nzLg="3" nzXl="3">
+            QR Code
+          </div>
+          <div nz-col nzXs="8" nzSm="8" nzMd="8" nzLg="8" nzXl="8">
+            <mat-form-field>
+              <mat-label>Work Order Status</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let status of workOrderStatusList" [value]="status.value">
+                  {{status.title}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div nz-col nzXs="9" nzSm="9" nzMd="9" nzLg="9" nzXl="9">
+            <mat-form-field>
+              <mat-label>Priority</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let priority of priorityList" [value]="priority.value">
+                  {{priority.title}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </nz-page-header-content>
+  </nz-page-header>
+</div>
