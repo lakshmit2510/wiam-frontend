@@ -2,9 +2,9 @@
   <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
     <div class="sidebar-logo" style="background-color: #357CA5;">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design Of Angular</h1>
+      <a href="#" target="_blank">
+        <img src="../assets/SATSlogo.png" alt="logo">
+        <h1>WIAM Project</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
@@ -17,35 +17,56 @@
       <li nz-submenu nzOpen nzTitle="Work Orders" nzIcon="unordered-list">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/work-order-list">WorkOrders List</a>
+            <a routerLink="/work-order-list">
+              <i nz-icon nzType="star" nzTheme="outline"></i>
+              <span>WorkOrders List</span>
+            </a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Assets/Parts list" nzIcon="dashboard">
+      <li nz-submenu nzOpen nzTitle="Assets/Parts list" nzIcon="snippets">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/assets-list">Assets List</a>
+            <a routerLink="/assets-list">
+              <i nz-icon nzType="star" nzTheme="outline"></i>
+              <span>Assets List</span>
+            </a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/parts-list">Parts List</a>
+            <a routerLink="/parts-list">
+              <i nz-icon nzType="star" nzTheme="outline"></i>
+              <span>Parts List</span>
+            </a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Purchase Order" nzIcon="form">
+      <li nz-submenu nzOpen nzTitle="Purchase Order" nzIcon="shopping-cart">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/purchase-order">Purchase Order</a>
+            <a routerLink="/purchase-order">
+              <i nz-icon nzType="star" nzTheme="outline"></i>
+              <span>Purchase Order</span>
+            </a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/quotes">Quotes</a>
+            <a routerLink="/quotes">
+              <i nz-icon nzType="star" nzTheme="outline"></i>
+              <span>Quotes</span>
+            </a>
           </li>
         </ul>
       </li>
       <li nz-menu-item nzMatchRouter nzIcon="form">
-        <a routerLink="/suppliers-list">Suppliers List</a>
+        <a routerLink="/suppliers-list">
+          <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+          <span>Suppliers List</span>
+        </a>
       </li>
       <li nz-menu-item nzMatchRouter nzIcon="form">
-        <a routerLink="/reports">Reports</a>
+        <a routerLink="/reports">
+          <i nz-icon nzType="area-chart" nzTheme="outline"></i>
+          <span>Reports</span>
+        </a>
       </li>
     </ul>
   </nz-sider>
@@ -55,6 +76,7 @@
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
           <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
+        <span class="page-title">Workshop/Inventory Management System</span>
       </div>
     </nz-header>
     <nz-content>
