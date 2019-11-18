@@ -10,6 +10,9 @@ export class WorkOrderListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  //   $(document).ready(function() {
+  //     $('#example').DataTable();
+  // } );
   }
 
 }

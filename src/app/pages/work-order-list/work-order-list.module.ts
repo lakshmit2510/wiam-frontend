@@ -9,6 +9,7 @@ import {
   MatInputModule,
   MatSelectModule
 } from '@angular/material';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 
 
@@ -20,7 +21,8 @@ import {
     NgZorroAntdModule,
     WorkOrderListRoutingModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    NzTableModule
   ],
   exports: [WorkOrderListComponent]
 })
