@@ -1,1 +1,30 @@
-<p>suppliers-list works!</p>
+<div>
+    <nz-page-header [nzGhost]="false">
+        <nz-page-header-title>Suppliers List</nz-page-header-title>
+        <nz-page-header-extra>
+        <a routerLink="add-new-supplier">
+            <button class="button-style" nz-button nzType="secon" nzSize="large">
+            <i nz-icon nzType="file-add" nzTheme="outline"></i> New</button>
+        </a>
+        <a routerLink="">
+            <button nz-button nzType="secon" nzSize="large">
+            <i nz-icon nzType="printer" nzTheme="outline"></i> Print</button>
+        </a>
+        </nz-page-header-extra>
+    </nz-page-header>
+    <nz-page-header-content>
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Vendor Name</th>
+                        <th>primary Email</th>
+                        <th>primary Contact</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </nz-page-header-content>
+</div>
