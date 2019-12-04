@@ -1,14 +1,17 @@
 <div>
   <nz-page-header nzBackIcon [nzGhost]="false">
     <nz-page-header-title>Workorder Creation</nz-page-header-title>
-      <nz-page-header-extra>
-        <button nz-button nzType="secon" nzSize="large">
-          <i nz-icon nzType="save" nzTheme="outline"></i> Save</button>
-      </nz-page-header-extra>
+    <nz-page-header-extra>
+      <button nz-button nzType="secon" nzSize="large">
+        <i nz-icon nzType="save" nzTheme="outline"></i> Save
+      </button>
+    </nz-page-header-extra>
     <nz-page-header-content>
       <div class="workorder-content">
         <nz-descriptions [nzColumn]="3">
-          <nz-descriptions-item nzTitle="Work Order No" [nzSpan]="1">1234</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Work Order No" [nzSpan]="1"
+            >1234</nz-descriptions-item
+          >
         </nz-descriptions>
         <div nz-row>
           <div nz-col nzXs="4" nzSm="4" nzMd="4" nzLg="4" nzXl="4">
@@ -21,8 +24,11 @@
             <mat-form-field>
               <mat-label>Work Order Status</mat-label>
               <mat-select>
-                <mat-option *ngFor="let status of workOrderStatusList" [value]="status.value">
-                  {{status.title}}
+                <mat-option
+                  *ngFor="let status of workOrderStatusList"
+                  [value]="status.value"
+                >
+                  {{ status.title }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -31,14 +37,25 @@
             <mat-form-field>
               <mat-label>Priority</mat-label>
               <mat-select>
-                <mat-option *ngFor="let priority of priorityList" [value]="priority.value">
-                  {{priority.title}}
+                <mat-option
+                  *ngFor="let priority of priorityList"
+                  [value]="priority.value"
+                >
+                  {{ priority.title }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
       </div>
+      <nz-tabset>
+        <nz-tab nzTitle="General">
+          General Content
+        </nz-tab>
+        <nz-tab nzTitle="Parts">
+          Parts Content
+        </nz-tab>
+      </nz-tabset>
     </nz-page-header-content>
   </nz-page-header>
 </div>

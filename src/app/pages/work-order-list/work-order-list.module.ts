@@ -5,12 +5,10 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { WorkOrderListRoutingModule } from './work-order-list-routing.module';
 import { CreateWorkorderComponent } from './create-workorder/create-workorder.component';
 import { FormsModule } from '@angular/forms';
-import { DataTablesModule } from 'angular-datatables';
 import {
   MatInputModule,
   MatSelectModule
 } from '@angular/material';
-import { NzTableModule } from 'ng-zorro-antd/table';
 
 
 
@@ -23,8 +21,6 @@ import { NzTableModule } from 'ng-zorro-antd/table';
     WorkOrderListRoutingModule,
     MatInputModule,
     MatSelectModule,
-    NzTableModule,
-    DataTablesModule
   ],
   exports: [WorkOrderListComponent]
 })

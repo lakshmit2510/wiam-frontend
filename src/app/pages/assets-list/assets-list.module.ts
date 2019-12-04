@@ -6,13 +6,12 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { AddNewAssetComponent } from './add-new-asset/add-new-asset.component';
 
 
-
 @NgModule({
   declarations: [AssetsListComponent, AddNewAssetComponent],
   imports: [
     CommonModule,
     AssetsListRoutingModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
   ],
   exports: [AssetsListComponent]
 })
