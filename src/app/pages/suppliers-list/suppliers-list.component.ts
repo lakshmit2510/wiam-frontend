@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SuppliersService} from './suppliers.service';
 
 @Component({
   selector: 'app-suppliers-list',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuppliersListComponent implements OnInit {
 
-  constructor() { }
+  suppliersList: any [];
+  dataTable: any;
+  constructor(private suppliersService: SuppliersService) { }
 
   ngOnInit() {
+    this.suppliersService.getAllSuppliers().subscribe((data: any[]) => {
+      this.suppliersList = data;
+      const table: any = $('#suppliers-list-table');
+      this.dataTable = table.DataTable();
+    });
   }
 
 }

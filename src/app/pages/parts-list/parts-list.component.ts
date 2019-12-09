@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PartsService } from './parts.service';
 
 @Component({
   selector: 'app-parts-list',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartsListComponent implements OnInit {
 
-  constructor() { }
+  partsList: any [];
+  dataTable: any;
+  constructor(private partsService: PartsService) { }
 
   ngOnInit() {
+    this.partsService.getAllParts().subscribe((data: any[]) => {
+      this.partsList = data;
+      const table: any = $('#parts-list-table');
+      this.dataTable = table.DataTable();
+    });
   }
 
 }

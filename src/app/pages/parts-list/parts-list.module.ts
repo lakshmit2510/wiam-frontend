@@ -5,6 +5,7 @@ import { AddNewPartsComponent } from './add-new-parts/add-new-parts.component';
 import { PartsListRoutingModule } from './parts-list-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
+import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import {
   MatInputModule,
   MatSelectModule
@@ -21,7 +22,8 @@ import {
     FormsModule,
     MatInputModule,
     MatSelectModule,
+    NzAnchorModule,
   ],
-  exports: [PartsListComponent] 
+  exports: [PartsListComponent]
 })
 export class PartsListModule { }

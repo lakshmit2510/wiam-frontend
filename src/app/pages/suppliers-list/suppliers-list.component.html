@@ -13,18 +13,31 @@
         </nz-page-header-extra>
     </nz-page-header>
     <nz-page-header-content>
-        <table id="example" class="table table-striped table-bordered" style="width:100%">
-            <thead>
-                    <tr>
-                        <th>S.No</th>
-                        <th>Vendor Name</th>
-                        <th>primary Email</th>
-                        <th>primary Contact</th>
-                        <th>Address</th>
-                        <th>Action</th>
-                    </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+      <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+          <tr>
+              <th>S.No</th>
+              <th>Vendor Name</th>
+              <th>primary Email</th>
+              <th>primary Contact</th>
+              <th>Website Name</th>
+              <th>Country</th>
+              <th>Business Type</th>
+              <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let suppliers of suppliersList">
+            <td>{{ suppliers. SupplierID}}</td>
+            <td>{{ suppliers. SupplierName}}</td>
+            <td>{{ suppliers. EmailAdress}}</td>
+            <td>{{ suppliers. PhoneNumber}}</td>
+            <td>{{ suppliers.WebsiteName }}</td>
+            <td>{{ suppliers.Country }}</td>
+            <td>{{ suppliers.BusinessType }}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </nz-page-header-content>
 </div>
