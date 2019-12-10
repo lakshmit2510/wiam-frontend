@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'assets-list', loadChildren: () => import('./pages/assets-list/assets-list.module').then(m => m.AssetsListModule) },
   { path: 'parts-list', loadChildren: () => import('./pages/parts-list/parts-list.module').then(m => m.PartsListModule) },
   { path: 'purchase-order', loadChildren: () => import('./pages/purchase-order/purchase-order.module').then(m => m.PurchaseOrderModule) },
+  { path: 'quotes', loadChildren: () => import('./pages/quotes/quotes.module').then(m => m.QuotesModule) },
   { path: 'suppliers-list', loadChildren: () => import('./pages/suppliers-list/suppliers-list.module').then(m => m.SuppliersListModule) },
 ];
 

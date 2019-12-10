@@ -1,1 +1,46 @@
-<p>quotes works!</p>
+<div>
+  <nz-page-header [nzGhost]="false">
+      <nz-page-header-title>Quotes Details</nz-page-header-title>
+      <nz-page-header-extra>
+      <a routerLink="">
+          <button class="button-style" nz-button nzType="secon" nzSize="large">
+          <i nz-icon nzType="file-add" nzTheme="outline"></i> New Quotes</button>
+      </a>
+      <a routerLink="">
+          <button nz-button nzType="secon" nzSize="large">
+          <i nz-icon nzType="printer" nzTheme="outline"></i> Print</button>
+      </a>
+      </nz-page-header-extra>
+  </nz-page-header>
+  <nz-page-header-content>
+    <nz-tabset>
+      <nz-tab nzTitle="All">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Date</th>
+              <th>Expiry</th>
+              <th>Status</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </nz-tab>
+      <nz-tab nzTitle="Drafts">
+        content here
+      </nz-tab>
+      <nz-tab nzTitle="Sent">
+        content here
+      </nz-tab>
+      <nz-tab nzTitle="Declained">
+        content here
+      </nz-tab>
+      <nz-tab nzTitle="Accepted">
+        content here
+      </nz-tab>
+
+    </nz-tabset>
+  </nz-page-header-content>
+</div>
