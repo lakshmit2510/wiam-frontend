@@ -1,21 +1,26 @@
 <div>
-    <nz-page-header [nzGhost]="false">
-        <nz-page-header-title>Parts List</nz-page-header-title>
-        <nz-page-header-extra>
-        <a routerLink="add-new-parts">
-            <button nz-button nzType="secon" nzSize="large">
-            <i nz-icon nzType="file-add" nzTheme="outline"></i> New</button>
-        </a>
-        <a routerLink="">
-            <button nz-button nzType="secon" nzSize="large">
-            <i nz-icon nzType="printer" nzTheme="outline"></i> Print</button>
-        </a>
-        </nz-page-header-extra>
-
-    </nz-page-header>
-    <nz-page-header-content>
-      <table id="parts-list-table" class="table table-striped table-bordered" style="width:100%">
-        <thead>
+  <nz-page-header [nzGhost]="false">
+    <nz-page-header-title>Parts List</nz-page-header-title>
+    <nz-page-header-extra>
+      <a routerLink="add-new-parts">
+        <button nz-button nzType="secon" nzSize="large">
+          <i nz-icon nzType="file-add" nzTheme="outline"></i> New
+        </button>
+      </a>
+      <a routerLink="">
+        <button nz-button nzType="secon" nzSize="large">
+          <i nz-icon nzType="printer" nzTheme="outline"></i> Print
+        </button>
+      </a>
+    </nz-page-header-extra>
+  </nz-page-header>
+  <nz-page-header-content>
+    <table
+      id="parts-list-table"
+      class="table table-striped table-bordered"
+      style="width:100%"
+    >
+      <thead>
         <tr>
           <th>Parts ID</th>
           <th>Parts Name</th>
@@ -29,26 +34,29 @@
           <th>Model</th>
           <th>Submit Purchase Request</th>
         </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let parts of partsList">
-            <td>{{ parts. PartsID}}</td>
-            <td>{{ parts. PartsName}}</td>
-            <td>{{ parts. ItemNumber}}</td>
-            <td>{{ parts. SKUNo}}</td>
-            <td>{{ parts.Description }}</td>
-            <td>{{ parts.QTYInHand }}</td>
-            <td>{{ parts.MinQTY }}</td>
-            <td>{{ parts.VendorName }}</td>
-            <td>{{ parts.Manufacturer }}</td>
-            <td>{{ parts.Model }}</td>
-            <td>
-              <nz-anchor>
-                <nz-link nzHref="#nz-link" nzTitle="Submit Purchase Request"></nz-link>
-              </nz-anchor>
-            </td>
-          </tr>
-        </tbody>
-       </table>
-    </nz-page-header-content>
+      </thead>
+      <tbody>
+        <tr *ngFor="let parts of partsList">
+          <td>{{ parts.PartsID }}</td>
+          <td>{{ parts.PartsName }}</td>
+          <td>{{ parts.ItemNumber }}</td>
+          <td>{{ parts.SKUNo }}</td>
+          <td>{{ parts.Description }}</td>
+          <td>{{ parts.QTYInHand }}</td>
+          <td>{{ parts.MinQTY }}</td>
+          <td>{{ parts.VendorName }}</td>
+          <td>{{ parts.Manufacturer }}</td>
+          <td>{{ parts.Model }}</td>
+          <td>
+            <nz-anchor>
+              <nz-link
+                nzHref="#nz-link"
+                nzTitle="Submit Purchase Request"
+              ></nz-link>
+            </nz-anchor>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </nz-page-header-content>
 </div>

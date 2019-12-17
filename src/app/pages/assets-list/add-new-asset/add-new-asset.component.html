@@ -1,1 +1,69 @@
-<p>add-new-asset works!</p>
+<div>
+  <nz-page-header nzBackIcon [nzGhost]="false">
+    <nz-page-header-title>Add New Asset</nz-page-header-title>
+    <nz-page-header-extra>
+      <button nz-button nzType="secon" nzSize="large">
+        <i nz-icon nzType="save" nzTheme="outline"></i> Save
+      </button>
+    </nz-page-header-extra>
+    <nz-page-header-content>
+      <div class="asset-content">
+        <!-- <nz-descriptions [nzColumn]="3">
+          <nz-descriptions-item nzTitle="Work Order No" [nzSpan]="1">1234</nz-descriptions-item>
+        </nz-descriptions> -->
+        <div nz-row>
+          <div nz-col nzXs="4" nzSm="4" nzMd="4" nzLg="4" nzXl="4">
+            <div class="asset-img"></div>
+          </div>
+          <div nz-col nzXs="3" nzSm="3" nzMd="3" nzLg="3" nzXl="3">
+            QR Code
+
+          </div>
+          <div nz-col nzXs="8" nzSm="8" nzMd="8" nzLg="8" nzXl="8">
+            <mat-form-field>
+              <mat-label>Asset Name</mat-label>
+              <input matInput placeholder="Asset Name" />
+            </mat-form-field>
+          </div>
+          <div nz-col nzXs="9" nzSm="9" nzMd="9" nzLg="9" nzXl="9">
+            <mat-form-field>
+              <mat-label>Asset Description</mat-label>
+              <textarea matInput placeholder="Asset Description" ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <nz-tabset>
+        <nz-tab nzTitle="General">
+          <!-- <div nz-row nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+            <nz-input-group>
+              <label>Summary Of Issue</label>
+              <textarea nz-input placeholder="Description"></textarea>
+            </nz-input-group>
+          </div>
+          <div nz-col nzXs="6" nzSm="6" nzMd="6" nzLg="6" nzXl="6">
+            <nz-input-group>
+              <label>Work Instructions</label>
+              <textarea nz-input placeholder="Description"></textarea>
+            </nz-input-group>
+          </div>
+          <div nz-col nzXs="6" nzSm="6" nzMd="6" nzLg="6" nzXl="6">
+            <nz-input-group>
+              <label>Assigned To User</label>
+              <input nz-input placeholder="User Name" />
+            </nz-input-group>
+          </div> -->
+        </nz-tab>
+        <nz-tab nzTitle="Parts/BOM">
+          Parts Content
+        </nz-tab>
+        <nz-tab nzTitle="Metering/Events">
+          Events Content
+        </nz-tab>
+        <nz-tab nzTitle="Log">
+          log Content
+        </nz-tab>
+      </nz-tabset>
+    </nz-page-header-content>
+  </nz-page-header>
+</div>

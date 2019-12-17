@@ -4,6 +4,13 @@ import { AssetsListComponent } from './assets-list.component';
 import { AssetsListRoutingModule } from './assets-list-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { AddNewAssetComponent } from './add-new-asset/add-new-asset.component';
+import { FormsModule } from '@angular/forms';
+import { NzAnchorModule } from 'ng-zorro-antd/anchor';
+import {
+  MatInputModule,
+  MatSelectModule
+} from '@angular/material';
+
 
 
 @NgModule({
@@ -12,6 +19,10 @@ import { AddNewAssetComponent } from './add-new-asset/add-new-asset.component';
     CommonModule,
     AssetsListRoutingModule,
     NgZorroAntdModule,
+    FormsModule,
+    NzAnchorModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   exports: [AssetsListComponent]
 })
