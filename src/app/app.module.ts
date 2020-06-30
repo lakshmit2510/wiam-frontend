@@ -12,6 +12,8 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 // import {MatIconModule} from '@angular/material/icon';
 
+import { TemplatesModule } from './templates/templates.module';
+
 registerLocaleData(en);
 
 @NgModule({
@@ -26,6 +28,7 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    TemplatesModule
     // MatIconModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],

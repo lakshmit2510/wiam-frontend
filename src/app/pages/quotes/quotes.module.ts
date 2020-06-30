@@ -8,11 +8,13 @@ import {
   MatInputModule,
   MatSelectModule
 } from '@angular/material';
+import { AddQuoteComponent } from './add-quote/add-quote.component';
+import { PartsListComponent } from './parts-list/parts-list.component';
 
 
 
 @NgModule({
-  declarations: [QuotesComponent],
+  declarations: [QuotesComponent, AddQuoteComponent, PartsListComponent],
   imports: [
     CommonModule,
     QuotesRoutingModule,
@@ -22,6 +24,6 @@ import {
     MatSelectModule,
 
   ],
-  exports: [QuotesComponent]
+  exports: [QuotesComponent, PartsListComponent]
 })
 export class QuotesModule { }

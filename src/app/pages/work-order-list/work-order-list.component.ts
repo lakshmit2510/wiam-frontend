@@ -12,7 +12,7 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   constructor(private workOrderService: WorkOrderService) { }
 
   ngOnInit() {
-    this.workOrderService.getAllWorkOrders().subscribe((data: any[]) => {
+    this.workOrderService.getAllRequestedList().subscribe((data: any[]) => {
       this.workOrderList = data;
     });
   }

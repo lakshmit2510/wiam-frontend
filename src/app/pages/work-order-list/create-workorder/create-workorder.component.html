@@ -1,6 +1,6 @@
 <div>
   <nz-page-header nzBackIcon [nzGhost]="false">
-    <nz-page-header-title>Workorder Creation</nz-page-header-title>
+    <nz-page-header-title> Parts Request Form</nz-page-header-title>
     <nz-page-header-extra>
       <button nz-button nzType="secon" nzSize="large">
         <i nz-icon nzType="save" nzTheme="outline"></i> Save
@@ -8,48 +8,34 @@
     </nz-page-header-extra>
     <nz-page-header-content>
       <div class="workorder-content">
-        <nz-descriptions [nzColumn]="3">
+        <!-- <nz-descriptions [nzColumn]="3">
           <nz-descriptions-item nzTitle="Work Order No" [nzSpan]="1"
             >1234</nz-descriptions-item
           >
-        </nz-descriptions>
+        </nz-descriptions> -->
         <div nz-row>
-          <div nz-col nzXs="4" nzSm="4" nzMd="4" nzLg="4" nzXl="4">
+          <!-- <div nz-col nzXs="4" nzSm="4" nzMd="4" nzLg="4" nzXl="4">
             <div class="workorder-img"></div>
-          </div>
-          <div nz-col nzXs="3" nzSm="3" nzMd="3" nzLg="3" nzXl="3">
+          </div> -->
+          <!-- <div nz-col nzXs="3" nzSm="3" nzMd="3" nzLg="3" nzXl="3">
             QR Code
-          </div>
+          </div> -->
           <div nz-col nzXs="8" nzSm="8" nzMd="8" nzLg="8" nzXl="8">
             <mat-form-field>
-              <mat-label>Work Order Status</mat-label>
-              <mat-select>
-                <mat-option
-                  *ngFor="let status of workOrderStatusList"
-                  [value]="status.value"
-                >
-                  {{ status.title }}
-                </mat-option>
-              </mat-select>
+              <mat-label>Vehicle No</mat-label>
+              <input matInput type="text" name="VehicleNo" placeholder="Please Enter Vehicle Number" />
             </mat-form-field>
           </div>
           <div nz-col nzXs="9" nzSm="9" nzMd="9" nzLg="9" nzXl="9">
             <mat-form-field>
-              <mat-label>Priority</mat-label>
-              <mat-select>
-                <mat-option
-                  *ngFor="let priority of priorityList"
-                  [value]="priority.value"
-                >
-                  {{ priority.title }}
-                </mat-option>
-              </mat-select>
+              <mat-label>Parts Requested Date</mat-label>
+              <input matInput type="date" name="RequestedDate" placeholder="Please Enter Date" />
             </mat-form-field>
           </div>
         </div>
       </div>
       <nz-tabset>
-        <nz-tab nzTitle="General">
+        <!-- <nz-tab nzTitle="General">
           <div nz-row nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
             <nz-input-group>
               <label>Summary Of Issue</label>
@@ -68,9 +54,58 @@
               <input nz-input placeholder="User Name" />
             </nz-input-group>
           </div>
-        </nz-tab>
+        </nz-tab> -->
         <nz-tab nzTitle="Parts">
-          Parts Content
+          <div>
+            <nz-table #colSpanTable [nzData]="listOfData" nzBordered [nzFooter]="addPartsFormFooter">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Description</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of listOfData; let i = index">
+                  <td (click)="openPartsModal(i)">{{ data.item }}</td>
+                  <td>{{data.description}}</td>
+                  <td>
+                    <nz-input-number [(ngModel)]="data.quantity" [nzStep]="1" >
+                    </nz-input-number>
+                  </td>
+                  <td>
+                    <nz-input-number [(ngModel)]="data.unitPrice" [nzStep]="1">
+                    </nz-input-number>
+                  </td>
+                  <td>
+                    <button nz-button nzType="default" nzShape="circle" nzSize="small" *ngIf="listOfData.length > 1"
+                      style="display: flex;
+                      align-items: center;
+                      justify-content: center;" (click)="removeLine(i)">
+                      <i nz-icon nzType="close" nzTheme="outline"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </nz-table>
+            <ng-template #addPartsFormFooter>
+              <div style="display: flex; align-items: center;">
+                <button nz-button nzType="primary" (click)="addNewLine()" style="display: flex;
+                align-items: center;"><i nz-icon nzType="plus" nzTheme="outline"></i>Add New Line</button>
+                <div style="flex: 1;"></div>
+                <!-- <div style="display: flex;align-items: center;">
+                  <h4 style="margin: 0 20px 0 0;">Total</h4>
+                  <span>{{totalAmount}}</span>
+                </div> -->
+              </div>
+
+            </ng-template>
+            <app-parts-list [isVisible]='selectedRecord' (cancelModal)="closePartsModal()"
+              (addItem)="handlePartsSelection($event)">
+            </app-parts-list>
+          </div>
         </nz-tab>
       </nz-tabset>
     </nz-page-header-content>

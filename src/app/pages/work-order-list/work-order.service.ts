@@ -9,7 +9,7 @@ export class WorkOrderService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAllWorkOrders() {
-    return this.httpClient.get(`${environment.apiUrl}/WorkOrders/getAllWorkOrders`);
+  public getAllRequestedList() {
+    return this.httpClient.get(`${environment.apiUrl}/Product_Request_List/getAllRequests`);
   }
 }

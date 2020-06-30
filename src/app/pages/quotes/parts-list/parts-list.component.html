@@ -1,0 +1,31 @@
+<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" nzWidth="1000" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()">
+  <nz-table #colSpanTable [nzData]="partsList" nzBordered>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Product Number</th>
+        <th>Product Name</th>
+        <th>Location No</th>
+        <th>Description</th>
+        <th>QTY In Hand</th>
+        <th>Vendor Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let parts of partsList">
+        <td>
+          <nz-radio-group [(ngModel)]="selectedPart">
+            <label nz-radio [nzValue]="parts"></label>
+          </nz-radio-group>
+        </td>
+        <td>{{ parts.ItemNumber }}</td>
+        <td>{{ parts.PartsName }}</td>
+        <td>{{ parts.SKUNo }}</td>
+        <td>{{ parts.Description }}</td>
+        <td>{{ parts.QTYInHand }}</td>
+        <td>{{ parts.VendorName }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

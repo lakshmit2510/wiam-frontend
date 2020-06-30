@@ -1,8 +1,8 @@
 <div>
   <nz-page-header [nzGhost]="false">
-      <nz-page-header-title>Quotes Details</nz-page-header-title>
+      <nz-page-header-title>Store Requization/Qoutes</nz-page-header-title>
       <nz-page-header-extra>
-      <a routerLink="">
+      <a routerLink="/quotes/add-quote">
           <button class="button-style" nz-button nzType="secon" nzSize="large">
           <i nz-icon nzType="file-add" nzTheme="outline"></i> New Quotes</button>
       </a>
@@ -15,7 +15,7 @@
   <nz-page-header-content>
     <nz-tabset>
       <nz-tab nzTitle="All">
-        <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <table id="Quotes-table" class="table table-striped table-bordered" style="width:100%">
           <thead>
             <tr>
               <th>Number</th>
@@ -25,7 +25,15 @@
               <th>Amount</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr *ngFor="let quotes of quotesList">
+              <td>{{ quotes.QuoteNumber }}</td>
+              <td>{{ quotes.Date }}</td>
+              <td>{{ quotes.QuoteExpiryDate }}</td>
+              <td>{{ quotes.Status }}</td>
+              <td>{{ quotes.Amount }}</td>
+            </tr>
+          </tbody>
         </table>
       </nz-tab>
       <nz-tab nzTitle="Drafts">
