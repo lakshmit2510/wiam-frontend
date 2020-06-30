@@ -10,6 +10,7 @@ import {
   MatInputModule,
   MatSelectModule
 } from '@angular/material';
+import { QuotesModule } from '../quotes/quotes.module';
 
 
 
@@ -23,6 +24,7 @@ import {
     MatInputModule,
     MatSelectModule,
     NzInputModule,
+    QuotesModule,
   ],
   exports: [WorkOrderListComponent]
 })

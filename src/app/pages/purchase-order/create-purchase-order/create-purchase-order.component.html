@@ -3,22 +3,53 @@
     <nz-page-header-title>Create New Purchase Order</nz-page-header-title>
     <nz-page-header-extra>
       <button nz-button nzType="secon" nzSize="large">
-      <i nz-icon nzType="save" nzTheme="outline"></i> Save</button>
+        <i nz-icon nzType="save" nzTheme="outline"></i> Save</button>
     </nz-page-header-extra>
     <nz-page-header-content>
-    <div class="purchase-order-content">
-      <nz-descriptions [nzColumn]="3">
-      <!-- <nz-descriptions-item nzTitle="Work Order No" [nzSpan]="1">1234</nz-descriptions-item> -->
-      </nz-descriptions>
-      <div nz-row>
-        <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-          <mat-form-field>
-            <mat-label>Parts Name</mat-label>
-            <input matInput placeholder="Name">
-          </mat-form-field>
+      <div class="purchase-order-content">
+        <div nz-row>
+          <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+            <mat-form-field>
+              <mat-label>Parts Name</mat-label>
+              <input matInput name="PartsName" placeholder="Name">
+            </mat-form-field>
+          </div>
+          <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+            <mat-form-field>
+              <mat-label>Parts Number</mat-label>
+              <input matInput name="PartsNumber" placeholder="number">
+            </mat-form-field>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+            <mat-form-field>
+              <mat-label>Unit Price</mat-label>
+              <input matInput name="UnitPrice" placeholder="Unitprice">
+            </mat-form-field>
+          </div>
+          <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+            <mat-form-field>
+              <mat-label>Quantity to Buy </mat-label>
+              <input matInput name="QuantitytoBuy" placeholder="Quantity">
+            </mat-form-field>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+            <mat-form-field>
+              <mat-label>Purchase Order Number</mat-label>
+              <input matInput name="ShipToLocation" placeholder="Please Enter Purchase Order Number">
+            </mat-form-field>
+          </div>
+          <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+            <mat-form-field>
+              <mat-label>Vendor Name</mat-label>
+              <input matInput name="VendorName" placeholder="Supplier Name">
+            </mat-form-field>
+          </div>
         </div>
       </div>
-    </div>
     </nz-page-header-content>
   </nz-page-header>
 </div>

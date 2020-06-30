@@ -6,16 +6,20 @@ import { PartsListRoutingModule } from './parts-list-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
+import { NzFormModule } from 'ng-zorro-antd/form';
 import {
   MatInputModule,
   MatSelectModule
 } from '@angular/material';
 
+import { SharedModule } from '../../shared/shared.module';
+import { EditProductsComponent } from './edit-products/edit-products.component';
 
 
 @NgModule({
-  declarations: [PartsListComponent, AddNewPartsComponent],
+  declarations: [PartsListComponent, AddNewPartsComponent, EditProductsComponent],
   imports: [
+    NzFormModule,
     CommonModule,
     PartsListRoutingModule,
     NgZorroAntdModule,
@@ -23,6 +27,7 @@ import {
     MatInputModule,
     MatSelectModule,
     NzAnchorModule,
+    SharedModule
   ],
   exports: [PartsListComponent]
 })

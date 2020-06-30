@@ -1,10 +1,10 @@
 <div>
   <nz-page-header [nzGhost]="false">
-    <nz-page-header-title>Work Orders List</nz-page-header-title>
+    <nz-page-header-title> Parts Request List</nz-page-header-title>
     <nz-page-header-extra>
       <a routerLink="create-workorder">
         <button nz-button nzType="secon" nzSize="large">
-          <i nz-icon nzType="file-add" nzTheme="outline"></i> New
+          <i nz-icon nzType="file-add" nzTheme="outline"></i> New Request Form
         </button>
       </a>
       <a routerLink="">
@@ -15,45 +15,36 @@
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
-    <table
-      datatable
-      class="table table-striped table-bordered"
-      style="width:100%"
-    >
+    <nz-table #basicTable [nzData]="workOrderList" nzBordered >
       <thead>
         <tr>
-          <th>ID</th>
-          <th>AssetCode</th>
-          <th>AssignedUsers</th>
-          <th>Code</th>
-          <th>CompletedByUsers</th>
-          <th>EstimatedHours</th>
-          <th>PartsID</th>
-          <th>Priority</th>
-          <th>RequestedCompletionDate</th>
-          <th>SpentHours</th>
-          <th>Status</th>
-          <th>SummaryIssue</th>
-          <th>WorkType</th>
+          <th>S.No</th>
+          <th>Parts Request Form No</th>
+          <th>Vehicle No</th>
+          <th>Parts List</th>
+          <th>Parts Requested Date</th>
+          <th>Parts Issue Date</th>
+          <th>Created By</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let workOrder of workOrderList">
-          <td>{{ workOrder.ID }}</td>
-          <td>{{ workOrder.AssetCode }}</td>
-          <td>{{ workOrder.AssignedUsers }}</td>
-          <td>{{ workOrder.Code }}</td>
-          <td>{{ workOrder.CompletedByUsers }}</td>
-          <td>{{ workOrder.EstimatedHours }}</td>
-          <td>{{ workOrder.PartsID }}</td>
+        <tr *ngFor="let workOrder of basicTable.data">
+          <td>{{ workOrder.RequestId }}</td>
+          <td>{{ workOrder.RequestFormNo }}</td>
+          <td>{{ workOrder.VehicleNo }}</td>
+          <td>{{ workOrder.PartsList }}</td>
+          <td>{{ workOrder.PartsRequestedDate }}</td>
+          <td>{{ workOrder.PartsIssueDate }}</td>
+          <td>{{ workOrder.UserName }}</td>
+          <!-- <td>{{ workOrder.PartsID }}</td>
           <td>{{ workOrder.Priority }}</td>
           <td>{{ workOrder.RequestedCompletionDate }}</td>
           <td>{{ workOrder.SpentHours }}</td>
           <td>{{ workOrder.Status }}</td>
           <td>{{ workOrder.SummaryIssue }}</td>
           <td>{{ workOrder.WorkType }}</td>
-        </tr>
+        </tr> -->
       </tbody>
-    </table>
+    </nz-table>
   </nz-page-header-content>
 </div>
