@@ -47,7 +47,7 @@
             <td>{{ parts.CostPrice }}</td>
             <td>{{ parts.SellingPrice }}</td>
             <td>
-              <a routerLink="edit-products">Edit</a>
+              <a (click)="handleEdit(parts)">Edit</a>
               <!-- <nz-divider nzType="vertical"></nz-divider>
               <a>Delete</a> -->
             </td>

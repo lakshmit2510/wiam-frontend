@@ -3,7 +3,8 @@
     [nzTrigger]="null">
     <div class="sidebar-logo" style="background-color: #357CA5;">
       <a href="#" target="_blank">
-        <img src="../assets/indeco.png" alt="logo">
+        <!-- <img src="../assets/indeco.png" alt="logo"> -->
+        <h1>Mirai Trading <br> Enterprice</h1>
         <h1>IMS Project</h1>
       </a>
     </div>
@@ -27,6 +28,12 @@
       <li nz-submenu nzOpen nzTitle="Products list" nzIcon="snippets">
         <ul>
           <li nz-menu-item nzMatchRouter>
+            <a routerLink="#">
+              <i nz-icon nzType="star" nzTheme="outline"></i>
+              <span>Total Products List</span>
+            </a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
             <a routerLink="/parts-list">
               <i nz-icon nzType="star" nzTheme="outline"></i>
               <span>CategoryA</span>
@@ -42,6 +49,12 @@
             <a routerLink="/parts-list">
               <i nz-icon nzType="star" nzTheme="outline"></i>
               <span>CategoryC</span>
+            </a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="#">
+              <i nz-icon nzType="star" nzTheme="outline"></i>
+              <span>CategoryD</span>
             </a>
           </li>
         </ul>
@@ -78,11 +91,29 @@
   </nz-sider>
   <nz-layout>
     <nz-header>
-      <div class="app-header" style="background-color: #3C8DBC;">
+      <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
           <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
-        <span class="page-title">Workshop/Inventory Management System</span>
+        <span class="page-title">Inventory Management System</span>
+
+      </div>
+      <div style="flex: 1;"></div>
+      <div class="logout" style="margin-right: 60px;">
+        <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzType="default" nzShape="circle"
+          nzSize="large" style="display: flex;
+        align-items: center;
+        justify-content: center;
+    ">
+          <i nz-icon nzType="user" nzTheme="outline"></i>
+        </button>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu style="width: 220px; padding: 0 0 7px;">
+            <li nz-menu-item><i nz-icon nzType="smile" nzTheme="outline"></i> My Profile</li>
+            <li nz-menu-item><i nz-icon nzType="key" nzTheme="outline"></i> Change Password</li>
+            <li (click)="handleLogout()" nz-menu-item> <i nz-icon nzType="logout" nzTheme="outline"></i> Logout</li>
+          </ul>
+        </nz-dropdown-menu>
       </div>
     </nz-header>
     <nz-content>

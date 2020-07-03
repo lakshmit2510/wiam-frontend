@@ -23,6 +23,8 @@ export class AddNewPartsComponent implements OnInit {
     partCostPrice: null,
     partSellingPrice: null,
     vendorName: '',
+    Model: '',
+    Manufacturer: '',
   };
 
   constructor(private partsService: PartsService) { }

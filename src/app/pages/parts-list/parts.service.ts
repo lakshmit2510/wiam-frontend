@@ -12,7 +12,16 @@ export class PartsService {
   public getAllParts() {
     return this.httpClient.get(`${environment.apiUrl}/Parts/getAllParts`);
   }
+
+  public getPartsById(id) {
+    return this.httpClient.get(`${environment.apiUrl}/Parts/getPartsById/${id}`);
+  }
+
   addNewPartDetails(data) {
     return this.httpClient.post(`${environment.apiUrl}/Parts/addNewPart`, data);
+  }
+
+  updatePartDetails(id, data) {
+    return this.httpClient.put(`${environment.apiUrl}/Parts/updatePartsById/${id}`, data);
   }
 }

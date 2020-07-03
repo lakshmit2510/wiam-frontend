@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import { PartsService } from './parts.service';
 import { PartModel } from '../../types/part';
 
@@ -12,7 +13,7 @@ export class PartsListComponent implements OnInit {
   partsList: any[];
   dataTable: any;
   scannerVl = null;
-  constructor(private partsService: PartsService) { }
+  constructor(private partsService: PartsService, private router: Router) { }
 
   ngOnInit() {
     this.partsService.getAllParts().subscribe((data: any[]) => {
@@ -30,5 +31,9 @@ export class PartsListComponent implements OnInit {
         console.log(res);
       });
     }
+  }
+
+  handleEdit(parts): void {
+    this.router.navigate(['/parts-list/edit-products'], { queryParams: { partsID: parts.PartsID } });
   }
 }

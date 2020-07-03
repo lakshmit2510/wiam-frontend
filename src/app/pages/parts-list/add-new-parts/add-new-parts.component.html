@@ -68,6 +68,18 @@
             </div>
             <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
               <mat-form-field>
+                <mat-label>Model</mat-label>
+                <input matInput name="model" [(ngModel)]="model.Model" placeholder="Please Enter Model of the Part " />
+              </mat-form-field>
+            </div>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <mat-form-field>
+                <mat-label>Manufacturer</mat-label>
+                <input matInput name="Manufacturer" [(ngModel)]="model.Manufacturer" placeholder="Please Enter Manufacturer of the Part " />
+              </mat-form-field>
+            </div>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <mat-form-field>
                 <mat-label>Part Cost Price</mat-label>
                 <input matInput type="number" name="CostPrice" [(ngModel)]="model.partCostPrice"
                   placeholder="Please Enter Cost Price in SGD" />
@@ -88,7 +100,6 @@
             </div>
           </div>
         </div>
-
       </nz-page-header-content>
     </nz-page-header>
   </form>

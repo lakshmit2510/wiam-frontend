@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          const redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/welcome';
+          const redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/parts-list';
           this.router.navigate([redirect]);
         },
         error => {

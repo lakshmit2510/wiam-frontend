@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PartsService } from '../parts.service';
 import { PartModel, PartInterface } from '../../../types/part';
 
@@ -21,15 +22,26 @@ export class EditProductsComponent implements OnInit {
     partCostPrice: null,
     partSellingPrice: null,
     vendorName: '',
+    Manufacturer: '',
+    Model: ''
   };
-  constructor(private partsService: PartsService) { }
+  constructor(private partsService: PartsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getPartsById();
   }
 
+  getPartsById(): void {
+    const { partsID } = this.activatedRoute.snapshot.queryParams;
+
+    this.partsService.getPartsById(partsID).subscribe(res => {
+      this.model = PartModel.mapValues(res[0]);
+    });
+  }
   submitForm() {
-    // this.partsService.addNewPartDetails(PartModel.create(this.model)).subscribe(res => {
-    //   console.log(res);
-    // });
+    const { partsID } = this.activatedRoute.snapshot.queryParams;
+    this.partsService.updatePartDetails(partsID, PartModel.create(this.model)).subscribe(res => {
+      console.log(res);
+    });
   }
 }
