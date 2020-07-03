@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
-import { PartsService } from './parts.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PartsService } from '../../services/parts-service/parts.service';
 import { PartModel } from '../../types/part';
 
 @Component({
@@ -13,10 +13,12 @@ export class PartsListComponent implements OnInit {
   partsList: any[];
   dataTable: any;
   scannerVl = null;
-  constructor(private partsService: PartsService, private router: Router) { }
+  constructor(private partsService: PartsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.partsService.getAllParts().subscribe((data: any[]) => {
+    const category = this.activatedRoute.snapshot.data;
+    const type = category ? category.key : '';
+    this.partsService.getAllParts(type).subscribe((data: any[]) => {
       this.partsList = data;
       // const table: any = $('#parts-list-table');
       // this.dataTable = table.DataTable();

@@ -8,6 +8,11 @@ const routes: Routes = [
   { path: '', component: PartsListComponent },
   { path: 'add-new-parts', component: AddNewPartsComponent },
   { path: 'edit-products', component: EditProductsComponent },
+  { path: 'category-a', component: PartsListComponent, data: { key: 'Rare Stock' } },
+  { path: 'category-b', component: PartsListComponent, data: { key: 'category-b' } },
+  { path: 'category-c', component: PartsListComponent, data: { key: 'category-c' } },
+  { path: 'category-d', component: PartsListComponent, data: { key: 'category-d' } },
+
 ];
 
 @NgModule({

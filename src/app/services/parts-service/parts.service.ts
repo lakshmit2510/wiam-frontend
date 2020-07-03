@@ -9,8 +9,8 @@ export class PartsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAllParts() {
-    return this.httpClient.get(`${environment.apiUrl}/Parts/getAllParts`);
+  public getAllParts(category?) {
+    return this.httpClient.get(`${environment.apiUrl}/Parts/getAllParts?category=${category}`);
   }
 
   public getPartsById(id) {

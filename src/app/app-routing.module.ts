@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { BaseTemplateComponent } from './templates/base-template/base-template.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthGuard } from './middlewares/auth.guard';
 
 const routes: Routes = [
@@ -53,6 +54,9 @@ const routes: Routes = [
     component: BaseTemplateComponent,
     loadChildren: () => import('./pages/suppliers-list/suppliers-list.module').then(m => m.SuppliersListModule)
   },
+  { path: '**', redirectTo: '/404' },
+  { path: '404', component: NotFoundComponent },
+
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PartsService } from '../parts.service';
+import { PartsService } from '../../../services/parts-service/parts.service';
 import { PartModel, PartInterface } from '../../../types/part';
 
 @Component({
