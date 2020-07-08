@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
-import { QuotesService } from '../../../services/quotes-service/quotes.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { QuotesService } from "../../../services/quotes-service/quotes.service";
 
 interface QuoteInterface {
   item: string;
@@ -16,63 +16,59 @@ class QuoteModel {
 }
 
 @Component({
-  selector: 'app-create-workorder',
-  templateUrl: './create-workorder.component.html',
-  styleUrls: ['./create-workorder.component.less']
+  selector: "app-create-workorder",
+  templateUrl: "./create-workorder.component.html",
+  styleUrls: ["./create-workorder.component.less"],
 })
 export class CreateWorkorderComponent implements OnInit {
-
   isOpenParts = false;
 
-  inputValue: '';
+  inputValue: "";
 
-  date: '';
+  date: "";
 
   totalAmount = 0;
 
   model = {
-    vehicleNo: '',
-    vehicleModel: '',
-    partsList: '',
-    description: '',
-    qtyRequested: ''
+    vehicleNo: "",
+    vehicleModel: "",
+    partsList: "",
+    description: "",
+    qtyRequested: "",
   };
 
   listOfData = [
     QuoteModel.create({
-      item: '',
-      description: '',
+      item: "",
+      description: "",
       quantity: 0,
       unitPrice: 0,
     }),
   ];
 
-  constructor(private quotesService: QuotesService) { }
+  constructor(private quotesService: QuotesService, private router: Router) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  onDateChange(): void { }
+  onDateChange(): void {}
 
   closePartsModal(): void {
     this.isOpenParts = false;
   }
 
-  openPartsModal(): void { this.isOpenParts = true; }
-
-  // addNewLine(): void {
-  //   this.listOfData.push(QuoteModel.create({
-  //     item: '',
-  //     description: '',
-  //     quantity: 0,
-  //     unitPrice: 0,
-  //   }));
-  // }
+  openPartsModal(): void {
+    this.isOpenParts = true;
+  }
 
   handlePartsSelection(parts): void {
-    const partsList = parts.map(item => ({ item: item.ItemNumber, description: item.Description, unitPrice: item.SellingPrice }));
+    const partsList = parts.map((item) => ({
+      item: item.ItemNumber,
+      description: item.Description,
+      unitPrice: item.SellingPrice,
+      quantity: 1,
+    }));
     this.listOfData = [...partsList];
-    this.model.partsList = partsList.map(item => item.item).join(',');
-    // this.model.partsList = partsList.map(item => item.item).join(',');
+
     this.isOpenParts = false;
   }
 
@@ -81,9 +77,12 @@ export class CreateWorkorderComponent implements OnInit {
   }
 
   savePartsRequestForm(): void {
-    this.quotesService.savePartsRequestForm(this.model).subscribe(res => {
-      console.log(res);
+    this.model.partsList = this.listOfData.map((item) => item.item).join(",");
+    this.model.qtyRequested = this.listOfData
+      .map((item) => item.quantity)
+      .join(",");
+    this.quotesService.savePartsRequestForm(this.model).subscribe((res) => {
+      this.router.navigate(["/work-order-list"]);
     });
   }
-
 }

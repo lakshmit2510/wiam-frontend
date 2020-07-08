@@ -15,48 +15,58 @@
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
-    <nz-table #basicTable [nzData]="workOrderList" nzBordered >
+    <dx-data-grid
+      [dataSource]="workOrderList"
+      [showColumnLines]="true"
+      [showRowLines]="true"
+      [showBorders]="true"
+      [rowAlternationEnabled]="true"
+    >
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[5, 10, 20]"
+        [showInfo]="true"
+      >
+      </dxo-pager>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxi-column
+        *ngFor="let item of requestListColumns"
+        [dataField]="item.key"
+      ></dxi-column>
+    </dx-data-grid>
+    <!-- <nz-table
+      #basicTable
+      [nzData]="workOrderList"
+      nzBordered
+      nzTableLayout="fixed"
+      [nzScroll]="{ x: '1200px', y: '240px' }"
+      [nzPageSize]="50"
+    >
       <thead>
         <tr>
-          <th>S.No</th>
-          <th>Parts Request Form No</th>
-          <th>Vehicle No</th>
-          <th>Parts List</th>
-          <th>QTY Requested</th>
-          <th>Model/Make</th>
-          <th>Parts Requested Date</th>
-          <th>Parts Issue Date</th>
-          <th>Created By</th>
-          <th>Status</th>
+          <th *ngFor="let item of requestListColumns" [nzWidth]="item.width">
+            {{ item.name }}
+          </th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let workOrder of basicTable.data">
-          <td>{{ workOrder.RequestId }}</td>
-          <td>{{ workOrder.RequestFormNo }}</td>
-          <td>{{ workOrder.VehicleNo }}</td>
-          <td>{{ workOrder.PartsList }}</td>
-          <td>{{ workOrder.QTYRequested }}</td>
-          <td>{{ workOrder.Model }}</td>
-          <td>{{ workOrder.PartsRequestedDate }}</td>
-          <td>{{ workOrder.PartsIssueDate }}</td>
-          <td>{{ workOrder.UserName }}</td>
-          <td>{{ workOrder.Status }}</td>
-          <td>
-            <button nz-button nzType="primary" nzShape="round">Deliver Order</button>
-            <nz-divider nzType="vertical"></nz-divider>
-            <button nz-button nzType="primary" nzShape="round"><i nz-icon nzType="close" nzTheme="outline"></i>Cancel</button>
+          <td *ngFor="let item of requestListColumns">
+            {{ workOrder[item.key] }}
           </td>
-          <!-- <td>{{ workOrder.PartsID }}</td>
-          <td>{{ workOrder.Priority }}</td>
-          <td>{{ workOrder.RequestedCompletionDate }}</td>
-          <td>{{ workOrder.SpentHours }}</td>
-          <td>{{ workOrder.Status }}</td>
-          <td>{{ workOrder.SummaryIssue }}</td>
-          <td>{{ workOrder.WorkType }}</td> -->
+          <td>
+            <button nz-button nzType="primary" nzShape="round">
+              Deliver Order
+            </button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nz-button nzType="primary" nzShape="round">
+              <i nz-icon nzType="close" nzTheme="outline"></i>Cancel
+            </button>
+          </td>
         </tr>
       </tbody>
-    </nz-table>
+    </nz-table> -->
   </nz-page-header-content>
 </div>

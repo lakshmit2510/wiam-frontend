@@ -2,7 +2,12 @@
   <nz-page-header nzBackIcon [nzGhost]="false">
     <nz-page-header-title> Parts Request Form</nz-page-header-title>
     <nz-page-header-extra>
-      <button nz-button nzType="secon" nzSize="large" (click)="savePartsRequestForm()">
+      <button
+        nz-button
+        nzType="secon"
+        nzSize="large"
+        (click)="savePartsRequestForm()"
+      >
         <i nz-icon nzType="save" nzTheme="outline"></i> Save
       </button>
     </nz-page-header-extra>
@@ -23,7 +28,12 @@
           <div nz-col nzXs="8" nzSm="8" nzMd="8" nzLg="8" nzXl="8">
             <mat-form-field>
               <mat-label>Vehicle No</mat-label>
-              <input matInput type="text" [(ngModel)]="model.vehicleNo" placeholder="Please Enter Vehicle Number" />
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="model.vehicleNo"
+                placeholder="Please Enter Vehicle Number"
+              />
             </mat-form-field>
           </div>
           <!-- <div nz-col nzXs="9" nzSm="9" nzMd="9" nzLg="9" nzXl="9">
@@ -35,7 +45,12 @@
           <div nz-col nzXs="9" nzSm="9" nzMd="9" nzLg="9" nzXl="9">
             <mat-form-field>
               <mat-label>Model/Make</mat-label>
-              <input matInput type="text" [(ngModel)]="model.vehicleModel" placeholder="Please Enter model" />
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="model.vehicleModel"
+                placeholder="Please Enter model"
+              />
             </mat-form-field>
           </div>
         </div>
@@ -63,7 +78,12 @@
         </nz-tab> -->
         <nz-tab nzTitle="Parts">
           <div>
-            <nz-table #colSpanTable [nzData]="listOfData" nzBordered [nzFooter]="addPartsFormFooter">
+            <nz-table
+              #colSpanTable
+              [nzData]="listOfData"
+              nzBordered
+              [nzFooter]="addPartsFormFooter"
+            >
               <thead>
                 <tr>
                   <th>Item</th>
@@ -76,20 +96,34 @@
               <tbody>
                 <tr *ngFor="let data of listOfData; let i = index">
                   <td>{{ data.item }}</td>
-                  <td>{{data.description}}</td>
+                  <td>{{ data.description }}</td>
                   <td>
-                    <nz-input-number [(ngModel)]="data.quantity" [nzStep]="1">
+                    <nz-input-number
+                      [(ngModel)]="data.quantity"
+                      [nzStep]="1"
+                      [nzMin]="1"
+                    >
                     </nz-input-number>
                   </td>
-                  <td>{{data.unitPrice}}
+                  <td>
+                    {{ data.unitPrice }}
                     <!-- <nz-input-number [(ngModel)]="data.unitPrice" [nzStep]="1">
                     </nz-input-number> -->
                   </td>
                   <td>
-                    <button nz-button nzType="default" nzShape="circle" nzSize="small" *ngIf="listOfData.length > 1"
-                      style="display: flex;
-                      align-items: center;
-                      justify-content: center;" (click)="removeLine(i)">
+                    <button
+                      nz-button
+                      nzType="default"
+                      nzShape="circle"
+                      nzSize="small"
+                      *ngIf="listOfData.length > 1"
+                      style="
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      "
+                      (click)="removeLine(i)"
+                    >
                       <i nz-icon nzType="close" nzTheme="outline"></i>
                     </button>
                   </td>
@@ -98,14 +132,22 @@
             </nz-table>
             <ng-template #addPartsFormFooter>
               <div style="display: flex; align-items: center;">
-                <button nz-button nzType="primary" (click)="openPartsModal()" style="display: flex;
-                align-items: center;"><i nz-icon nzType="plus" nzTheme="outline"></i>Add Parts</button>
+                <button
+                  nz-button
+                  nzType="primary"
+                  (click)="openPartsModal()"
+                  style="display: flex; align-items: center;"
+                >
+                  <i nz-icon nzType="plus" nzTheme="outline"></i>Add Parts
+                </button>
                 <div style="flex: 1;"></div>
               </div>
-
             </ng-template>
-            <app-parts-selection [isVisible]='isOpenParts' (cancelModal)="closePartsModal()"
-              (addItem)="handlePartsSelection($event)">
+            <app-parts-selection
+              [isVisible]="isOpenParts"
+              (cancelModal)="closePartsModal()"
+              (addItem)="handlePartsSelection($event)"
+            >
             </app-parts-selection>
           </div>
         </nz-tab>
