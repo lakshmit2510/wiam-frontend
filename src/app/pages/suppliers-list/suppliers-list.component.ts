@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SuppliersService} from './suppliers.service';
+import {SuppliersService} from '../../services/suppliers-service/suppliers.service';
 
 @Component({
   selector: 'app-suppliers-list',
@@ -15,8 +15,8 @@ export class SuppliersListComponent implements OnInit {
   ngOnInit() {
     this.suppliersService.getAllSuppliers().subscribe((data: any[]) => {
       this.suppliersList = data;
-      const table: any = $('#suppliers-list-table');
-      this.dataTable = table.DataTable();
+      // const table: any = $('#suppliers-list-table');
+      // this.dataTable = table.DataTable();
     });
   }
 

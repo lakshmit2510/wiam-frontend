@@ -1,18 +1,24 @@
 <app-scanner-detection (scan)="handleScan($event)">
   <div>
     <nz-page-header [nzGhost]="false">
-      <nz-page-header-title>Parts List</nz-page-header-title>
+      <nz-page-header-title>
+        <!-- <div style="display: flex;">
+          <h6 style="margin-right: 10px;">Total Parts:</h6>
+          <nz-badge [nzCount]="25"></nz-badge>
+        </div> -->
+
+      </nz-page-header-title>
       <nz-page-header-extra>
-        <a routerLink="add-new-parts">
+        <a routerLink="/parts-list/add-new-parts">
           <button nz-button nzType="secon" nzSize="large">
             <i nz-icon nzType="file-add" nzTheme="outline"></i> New
           </button>
         </a>
-        <a routerLink="">
+        <!-- <a routerLink="">
           <button nz-button nzType="secon" nzSize="large">
             <i nz-icon nzType="printer" nzTheme="outline"></i> Print
           </button>
-        </a>
+        </a> -->
       </nz-page-header-extra>
     </nz-page-header>
     <nz-page-header-content>
@@ -40,7 +46,7 @@
             <td>{{ parts.SKUNo }}</td>
             <td>{{ parts.Description }}</td>
             <td>{{ parts.Category }}</td>
-            <td>{{ parts.QTYInHand }}</td>
+            <td style="color: blue;">{{ parts.QTYInHand }}</td>
             <td>{{ parts.ManufacturingDate }}</td>
             <td>{{ parts.ExpiryDate }}</td>
             <td>{{ parts.VendorName }}</td>

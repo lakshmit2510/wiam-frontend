@@ -3,15 +3,15 @@
     <nz-page-header-title> Parts Request List</nz-page-header-title>
     <nz-page-header-extra>
       <a routerLink="create-workorder">
-        <button nz-button nzType="secon" nzSize="large">
+        <button nz-button class="button-styles" nzType="secon" nzSize="large">
           <i nz-icon nzType="file-add" nzTheme="outline"></i> New Request Form
         </button>
       </a>
-      <a routerLink="">
-        <button nz-button nzType="secon" nzSize="large">
+      <!-- <a routerLink="">
+        <button nz-button class="button-styles" nzType="secon" nzSize="large">
           <i nz-icon nzType="printer" nzTheme="outline"></i> Print
         </button>
-      </a>
+      </a> -->
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
@@ -22,9 +22,13 @@
           <th>Parts Request Form No</th>
           <th>Vehicle No</th>
           <th>Parts List</th>
+          <th>QTY Requested</th>
+          <th>Model/Make</th>
           <th>Parts Requested Date</th>
           <th>Parts Issue Date</th>
           <th>Created By</th>
+          <th>Status</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -33,17 +37,25 @@
           <td>{{ workOrder.RequestFormNo }}</td>
           <td>{{ workOrder.VehicleNo }}</td>
           <td>{{ workOrder.PartsList }}</td>
+          <td>{{ workOrder.QTYRequested }}</td>
+          <td>{{ workOrder.Model }}</td>
           <td>{{ workOrder.PartsRequestedDate }}</td>
           <td>{{ workOrder.PartsIssueDate }}</td>
           <td>{{ workOrder.UserName }}</td>
+          <td>{{ workOrder.Status }}</td>
+          <td>
+            <button nz-button nzType="primary" nzShape="round">Deliver Order</button>
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nz-button nzType="primary" nzShape="round"><i nz-icon nzType="close" nzTheme="outline"></i>Cancel</button>
+          </td>
           <!-- <td>{{ workOrder.PartsID }}</td>
           <td>{{ workOrder.Priority }}</td>
           <td>{{ workOrder.RequestedCompletionDate }}</td>
           <td>{{ workOrder.SpentHours }}</td>
           <td>{{ workOrder.Status }}</td>
           <td>{{ workOrder.SummaryIssue }}</td>
-          <td>{{ workOrder.WorkType }}</td>
-        </tr> -->
+          <td>{{ workOrder.WorkType }}</td> -->
+        </tr>
       </tbody>
     </nz-table>
   </nz-page-header-content>

@@ -2,7 +2,7 @@
   <nz-page-header nzBackIcon [nzGhost]="false">
     <nz-page-header-title> Parts Request Form</nz-page-header-title>
     <nz-page-header-extra>
-      <button nz-button nzType="secon" nzSize="large">
+      <button nz-button nzType="secon" nzSize="large" (click)="savePartsRequestForm()">
         <i nz-icon nzType="save" nzTheme="outline"></i> Save
       </button>
     </nz-page-header-extra>
@@ -23,13 +23,19 @@
           <div nz-col nzXs="8" nzSm="8" nzMd="8" nzLg="8" nzXl="8">
             <mat-form-field>
               <mat-label>Vehicle No</mat-label>
-              <input matInput type="text" name="VehicleNo" placeholder="Please Enter Vehicle Number" />
+              <input matInput type="text" [(ngModel)]="model.vehicleNo" placeholder="Please Enter Vehicle Number" />
             </mat-form-field>
           </div>
-          <div nz-col nzXs="9" nzSm="9" nzMd="9" nzLg="9" nzXl="9">
+          <!-- <div nz-col nzXs="9" nzSm="9" nzMd="9" nzLg="9" nzXl="9">
             <mat-form-field>
               <mat-label>Parts Requested Date</mat-label>
               <input matInput type="date" name="RequestedDate" placeholder="Please Enter Date" />
+            </mat-form-field>
+          </div> -->
+          <div nz-col nzXs="9" nzSm="9" nzMd="9" nzLg="9" nzXl="9">
+            <mat-form-field>
+              <mat-label>Model/Make</mat-label>
+              <input matInput type="text" [(ngModel)]="model.vehicleModel" placeholder="Please Enter model" />
             </mat-form-field>
           </div>
         </div>
@@ -69,15 +75,15 @@
               </thead>
               <tbody>
                 <tr *ngFor="let data of listOfData; let i = index">
-                  <td (click)="openPartsModal(i)">{{ data.item }}</td>
+                  <td>{{ data.item }}</td>
                   <td>{{data.description}}</td>
                   <td>
-                    <nz-input-number [(ngModel)]="data.quantity" [nzStep]="1" >
+                    <nz-input-number [(ngModel)]="data.quantity" [nzStep]="1">
                     </nz-input-number>
                   </td>
-                  <td>
-                    <nz-input-number [(ngModel)]="data.unitPrice" [nzStep]="1">
-                    </nz-input-number>
+                  <td>{{data.unitPrice}}
+                    <!-- <nz-input-number [(ngModel)]="data.unitPrice" [nzStep]="1">
+                    </nz-input-number> -->
                   </td>
                   <td>
                     <button nz-button nzType="default" nzShape="circle" nzSize="small" *ngIf="listOfData.length > 1"
@@ -92,19 +98,15 @@
             </nz-table>
             <ng-template #addPartsFormFooter>
               <div style="display: flex; align-items: center;">
-                <button nz-button nzType="primary" (click)="addNewLine()" style="display: flex;
-                align-items: center;"><i nz-icon nzType="plus" nzTheme="outline"></i>Add New Line</button>
+                <button nz-button nzType="primary" (click)="openPartsModal()" style="display: flex;
+                align-items: center;"><i nz-icon nzType="plus" nzTheme="outline"></i>Add Parts</button>
                 <div style="flex: 1;"></div>
-                <!-- <div style="display: flex;align-items: center;">
-                  <h4 style="margin: 0 20px 0 0;">Total</h4>
-                  <span>{{totalAmount}}</span>
-                </div> -->
               </div>
 
             </ng-template>
-            <app-parts-list [isVisible]='selectedRecord' (cancelModal)="closePartsModal()"
+            <app-parts-selection [isVisible]='isOpenParts' (cancelModal)="closePartsModal()"
               (addItem)="handlePartsSelection($event)">
-            </app-parts-list>
+            </app-parts-selection>
           </div>
         </nz-tab>
       </nz-tabset>

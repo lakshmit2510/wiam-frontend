@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { QuotesService } from '../../../services/quotes-service/quotes.service';
+
 interface QuoteInterface {
   item: string;
   description: string;
@@ -19,25 +21,22 @@ class QuoteModel {
   styleUrls: ['./create-workorder.component.less']
 })
 export class CreateWorkorderComponent implements OnInit {
-  workOrderStatusList = [
-    { title: 'Open', value: 'open' },
-    { title: 'Work In Progress', value: 'inprogress' },
-    { title: 'Closed, Completed', value: 'completed' },
-    { title: 'Closed, In Completed', value: 'incompleted' }
-  ];
-  priorityList = [
-    { title: 'High', value: 'high' },
-    { title: 'Medium', value: 'medium' },
-    { title: 'Low', value: 'low' },
-  ];
 
-  selectedRecord = null;
+  isOpenParts = false;
 
   inputValue: '';
 
   date: '';
 
   totalAmount = 0;
+
+  model = {
+    vehicleNo: '',
+    vehicleModel: '',
+    partsList: '',
+    description: '',
+    qtyRequested: ''
+  };
 
   listOfData = [
     QuoteModel.create({
@@ -48,36 +47,43 @@ export class CreateWorkorderComponent implements OnInit {
     }),
   ];
 
-  constructor() { }
+  constructor(private quotesService: QuotesService) { }
 
   ngOnInit() { }
 
   onDateChange(): void { }
 
   closePartsModal(): void {
-    this.selectedRecord = null;
+    this.isOpenParts = false;
   }
 
-  openPartsModal(idx): void { this.selectedRecord = idx; }
+  openPartsModal(): void { this.isOpenParts = true; }
 
-  addNewLine(): void {
-    this.listOfData.push(QuoteModel.create({
-      item: '',
-      description: '',
-      quantity: 0,
-      unitPrice: 0,
-    }));
-  }
+  // addNewLine(): void {
+  //   this.listOfData.push(QuoteModel.create({
+  //     item: '',
+  //     description: '',
+  //     quantity: 0,
+  //     unitPrice: 0,
+  //   }));
+  // }
 
   handlePartsSelection(parts): void {
-    const record = this.listOfData[this.selectedRecord];
-    record.item = parts.ItemNumber;
-    record.description = parts.Description;
-    this.selectedRecord = null;
+    const partsList = parts.map(item => ({ item: item.ItemNumber, description: item.Description, unitPrice: item.SellingPrice }));
+    this.listOfData = [...partsList];
+    this.model.partsList = partsList.map(item => item.item).join(',');
+    // this.model.partsList = partsList.map(item => item.item).join(',');
+    this.isOpenParts = false;
   }
 
   removeLine(idx): void {
     this.listOfData.splice(idx, 1);
+  }
+
+  savePartsRequestForm(): void {
+    this.quotesService.savePartsRequestForm(this.model).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }

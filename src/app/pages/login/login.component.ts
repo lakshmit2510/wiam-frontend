@@ -15,12 +15,15 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private router: Router) {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(1), Validators.email]],
-      password: ['', Validators.required]
+      username: [null, [Validators.required]],
+      password: [null, Validators.required]
     });
   }
 
   ngOnInit() {
+    if (this.authenticationService.isLoggedIn()) {
+      this.router.navigate(['/parts-list']);
+    }
   }
 
   postdata(loginForm) {

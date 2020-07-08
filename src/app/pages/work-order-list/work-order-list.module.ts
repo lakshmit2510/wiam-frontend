@@ -10,12 +10,13 @@ import {
   MatInputModule,
   MatSelectModule
 } from '@angular/material';
-import { QuotesModule } from '../quotes/quotes.module';
+import { SharedModule } from '../../shared/shared.module';
+import { RequestConfirmComponent } from './request-confirm/request-confirm.component';
 
 
 
 @NgModule({
-  declarations: [WorkOrderListComponent, CreateWorkorderComponent],
+  declarations: [WorkOrderListComponent, CreateWorkorderComponent, RequestConfirmComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -24,7 +25,7 @@ import { QuotesModule } from '../quotes/quotes.module';
     MatInputModule,
     MatSelectModule,
     NzInputModule,
-    QuotesModule,
+    SharedModule,
   ],
   exports: [WorkOrderListComponent]
 })

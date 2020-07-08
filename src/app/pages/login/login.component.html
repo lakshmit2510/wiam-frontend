@@ -4,29 +4,29 @@
       <img src="../../../assets/user icon.png" alt="UserIcon">
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your username!">
-          <nz-input-group nzPrefixIcon="user">
+          <nz-input-group nzPrefixIcon="user" nzSize="large">
             <input type="text" nz-input formControlName="username" name="username" placeholder="Username" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your Password!">
-          <nz-input-group nzPrefixIcon="lock">
+          <nz-input-group nzPrefixIcon="lock" nzSize="large">
             <input type="password" nz-input formControlName="password" name="password" placeholder="Password" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
-          <label nz-checkbox>
+          <!-- <label nz-checkbox>
             <span>Remember me</span>
-          </label>
-          <a class="login-form-forgot">Forgot password</a>
+          </label> -->
           <div>
             <button nz-button class="login-form-button" [nzType]="'primary'">Login</button>
             <button nz-button class="login-form-button" [nzType]="'primary'">Create an Account</button>
           </div>
           Or
+          <a class="login-form-forgot">Forgot password</a>
           <a routerLink="register">register now!</a>
         </nz-form-control>
       </nz-form-item>

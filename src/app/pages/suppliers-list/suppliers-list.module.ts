@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SuppliersListComponent } from './suppliers-list.component';
-import { supplierListRoutingModule } from './suppliers-list-routing.module';
+import { SupplierListRoutingModule } from './suppliers-list-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
 import {
   MatInputModule,
   MatSelectModule
@@ -16,10 +17,11 @@ import { AddNewSupplierComponent } from './add-new-supplier/add-new-supplier.com
   imports: [
     CommonModule,
     NgZorroAntdModule,
-    supplierListRoutingModule,
+    SupplierListRoutingModule,
     FormsModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    NzFormModule
   ]
 })
 export class SuppliersListModule { }

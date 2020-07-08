@@ -10,7 +10,8 @@ export class PartsService {
   constructor(private httpClient: HttpClient) { }
 
   public getAllParts(category?) {
-    return this.httpClient.get(`${environment.apiUrl}/Parts/getAllParts?category=${category}`);
+    const cat = category ? category : '';
+    return this.httpClient.get(`${environment.apiUrl}/Parts/getAllParts?category=${cat}`);
   }
 
   public getPartsById(id) {

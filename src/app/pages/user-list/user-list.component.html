@@ -1,0 +1,40 @@
+<div>
+  <nz-page-header [nzGhost]="false">
+    <nz-page-header-title>Customers List</nz-page-header-title>
+    <nz-page-header-extra>
+      <a routerLink="add-new-user">
+        <button class="button-style" nz-button nzType="secon" nzSize="large">
+          <i nz-icon nzType="file-add" nzTheme="outline"></i>Add New Customer</button>
+      </a>
+      <!-- <a routerLink="#">
+        <button nz-button nzType="secon" nzSize="large">
+          <i nz-icon nzType="printer" nzTheme="outline"></i> Print</button>
+      </a> -->
+    </nz-page-header-extra>
+  </nz-page-header>
+  <nz-page-header-content>
+    <nz-table #nestedTable [nzData]="listOfCustomersData" nzBordered [nzPageSize]="10">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Customer Name</th>
+          <th>Company Name</th>
+          <th>Company Address</th>
+          <th>Primary Email</th>
+          <th>Contact Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usersList of nestedTable.data">
+          <td></td>
+          <td>{{ usersList.UserName }}</td>
+          <td>{{ usersList.CompanyName }}</td>
+          <td>{{ usersList.CompanyAddress }}</td>
+          <td>{{ usersList.EmailAddress1 }}</td>
+          <td>{{ usersList.PhoneNumber }}</td>
+        </tr>
+      </tbody>
+
+    </nz-table>
+  </nz-page-header-content>
+</div>

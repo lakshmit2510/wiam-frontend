@@ -5,13 +5,14 @@ import { AddNewPartsComponent } from './add-new-parts/add-new-parts.component';
 import { EditProductsComponent } from './edit-products/edit-products.component';
 
 const routes: Routes = [
-  { path: '', component: PartsListComponent },
+  { path: '', component: PartsListComponent, data: {key: ''} },
   { path: 'add-new-parts', component: AddNewPartsComponent },
   { path: 'edit-products', component: EditProductsComponent },
-  { path: 'category-a', component: PartsListComponent, data: { key: 'Rare Stock' } },
-  { path: 'category-b', component: PartsListComponent, data: { key: 'category-b' } },
-  { path: 'category-c', component: PartsListComponent, data: { key: 'category-c' } },
-  { path: 'category-d', component: PartsListComponent, data: { key: 'category-d' } },
+  // { path: 'totalProductsList', component: PartsListComponent, data: {key: ''} },
+  { path: 'category-a', component: PartsListComponent, data: { key: 'High Value Stock' } },
+  { path: 'category-b', component: PartsListComponent, data: { key: 'High Runner Stock' } },
+  { path: 'category-c', component: PartsListComponent, data: { key: 'Rare Stock' } },
+  { path: 'category-d', component: PartsListComponent, data: { key: 'Normal Stock' } },
 
 ];
 

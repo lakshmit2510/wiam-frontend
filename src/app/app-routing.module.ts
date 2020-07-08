@@ -2,12 +2,17 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { BaseTemplateComponent } from './templates/base-template/base-template.component';
+import { LandingTemplateComponent } from './templates/landing-template/landing-template.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthGuard } from './middlewares/auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', canActivate: [AuthGuard], redirectTo: '/parts-list' },
-  { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
+  {
+    path: 'login',
+    component: LandingTemplateComponent,
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
+  },
   // {
   //   path: 'welcome',
   //   component: BaseTemplateComponent,
@@ -54,6 +59,17 @@ const routes: Routes = [
     component: BaseTemplateComponent,
     loadChildren: () => import('./pages/suppliers-list/suppliers-list.module').then(m => m.SuppliersListModule)
   },
+  {
+    path: 'user-list',
+    component: BaseTemplateComponent,
+    loadChildren: () => import('./pages/user-list/user-list.module').then(m => m.UserListModule)
+  },
+  {
+    path: 'profile',
+    component: BaseTemplateComponent,
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
+  },
+
   { path: '**', redirectTo: '/404' },
   { path: '404', component: NotFoundComponent },
 

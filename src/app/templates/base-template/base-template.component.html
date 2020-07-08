@@ -3,8 +3,8 @@
     [nzTrigger]="null">
     <div class="sidebar-logo" style="background-color: #357CA5;">
       <a href="#" target="_blank">
-        <!-- <img src="../assets/indeco.png" alt="logo"> -->
-        <h1>Mirai Trading <br> Enterprice</h1>
+        <img src="../assets/Mirai.png" alt="logo">
+        <!-- <h1>Mirai Trading <br> Enterprice</h1> -->
         <h1>IMS Project</h1>
       </a>
     </div>
@@ -28,7 +28,7 @@
       <li nz-submenu nzOpen nzTitle="Products list" nzIcon="snippets">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="#">
+            <a routerLink="/parts-list">
               <i nz-icon nzType="star" nzTheme="outline"></i>
               <span>Total Products List</span>
             </a>
@@ -36,25 +36,25 @@
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/parts-list/category-a">
               <i nz-icon nzType="star" nzTheme="outline"></i>
-              <span>CategoryA</span>
+              <span>CategoryA (High Value)</span>
             </a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/parts-list/category-b">
               <i nz-icon nzType="star" nzTheme="outline"></i>
-              <span>CategoryB</span>
+              <span>CategoryB (High Runner)</span>
             </a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/parts-list/category-c">
               <i nz-icon nzType="star" nzTheme="outline"></i>
-              <span>CategoryC</span>
+              <span>CategoryC (Rare Stock)</span>
             </a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/parts-list/category-d">
               <i nz-icon nzType="star" nzTheme="outline"></i>
-              <span>CategoryD</span>
+              <span>CategoryD (Normal Stock)</span>
             </a>
           </li>
         </ul>
@@ -67,12 +67,12 @@
               <span>Purchase Order</span>
             </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <!-- <li nz-menu-item nzMatchRouter>
             <a routerLink="/quotes">
               <i nz-icon nzType="star" nzTheme="outline"></i>
               <span>Quotes</span>
             </a>
-          </li>
+          </li> -->
         </ul>
       </li>
       <li nz-menu-item nzMatchRouter nzIcon="form">
@@ -81,12 +81,12 @@
           <span>Suppliers List</span>
         </a>
       </li>
-      <!-- <li nz-menu-item nzMatchRouter nzIcon="form">
-        <a routerLink="/reports">
-          <i nz-icon nzType="area-chart" nzTheme="outline"></i>
-          <span>Reports</span>
+      <li nz-menu-item nzMatchRouter nzIcon="form">
+        <a routerLink="/user-list">
+          <i nz-icon nzType="usergroup-add" nzTheme="outline"></i>
+          <span>Costomers List</span>
         </a>
-      </li> -->
+      </li>
     </ul>
   </nz-sider>
   <nz-layout>
@@ -96,21 +96,21 @@
           <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
         <span class="page-title">Inventory Management System</span>
-
       </div>
       <div style="flex: 1;"></div>
       <div class="logout" style="margin-right: 60px;">
         <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzType="default" nzShape="circle"
-          nzSize="large" style="display: flex;
-        align-items: center;
-        justify-content: center;
-    ">
+          nzSize="large" style="display: flex; align-items: center; justify-content: center;">
           <i nz-icon nzType="user" nzTheme="outline"></i>
         </button>
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu style="width: 220px; padding: 0 0 7px;">
-            <li nz-menu-item><i nz-icon nzType="smile" nzTheme="outline"></i> My Profile</li>
-            <li nz-menu-item><i nz-icon nzType="key" nzTheme="outline"></i> Change Password</li>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="/profile">
+                <i nz-icon nzType="smile" nzTheme="outline"></i> My Profile
+              </a>
+            </li>
+            <!-- <li nz-menu-item><i nz-icon nzType="key" nzTheme="outline"></i> Change Password</li> -->
             <li (click)="handleLogout()" nz-menu-item> <i nz-icon nzType="logout" nzTheme="outline"></i> Logout</li>
           </ul>
         </nz-dropdown-menu>
