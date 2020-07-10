@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PartsService } from '../../../services/parts-service/parts.service';
 import { PartModel, PartInterface } from '../../../types/part';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-products',
@@ -25,7 +26,7 @@ export class EditProductsComponent implements OnInit {
     Manufacturer: '',
     Model: ''
   };
-  constructor(private partsService: PartsService, private activatedRoute: ActivatedRoute) { }
+  constructor(private partsService: PartsService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.getPartsById();
@@ -41,7 +42,7 @@ export class EditProductsComponent implements OnInit {
   submitForm() {
     const { partsID } = this.activatedRoute.snapshot.queryParams;
     this.partsService.updatePartDetails(partsID, PartModel.create(this.model)).subscribe(res => {
-      console.log(res);
+      this.router.navigate(['/parts-list']);
     });
   }
 }

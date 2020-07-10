@@ -1,8 +1,8 @@
 export interface PartInterface {
   partName?: string;
   partDescription?: string;
-  partNumber?: number;
-  quantityInHand?: number;
+  partNumber?: string;
+  quantityInHand?: string;
   manufaturingDate?: string;
   expiryDate?: string;
   productCategory?: string;

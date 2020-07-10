@@ -25,4 +25,7 @@ export class PartsService {
   updatePartDetails(id, data) {
     return this.httpClient.put(`${environment.apiUrl}/Parts/updatePartsById/${id}`, data);
   }
+  uploadPartsImage(data) {
+    return this.httpClient.post(`${environment.apiUrl}/Parts/upload_file`, data);
+  }
 }

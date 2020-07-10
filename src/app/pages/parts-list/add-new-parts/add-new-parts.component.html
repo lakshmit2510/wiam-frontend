@@ -75,7 +75,8 @@
             <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
               <mat-form-field>
                 <mat-label>Manufacturer</mat-label>
-                <input matInput name="Manufacturer" [(ngModel)]="model.Manufacturer" placeholder="Please Enter Manufacturer of the Part " />
+                <input matInput name="Manufacturer" [(ngModel)]="model.Manufacturer"
+                  placeholder="Please Enter Manufacturer of the Part " />
               </mat-form-field>
             </div>
             <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
@@ -98,6 +99,18 @@
                 <input matInput name="VendorName" [(ngModel)]="model.vendorName" placeholder="Vendor name" />
               </mat-form-field>
             </div>
+          </div>
+          <div nz-row>
+            <h6>Please Upload part Image </h6>
+            <nz-upload class="avatar-uploader" nzAction="https://inventory.ezwms.asia/wiam-backend/Parts/upload_file" nzName="avatar"
+              nzListType="picture-card" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload"
+              (nzChange)="handleChange($event)">
+              <ng-container *ngIf="!avatarUrl">
+                <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                <div class="ant-upload-text">Upload</div>
+              </ng-container>
+              <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+            </nz-upload>
           </div>
         </div>
       </nz-page-header-content>

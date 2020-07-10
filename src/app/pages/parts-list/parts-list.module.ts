@@ -14,6 +14,7 @@ import {
 
 import { SharedModule } from '../../shared/shared.module';
 import { EditProductsComponent } from './edit-products/edit-products.component';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { EditProductsComponent } from './edit-products/edit-products.component';
     MatInputModule,
     MatSelectModule,
     NzAnchorModule,
-    SharedModule
+    SharedModule,
+    NzUploadModule,
   ],
   exports: [PartsListComponent]
 })

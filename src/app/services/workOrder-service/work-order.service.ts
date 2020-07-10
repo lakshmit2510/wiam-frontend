@@ -12,4 +12,8 @@ export class WorkOrderService {
   public getAllRequestedList() {
     return this.httpClient.get(`${environment.apiUrl}/Product_Request_List/getAllRequests`);
   }
+
+  public getAllmodelsList() {
+    return this.httpClient.get(`${environment.apiUrl}/Product_Request_List/getAllVehicleModels`);
+  }
 }

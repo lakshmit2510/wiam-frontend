@@ -25,8 +25,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let suppliers of suppliersList">
-          <td>{{ suppliers. SupplierID}}</td>
+        <tr *ngFor="let suppliers of suppliersList let i=index">
+          <td>{{ i + 1 }}</td>
           <td>{{ suppliers. SupplierName}}</td>
           <td>{{ suppliers. EmailAdress}}</td>
           <td>{{ suppliers. PhoneNumber}}</td>

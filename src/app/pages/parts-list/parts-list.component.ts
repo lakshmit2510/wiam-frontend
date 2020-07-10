@@ -28,9 +28,8 @@ export class PartsListComponent implements OnInit {
   handleScan(event) {
     if (!this.scannerVl) {
       this.scannerVl = event.barcode;
-
-      this.partsService.addNewPartDetails(PartModel.create({ partName: event.barcode })).subscribe(res => {
-        console.log(res);
+      this.partsService.addNewPartDetails(PartModel.create({ partNumber: event.barcode })).subscribe(res => {
+        location.reload();
       });
     }
   }

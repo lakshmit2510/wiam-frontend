@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { QuotesService } from "../../../services/quotes-service/quotes.service";
+import { WorkOrderService } from "../../../services/workOrder-service/work-order.service"
 
 interface QuoteInterface {
   item: string;
@@ -35,6 +36,7 @@ export class CreateWorkorderComponent implements OnInit {
     partsList: "",
     description: "",
     qtyRequested: "",
+    serviceType: '',
   };
 
   listOfData = [
@@ -46,11 +48,22 @@ export class CreateWorkorderComponent implements OnInit {
     }),
   ];
 
-  constructor(private quotesService: QuotesService, private router: Router) {}
+  listOfModels: Array<{ label: string; value: string }> = [];
 
-  ngOnInit() {}
+  constructor(private quotesService: QuotesService, private router: Router, private workOrderService: WorkOrderService) { }
 
-  onDateChange(): void {}
+  ngOnInit() {
+    const list: Array<{ label: string; value: string }> = [];
+    this.workOrderService.getAllmodelsList().subscribe((data: any[]) => {
+      // for (let index = 0; index < data.length; index++) {
+      //   // list.push({ label: , value:});
+      // }
+
+      this.listOfModels = list;
+    });
+  }
+
+  onDateChange(): void { }
 
   closePartsModal(): void {
     this.isOpenParts = false;
