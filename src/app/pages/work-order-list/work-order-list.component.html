@@ -15,50 +15,35 @@
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
-    <dx-data-grid [dataSource]="workOrderList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
-      [rowAlternationEnabled]="true">
-      <dxo-paging [pageSize]="10"></dxo-paging>
-      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
-      </dxo-pager>
-      <dxo-editing mode="popup" [allowUpdating]="true">
-        <dxo-popup title="Parts Request Form Info" [showTitle]="true" [width]="700" [height]="525">
-        </dxo-popup>
-      </dxo-editing>
-      <dxo-search-panel [visible]="true"></dxo-search-panel>
-      <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key"></dxi-column>
-    </dx-data-grid>
-    <!-- <nz-table
-      #basicTable
-      [nzData]="workOrderList"
-      nzBordered
-      nzTableLayout="fixed"
-      [nzScroll]="{ x: '1200px', y: '240px' }"
-      [nzPageSize]="50"
+    <dx-data-grid
+      [dataSource]="workOrderList"
+      [showColumnLines]="true"
+      [showRowLines]="true"
+      [showBorders]="true"
+      [rowAlternationEnabled]="true"
     >
-      <thead>
-        <tr>
-          <th *ngFor="let item of requestListColumns" [nzWidth]="item.width">
-            {{ item.name }}
-          </th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let workOrder of basicTable.data">
-          <td *ngFor="let item of requestListColumns">
-            {{ workOrder[item.key] }}
-          </td>
-          <td>
-            <button nz-button nzType="primary" nzShape="round">
-              Deliver Order
-            </button>
-            <nz-divider nzType="vertical"></nz-divider>
-            <button nz-button nzType="primary" nzShape="round">
-              <i nz-icon nzType="close" nzTheme="outline"></i>Cancel
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </nz-table> -->
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[5, 10, 20]"
+        [showInfo]="true"
+      >
+      </dxo-pager>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxi-column
+        *ngFor="let item of requestListColumns"
+        [dataField]="item.key"
+        [caption]="item.name"
+      ></dxi-column>
+      <dxi-column
+        caption="Action"
+        [allowFiltering]="false"
+        [allowSorting]="false"
+        cellTemplate="actionTemplate"
+      ></dxi-column>
+      <div *dxTemplate="let data of 'actionTemplate'">
+        <button nz-button nzType="primary" nzSize="small">Delivered</button>
+      </div>
+    </dx-data-grid>
   </nz-page-header-content>
 </div>

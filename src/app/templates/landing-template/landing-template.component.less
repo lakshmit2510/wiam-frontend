@@ -1,7 +1,24 @@
 .landing-page {
-  background-image: url("/assets/images/bg.jpg");
+  background-image: url("/assets/images/Inventory-bg.png");
   background-position: inherit;
   height: 100vh;
+}
+.lbg-wrapper {
+  background-image: url("/assets/images/lbg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #ffffff;
+  }
 }
 .login-wrapper {
   background-color: #ffffff;
@@ -9,4 +26,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+::ng-deep {
+  .ant-modal-close,
+  .ant-modal-footer {
+    display: none;
+  }
+  .ant-modal-body {
+    padding: 0px;
+  }
 }

@@ -6,7 +6,7 @@ import { WorkOrderListRoutingModule } from "./work-order-list-routing.module";
 import { CreateWorkorderComponent } from "./create-workorder/create-workorder.component";
 import { FormsModule } from "@angular/forms";
 import { NzInputModule } from "ng-zorro-antd/input";
-import { DxDataGridModule } from "devextreme-angular";
+import { DxDataGridModule, DxTemplateModule } from "devextreme-angular";
 import { MatInputModule, MatSelectModule } from "@angular/material";
 import { SharedModule } from "../../shared/shared.module";
 import { RequestConfirmComponent } from "./request-confirm/request-confirm.component";
@@ -26,6 +26,7 @@ import { RequestConfirmComponent } from "./request-confirm/request-confirm.compo
     MatSelectModule,
     NzInputModule,
     DxDataGridModule,
+    DxTemplateModule,
     SharedModule,
   ],
   exports: [WorkOrderListComponent],
