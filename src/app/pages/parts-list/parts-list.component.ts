@@ -8,8 +8,11 @@ import { PartModel } from '../../types/part';
   templateUrl: './parts-list.component.html',
   styleUrls: ['./parts-list.component.less']
 })
+
 export class PartsListComponent implements OnInit {
 
+  sortName = '';
+  sortValue = '';
   partsList: any[];
   dataTable: any;
   scannerVl = null;
@@ -36,5 +39,25 @@ export class PartsListComponent implements OnInit {
 
   handleEdit(parts): void {
     this.router.navigate(['/parts-list/edit-products'], { queryParams: { partsID: parts.PartsID } });
+  }
+  sortData(sort: { key: string; value: string }) {
+    this.sortName = sort.key;
+    this.sortValue = sort.value;
+    this.search();
+  }
+
+  search(): void {
+    if (this.sortName && this.sortValue) {
+      const sortList = [...this.partsList].sort((a, b) =>
+        this.sortValue === 'ascend'
+          ? a[this.sortName] > b[this.sortName]
+            ? 1
+            : -1
+          : b[this.sortName] > a[this.sortName]
+            ? 1
+            : -1
+      );
+      this.partsList = sortList;
+    }
   }
 }

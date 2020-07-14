@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost/myprojects/wiam-backend/',
+  apiUrl: 'http://localhost:8888/wiam-backend',
 };
 
 /*

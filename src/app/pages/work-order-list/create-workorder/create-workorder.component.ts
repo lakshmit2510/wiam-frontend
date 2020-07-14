@@ -48,18 +48,13 @@ export class CreateWorkorderComponent implements OnInit {
     }),
   ];
 
-  listOfModels: Array<{ label: string; value: string }> = [];
+  listOfModels: Array<{ ModelName: string; ModelId: string }> = [];
 
   constructor(private quotesService: QuotesService, private router: Router, private workOrderService: WorkOrderService) { }
 
   ngOnInit() {
-    const list: Array<{ label: string; value: string }> = [];
     this.workOrderService.getAllmodelsList().subscribe((data: any[]) => {
-      // for (let index = 0; index < data.length; index++) {
-      //   // list.push({ label: , value:});
-      // }
-
-      this.listOfModels = list;
+      this.listOfModels = data;
     });
   }
 

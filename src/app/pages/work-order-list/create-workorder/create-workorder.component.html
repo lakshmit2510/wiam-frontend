@@ -19,7 +19,7 @@
             <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Model/Make</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
               <nz-select nzPlaceHolder="Please select model" [(ngModel)]="model.vehicleModel">
-                <nz-option *ngFor="let model of listOfModels" [nzLabel]="model.label" [nzValue]="model.value">
+                <nz-option *ngFor="let vehicleModel of listOfModels" [nzLabel]="vehicleModel.ModelName" [nzValue]="vehicleModel.ModelId">
                 </nz-option>
               </nz-select>
             </nz-form-control>

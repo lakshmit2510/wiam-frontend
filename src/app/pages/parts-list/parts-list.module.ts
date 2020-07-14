@@ -27,9 +27,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     FormsModule,
     MatInputModule,
     MatSelectModule,
-    NzAnchorModule,
     SharedModule,
-    NzUploadModule,
   ],
   exports: [PartsListComponent]
 })
