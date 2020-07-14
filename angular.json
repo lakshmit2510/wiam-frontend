@@ -69,6 +69,22 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -80,6 +96,12 @@
           "configurations": {
             "production": {
               "browserTarget": "wmsez:build:production"
+            },
+            "local": {
+              "browserTarget": "wmsez:build:local"
+            },
+            "dev": {
+              "browserTarget": "wmsez:build:dev"
             }
           }
         },

@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
+import { NzModalService } from "ng-zorro-antd/modal";
 import { WorkOrderService } from "../../services/workOrder-service/work-order.service";
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { Router } from '@angular/router';
+import { AuthenticationService } from "../../services/authentication-service/authentication.service";
 
 enum StatusClass {
-  'Not Delivered' = 'status-not-delivered',
-  'Delivered' = 'status-delivered',
-  'Cancelled' = 'status-cancelled'
+  "Not Delivered" = "status-not-delivered",
+  "Delivered" = "status-delivered",
+  "Cancelled" = "status-cancelled",
 }
 
 @Component({
@@ -16,6 +16,8 @@ enum StatusClass {
 })
 export class WorkOrderListComponent implements OnInit, OnDestroy {
   workOrderList: any[];
+
+  userInfo: any = {};
 
   requestListColumns = [
     { key: "RequestFormNo", name: "Parts Request Form No", width: "150px" },
@@ -32,10 +34,15 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     { key: "FirstName", name: "Created By", width: "150px" },
   ];
 
-  constructor(private workOrderService: WorkOrderService, private modal: NzModalService, private router: Router) { }
+  constructor(
+    private workOrderService: WorkOrderService,
+    private modal: NzModalService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit() {
     this.getList();
+    this.userInfo = this.authenticationService.getUserInfo();
   }
   ngOnDestroy(): void {
     // // Do not forget to unsubscribe the event
@@ -48,30 +55,31 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   }
   showDeleteConfirm(id: number): void {
     this.modal.confirm({
-      nzTitle: 'Are you sure to cancel this request?',
+      nzTitle: "Are you sure to cancel this request?",
       // nzContent: '<b style="color: red;">Some descriptions</b>',
-      nzOkText: 'Yes',
-      nzOkType: 'danger',
+      nzOkText: "Yes",
+      nzOkType: "danger",
       // nzOnOk: () => console.log('OK'),
-      nzOnOk: () => this.workOrderService.deleteRequestForm(id).subscribe(res => {
-        this.getList();
-      }),
-      nzCancelText: 'No',
-      nzOnCancel: () => console.log('Cancel')
+      nzOnOk: () =>
+        this.workOrderService.deleteRequestForm(id).subscribe((res) => {
+          this.getList();
+        }),
+      nzCancelText: "No",
+      nzOnCancel: () => console.log("Cancel"),
     });
   }
   showConfirm(id: number): void {
     this.modal.confirm({
-      nzTitle: '<i>Success!</i>',
-      nzContent: '<b>Your order is successfully deliverd to the Customer</b>',
-      nzOnOk: () => this.workOrderService.updateRequestForm(id).subscribe(res => {
-        this.getList();
-      }),
+      nzTitle: "<i>Success!</i>",
+      nzContent: "<b>Your order is successfully deliverd to the Customer</b>",
+      nzOnOk: () =>
+        this.workOrderService.updateRequestForm(id).subscribe((res) => {
+          this.getList();
+        }),
     });
   }
 
   getStatus(type) {
     return StatusClass[type];
   }
-
 }
