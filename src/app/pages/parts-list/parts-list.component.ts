@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { PartsService } from './parts.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PartsService } from '../../services/parts-service/parts.service';
 import { PartModel } from '../../types/part';
 
 @Component({
@@ -7,15 +8,20 @@ import { PartModel } from '../../types/part';
   templateUrl: './parts-list.component.html',
   styleUrls: ['./parts-list.component.less']
 })
+
 export class PartsListComponent implements OnInit {
 
+  sortName = '';
+  sortValue = '';
   partsList: any[];
   dataTable: any;
   scannerVl = null;
-  constructor(private partsService: PartsService) { }
+  constructor(private partsService: PartsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.partsService.getAllParts().subscribe((data: any[]) => {
+    const category = this.activatedRoute.snapshot.data;
+    const type = category ? category.key : '';
+    this.partsService.getAllParts(type).subscribe((data: any[]) => {
       this.partsList = data;
       // const table: any = $('#parts-list-table');
       // this.dataTable = table.DataTable();
@@ -25,10 +31,33 @@ export class PartsListComponent implements OnInit {
   handleScan(event) {
     if (!this.scannerVl) {
       this.scannerVl = event.barcode;
-
-      this.partsService.addNewPartDetails(PartModel.create({ partName: event.barcode })).subscribe(res => {
-        console.log(res);
+      this.partsService.addNewPartDetails(PartModel.create({ partNumber: event.barcode })).subscribe(res => {
+        location.reload();
       });
+    }
+  }
+
+  handleEdit(parts): void {
+    this.router.navigate(['/parts-list/edit-products'], { queryParams: { partsID: parts.PartsID } });
+  }
+  sortData(sort: { key: string; value: string }) {
+    this.sortName = sort.key;
+    this.sortValue = sort.value;
+    this.search();
+  }
+
+  search(): void {
+    if (this.sortName && this.sortValue) {
+      const sortList = [...this.partsList].sort((a, b) =>
+        this.sortValue === 'ascend'
+          ? a[this.sortName] > b[this.sortName]
+            ? 1
+            : -1
+          : b[this.sortName] > a[this.sortName]
+            ? 1
+            : -1
+      );
+      this.partsList = sortList;
     }
   }
 }

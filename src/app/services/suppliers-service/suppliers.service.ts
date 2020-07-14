@@ -5,14 +5,15 @@ import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class PartsService {
+export class SuppliersService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getAllParts() {
-    return this.httpClient.get(`${environment.apiUrl}/Parts/getAllParts`);
+  public getAllSuppliers() {
+    return this.httpClient.get(`${environment.apiUrl}/Suppliers/getAllSuppliers`);
   }
-  addNewPartDetails(data) {
-    return this.httpClient.post(`${environment.apiUrl}/Parts/addNewPart`, data);
+
+  addNewSupplier(data) {
+    return this.httpClient.post(`${environment.apiUrl}/Suppliers/addNewSupplier`, data);
   }
 }

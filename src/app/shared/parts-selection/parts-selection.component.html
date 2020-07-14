@@ -1,0 +1,59 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Parts List Modal"
+  nzWidth="1000"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <dx-data-grid
+    [dataSource]="partsList"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    [showBorders]="true"
+    [rowAlternationEnabled]="true"
+  >
+    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-pager
+      [showPageSizeSelector]="true"
+      [allowedPageSizes]="[5, 10, 20]"
+      [showInfo]="true"
+    >
+    </dxo-pager>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    <dxo-selection mode="multiple" [allowSelectAll]="false"></dxo-selection>
+    <dxi-column
+      *ngFor="let item of partsListColumns"
+      [dataField]="item.key"
+    ></dxi-column>
+  </dx-data-grid>
+  <!-- <nz-table #fixedTable [nzData]="partsList" nzBordered [nzScroll]="{ x: '1150px', y: '400px' }">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Product Number</th>
+        <th>Product Name</th>
+        <th>Location No</th>
+        <th>Description</th>
+        <th>QTY In Hand</th>
+        <th>Manufacturer/Model</th>
+        <th>Vendor Name</th>
+        <th>UnitPrice</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let parts of partsList">
+        <td nzShowCheckbox [nzChecked]="setOfCheckedId.has(parts.PartsID)"
+          (nzCheckedChange)="onItemChecked(parts.PartsID, $event)">
+        </td>
+        <td>{{ parts.ItemNumber }}</td>
+        <td>{{ parts.PartsName }}</td>
+        <td>{{ parts.SKUNo }}</td>
+        <td>{{ parts.Description }}</td>
+        <td>{{ parts.QTYInHand }}</td>
+        <td>{{ parts.Manufacturer }}/{{ parts.Model }}</td>
+        <td>{{ parts.VendorName }}</td>
+        <td>{{ parts.SellingPrice }}</td>
+      </tr>
+    </tbody>
+  </nz-table> -->
+</nz-modal>

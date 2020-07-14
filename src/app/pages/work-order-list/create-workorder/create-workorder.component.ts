@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { QuotesService } from "../../../services/quotes-service/quotes.service";
+import { WorkOrderService } from "../../../services/workOrder-service/work-order.service"
 
 interface QuoteInterface {
   item: string;
@@ -14,70 +17,80 @@ class QuoteModel {
 }
 
 @Component({
-  selector: 'app-create-workorder',
-  templateUrl: './create-workorder.component.html',
-  styleUrls: ['./create-workorder.component.less']
+  selector: "app-create-workorder",
+  templateUrl: "./create-workorder.component.html",
+  styleUrls: ["./create-workorder.component.less"],
 })
 export class CreateWorkorderComponent implements OnInit {
-  workOrderStatusList = [
-    { title: 'Open', value: 'open' },
-    { title: 'Work In Progress', value: 'inprogress' },
-    { title: 'Closed, Completed', value: 'completed' },
-    { title: 'Closed, In Completed', value: 'incompleted' }
-  ];
-  priorityList = [
-    { title: 'High', value: 'high' },
-    { title: 'Medium', value: 'medium' },
-    { title: 'Low', value: 'low' },
-  ];
+  isOpenParts = false;
 
-  selectedRecord = null;
+  inputValue: "";
 
-  inputValue: '';
-
-  date: '';
+  date: "";
 
   totalAmount = 0;
 
+  model = {
+    vehicleNo: "",
+    vehicleModel: "",
+    partsList: "",
+    description: "",
+    qtyRequested: "",
+    serviceType: '',
+  };
+
   listOfData = [
     QuoteModel.create({
-      item: '',
-      description: '',
+      item: "",
+      description: "",
       quantity: 0,
       unitPrice: 0,
     }),
   ];
 
-  constructor() { }
+  listOfModels: Array<{ ModelName: string; ModelId: string }> = [];
 
-  ngOnInit() { }
+  constructor(private quotesService: QuotesService, private router: Router, private workOrderService: WorkOrderService) { }
+
+  ngOnInit() {
+    this.workOrderService.getAllmodelsList().subscribe((data: any[]) => {
+      this.listOfModels = data;
+    });
+  }
 
   onDateChange(): void { }
 
   closePartsModal(): void {
-    this.selectedRecord = null;
+    this.isOpenParts = false;
   }
 
-  openPartsModal(idx): void { this.selectedRecord = idx; }
-
-  addNewLine(): void {
-    this.listOfData.push(QuoteModel.create({
-      item: '',
-      description: '',
-      quantity: 0,
-      unitPrice: 0,
-    }));
+  openPartsModal(): void {
+    this.isOpenParts = true;
   }
 
   handlePartsSelection(parts): void {
-    const record = this.listOfData[this.selectedRecord];
-    record.item = parts.ItemNumber;
-    record.description = parts.Description;
-    this.selectedRecord = null;
+    const partsList = parts.map((item) => ({
+      item: item.ItemNumber,
+      description: item.Description,
+      unitPrice: item.SellingPrice,
+      quantity: 1,
+    }));
+    this.listOfData = [...partsList];
+
+    this.isOpenParts = false;
   }
 
   removeLine(idx): void {
     this.listOfData.splice(idx, 1);
   }
 
+  savePartsRequestForm(): void {
+    this.model.partsList = this.listOfData.map((item) => item.item).join(",");
+    this.model.qtyRequested = this.listOfData
+      .map((item) => item.quantity)
+      .join(",");
+    this.quotesService.savePartsRequestForm(this.model).subscribe((res) => {
+      this.router.navigate(["/work-order-list"]);
+    });
+  }
 }

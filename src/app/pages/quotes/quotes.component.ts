@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuotesService} from './quotes.service';
+import { QuotesService } from '../../services/quotes-service/quotes.service';
 
 @Component({
   selector: 'app-quotes',
@@ -8,7 +8,7 @@ import { QuotesService} from './quotes.service';
 })
 export class QuotesComponent implements OnInit {
 
-  quotesList: any [];
+  quotesList: any[];
   dataTable: any;
   constructor(private quotesService: QuotesService) { }
 

@@ -3,48 +3,39 @@
     <nz-page-header-title> Parts Request List</nz-page-header-title>
     <nz-page-header-extra>
       <a routerLink="create-workorder">
-        <button nz-button nzType="secon" nzSize="large">
+        <button nz-button class="button-styles" nzType="secon" nzSize="large">
           <i nz-icon nzType="file-add" nzTheme="outline"></i> New Request Form
         </button>
       </a>
-      <a routerLink="">
-        <button nz-button nzType="secon" nzSize="large">
+      <!-- <a routerLink="">
+        <button nz-button class="button-styles" nzType="secon" nzSize="large">
           <i nz-icon nzType="printer" nzTheme="outline"></i> Print
         </button>
-      </a>
+      </a> -->
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
-    <nz-table #basicTable [nzData]="workOrderList" nzBordered >
-      <thead>
-        <tr>
-          <th>S.No</th>
-          <th>Parts Request Form No</th>
-          <th>Vehicle No</th>
-          <th>Parts List</th>
-          <th>Parts Requested Date</th>
-          <th>Parts Issue Date</th>
-          <th>Created By</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let workOrder of basicTable.data">
-          <td>{{ workOrder.RequestId }}</td>
-          <td>{{ workOrder.RequestFormNo }}</td>
-          <td>{{ workOrder.VehicleNo }}</td>
-          <td>{{ workOrder.PartsList }}</td>
-          <td>{{ workOrder.PartsRequestedDate }}</td>
-          <td>{{ workOrder.PartsIssueDate }}</td>
-          <td>{{ workOrder.UserName }}</td>
-          <!-- <td>{{ workOrder.PartsID }}</td>
-          <td>{{ workOrder.Priority }}</td>
-          <td>{{ workOrder.RequestedCompletionDate }}</td>
-          <td>{{ workOrder.SpentHours }}</td>
-          <td>{{ workOrder.Status }}</td>
-          <td>{{ workOrder.SummaryIssue }}</td>
-          <td>{{ workOrder.WorkType }}</td>
-        </tr> -->
-      </tbody>
-    </nz-table>
+    <dx-data-grid [dataSource]="workOrderList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
+      [rowAlternationEnabled]="true">
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"></dxi-column>
+      <dxi-column caption="Status" cellTemplate="statusTemplate"></dxi-column>
+      <dxi-column caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
+        [width]="200"></dxi-column>
+      <div *dxTemplate="let d of 'actionTemplate'">
+        <button nz-button nzType="primary" nzSize="small" (click)="showConfirm(d.data.RequestId)"
+          [disabled]="d.data.Status!=='Not Delivered'">Delivery</button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button nz-button nzType="primary" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
+          [disabled]="d.data.Status!=='Not Delivered'">Cancel</button>
+      </div>
+      <div *dxTemplate="let d of 'statusTemplate'">
+        <!-- <nz-alert nzType="error" [nzMessage]="data.value"></nz-alert> -->
+        <span [ngClass]="getStatus(d.data.Status)">{{d.data.Status}}</span>
+      </div>
+    </dx-data-grid>
   </nz-page-header-content>
 </div>
