@@ -6,3 +6,8 @@ export class User {
   lastName: string;
   authdata?: string;
 }
+
+export enum Role {
+  Company = "Company",
+  Admin = "Admin",
+}

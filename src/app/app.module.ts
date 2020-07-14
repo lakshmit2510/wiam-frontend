@@ -11,12 +11,13 @@ import { registerLocaleData } from "@angular/common";
 import en from "@angular/common/locales/en";
 // import {MatIconModule} from '@angular/material/icon';
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { UnAutorizedComponent } from "./pages/un-autorized/un-autorized.component";
 import { TemplatesModule } from "./templates/templates.module";
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent],
+  declarations: [AppComponent, NotFoundComponent, UnAutorizedComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

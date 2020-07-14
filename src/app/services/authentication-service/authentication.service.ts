@@ -17,7 +17,7 @@ export class AuthenticationService {
       .pipe(
         map((data) => {
           if (data.status === "ok") {
-            this.setToken(data.status);
+            this.setToken(data.token);
             this.getLoggedInName.emit(true);
           }
           return data;
@@ -51,5 +51,11 @@ export class AuthenticationService {
       return true;
     }
     return false;
+  }
+
+  getUserInfo() {
+    const token = this.getToken();
+    if (token) return JSON.parse(atob(token));
+    return null;
   }
 }
