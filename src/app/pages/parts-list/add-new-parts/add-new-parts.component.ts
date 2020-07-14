@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { PartsService } from '../../../services/parts-service/parts.service';
 import { PartModel, PartInterface } from '../../../types/part';
 import { NzMessageService } from 'ng-zorro-antd/message';

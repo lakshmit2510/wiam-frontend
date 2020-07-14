@@ -23,11 +23,11 @@
     </nz-page-header>
     <nz-page-header-content>
       <nz-table #basicTable [nzData]="partsList" nzBordered id="parts-list-table">
-        <thead>
+        <thead (nzSortChange)="sortData($event)" nzSingleSort>
           <tr>
-            <th>Product Name</th>
-            <th>Product Serial No.</th>
-            <th>Product Lot No.</th>
+            <th nzSortKey="PartsName" nzShowSort>Product Name</th>
+            <th nzSortKey="ItemNumber" nzShowSort>Product Serial No.</th>
+            <th nzSortKey="SKUNo" nzShowSort>Product Lot No.</th>
             <th>Description</th>
             <th>Product Category</th>
             <th>Quantity In Hand</th>
