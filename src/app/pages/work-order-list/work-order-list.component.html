@@ -15,56 +15,24 @@
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
-    <dx-data-grid
-      [dataSource]="workOrderList"
-      [showColumnLines]="true"
-      [showRowLines]="true"
-      [showBorders]="true"
-      [rowAlternationEnabled]="true"
-    >
+    <dx-data-grid [dataSource]="workOrderList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
+      [rowAlternationEnabled]="true">
       <dxo-paging [pageSize]="10"></dxo-paging>
-      <dxo-pager
-        [showPageSizeSelector]="true"
-        [allowedPageSizes]="[5, 10, 20]"
-        [showInfo]="true"
-      >
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
       </dxo-pager>
       <dxo-search-panel [visible]="true"></dxo-search-panel>
-      <dxi-column
-        *ngFor="let item of requestListColumns"
-        [dataField]="item.key"
-        [caption]="item.name"
-      ></dxi-column>
+      <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"></dxi-column>
       <dxi-column caption="Status" cellTemplate="statusTemplate"></dxi-column>
-      <dxi-column
-        caption="Action"
-        [allowFiltering]="false"
-        [allowSorting]="false"
-        cellTemplate="actionTemplate"
-        [width]="200"
-      ></dxi-column>
+      <dxi-column caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
+        [width]="200"></dxi-column>
       <div *dxTemplate="let d of 'actionTemplate'">
-        <button
-          *ngIf="userInfo.role === 'Admin'"
-          nz-button
-          nzType="primary"
-          nzSize="small"
-          (click)="showConfirm(d.data.RequestId)"
-          [disabled]="d.data.Status !== 'Not Delivered'"
-        >
+        <button *ngIf="userInfo.role === 'Admin'" nz-button nzType="primary" nzSize="small"
+          (click)="showConfirm(d.data.RequestId)" [disabled]="d.data.Status !== 'Not Delivered'">
           Delivery
         </button>
-        <nz-divider
-          *ngIf="userInfo.role === 'Admin'"
-          nzType="vertical"
-        ></nz-divider>
-        <button
-          nz-button
-          nzType="primary"
-          nzSize="small"
-          (click)="showDeleteConfirm(d.data.RequestId)"
-          [disabled]="d.data.Status !== 'Not Delivered'"
-        >
+        <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
+        <button nz-button nzType="primary" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
+          [disabled]="d.data.Status !== 'Not Delivered'">
           Cancel
         </button>
       </div>

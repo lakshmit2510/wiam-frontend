@@ -27,6 +27,7 @@ export class AddNewPartsComponent implements OnInit {
     vendorName: '',
     Model: '',
     Manufacturer: '',
+    images: '',
   };
   loading = false;
   avatarUrl?: string;

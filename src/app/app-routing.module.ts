@@ -78,7 +78,7 @@ const routes: Routes = [
     path: "purchase-order",
     canActivate: [AuthGuard],
     component: BaseTemplateComponent,
-    data: { roles: [Role.Company] },
+    data: { roles: [Role.Customer] },
     loadChildren: () =>
       import("./pages/purchase-order/purchase-order.module").then(
         (m) => m.PurchaseOrderModule
@@ -128,4 +128,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

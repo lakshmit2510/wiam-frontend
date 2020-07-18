@@ -16,6 +16,24 @@ export class PartsListComponent implements OnInit {
   partsList: any[];
   dataTable: any;
   scannerVl = null;
+
+  requestListColumns = [
+    { key: 'PartsName', name: 'Product Name' },
+    { key: 'ItemNumber', name: 'Product part No.' },
+    { key: 'SKUNo', name: 'Location' },
+    { key: 'Description', name: 'Description' },
+    { key: 'Category', name: 'Product Category' },
+    {
+      key: 'QTYInHand',
+      name: 'Quantity In Hand'
+    },
+    { key: 'ManufacturingDate', name: 'Product Manufacturing Date' },
+    { key: 'ExpiryDate', name: 'Product Expiry Date' },
+    { key: 'VendorName', name: 'Vendor Name' },
+    { key: 'CostPrice', name: 'Product Cost Price' },
+    { key: 'SellingPrice', name: 'Product Selling Price' },
+  ];
+
   constructor(private partsService: PartsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -28,6 +46,7 @@ export class PartsListComponent implements OnInit {
     });
   }
 
+
   handleScan(event) {
     if (!this.scannerVl) {
       this.scannerVl = event.barcode;
@@ -37,8 +56,8 @@ export class PartsListComponent implements OnInit {
     }
   }
 
-  handleEdit(parts): void {
-    this.router.navigate(['/parts-list/edit-products'], { queryParams: { partsID: parts.PartsID } });
+  handleEdit(PartsID): void {
+    this.router.navigate(['/parts-list/edit-products'], { queryParams: { partsID: PartsID } });
   }
   sortData(sort: { key: string; value: string }) {
     this.sortName = sort.key;

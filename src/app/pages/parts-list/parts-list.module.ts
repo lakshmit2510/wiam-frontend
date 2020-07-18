@@ -5,7 +5,6 @@ import { AddNewPartsComponent } from './add-new-parts/add-new-parts.component';
 import { PartsListRoutingModule } from './parts-list-routing.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
-import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import {
   MatInputModule,
@@ -14,7 +13,7 @@ import {
 
 import { SharedModule } from '../../shared/shared.module';
 import { EditProductsComponent } from './edit-products/edit-products.component';
-import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { DxDataGridModule, DxTemplateModule } from 'devextreme-angular';
 
 
 @NgModule({
@@ -28,6 +27,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     MatInputModule,
     MatSelectModule,
     SharedModule,
+    DxDataGridModule,
+    DxTemplateModule,
   ],
   exports: [PartsListComponent]
 })

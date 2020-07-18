@@ -8,6 +8,6 @@ export class User {
 }
 
 export enum Role {
-  Company = "Company",
+  Customer = "Customer",
   Admin = "Admin",
 }

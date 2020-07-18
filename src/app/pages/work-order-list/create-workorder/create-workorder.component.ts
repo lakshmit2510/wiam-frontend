@@ -37,6 +37,8 @@ export class CreateWorkorderComponent implements OnInit {
     description: "",
     qtyRequested: "",
     serviceType: '',
+    technicianName: '',
+    userName: '',
   };
 
   listOfData = [
@@ -90,7 +92,7 @@ export class CreateWorkorderComponent implements OnInit {
       .map((item) => item.quantity)
       .join(",");
     this.quotesService.savePartsRequestForm(this.model).subscribe((res) => {
-      this.router.navigate(["/work-order-list"]);
+      this.router.navigate(['/work-order-list/confirmation-page']);
     });
   }
 }

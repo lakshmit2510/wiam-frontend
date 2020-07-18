@@ -17,13 +17,13 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="Date">Date</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <nz-date-picker id="Date" [(ngModel)]="date" (ngModelChange)="onDateChange($event)"></nz-date-picker>
+        <nz-date-picker id="Date" [(ngModel)]="date" (ngModelChange)="onDateChange()"></nz-date-picker>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="QuoteExpiryDate">Quote Expiry Date</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <nz-date-picker id="QuoteExpiryDate" [(ngModel)]="date" (ngModelChange)="onDateChange($event)"></nz-date-picker>
+        <nz-date-picker id="QuoteExpiryDate" [(ngModel)]="date" (ngModelChange)="onDateChange()"></nz-date-picker>
       </nz-form-control>
     </nz-form-item>
 

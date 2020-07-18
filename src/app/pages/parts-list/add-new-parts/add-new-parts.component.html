@@ -103,7 +103,7 @@
           </div>
           <div nz-row>
             <h6>Please Upload part Image </h6>
-            <nz-upload class="avatar-uploader" nzAction="https://inventory.ezwms.asia/wiam-backend/Parts/upload_file" nzName="avatar"
+            <nz-upload class="avatar-uploader" nzAction="http://localhost:8888/wiam-backend/Parts/upload_file" nzName="avatar"
               nzListType="picture-card" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload"
               (nzChange)="handleChange($event)">
               <ng-container *ngIf="!avatarUrl">

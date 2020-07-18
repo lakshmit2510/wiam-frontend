@@ -22,12 +22,37 @@
       </nz-page-header-extra>
     </nz-page-header>
     <nz-page-header-content>
-      <nz-table #basicTable [nzData]="partsList" nzBordered id="parts-list-table">
+      <dx-data-grid [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
+        [rowAlternationEnabled]="true">
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+        </dxo-pager>
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"></dxi-column>
+        <!-- <dxi-column caption="Status" cellTemplate="statusTemplate"></dxi-column> -->
+        <dxi-column caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
+          [width]="200"></dxi-column>
+        <div *dxTemplate="let d of 'actionTemplate'">
+          <a (click)="handleEdit(d.data.PartsID)">Edit</a>
+          <!-- <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
+          <button nz-button nzType="primary" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
+            [disabled]="d.data.Status !== 'Not Delivered'">
+            Cancel
+          </button> -->
+        </div>
+        <!-- <div *dxTemplate="let d of 'statusTemplate'">
+          <nz-alert nzType="error" [nzMessage]="data.value"></nz-alert>
+          <span [ngClass]="getStatus(d.data.Status)">{{ d.data.Status }}</span>
+        </div> -->
+      </dx-data-grid>
+
+      <!-- <nz-table #basicTable [nzData]="partsList" nzBordered id="parts-list-table">
         <thead (nzSortChange)="sortData($event)" nzSingleSort>
           <tr>
             <th nzSortKey="PartsName" nzShowSort>Product Name</th>
-            <th nzSortKey="ItemNumber" nzShowSort>Product Serial No.</th>
-            <th nzSortKey="SKUNo" nzShowSort>Product Lot No.</th>
+            <th nzSortKey="ItemNumber" nzShowSort>Product part No.</th>
+            <th nzSortKey="SKUNo" nzShowSort>Location</th>
             <th>Description</th>
             <th>Product Category</th>
             <th>Quantity In Hand</th>
@@ -54,12 +79,12 @@
             <td>{{ parts.SellingPrice }}</td>
             <td>
               <a (click)="handleEdit(parts)">Edit</a>
-              <!-- <nz-divider nzType="vertical"></nz-divider>
-              <a>Delete</a> -->
+              <nz-divider nzType="vertical"></nz-divider>
+              <a>Delete</a>
             </td>
           </tr>
         </tbody>
-      </nz-table>
+      </nz-table> -->
     </nz-page-header-content>
   </div>
 </app-scanner-detection>

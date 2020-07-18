@@ -16,10 +16,17 @@
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="vehicleNo">Customer Name</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="userName" [(ngModel)]="model.userName" placeholder="Please Enter User name " />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Model/Make</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
               <nz-select nzPlaceHolder="Please select model" [(ngModel)]="model.vehicleModel">
-                <nz-option *ngFor="let vehicleModel of listOfModels" [nzLabel]="vehicleModel.ModelName" [nzValue]="vehicleModel.ModelId">
+                <nz-option *ngFor="let vehicleModel of listOfModels" [nzLabel]="vehicleModel.ModelName"
+                  [nzValue]="vehicleModel.ModelId">
                 </nz-option>
               </nz-select>
             </nz-form-control>
@@ -32,6 +39,12 @@
                 <nz-option nzLabel="PM B" nzValue="PM B"></nz-option>
                 <nz-option nzLabel="PM C" nzValue="PM C"></nz-option>
               </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="technicianName">Technician Name</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="technicianName" [(ngModel)]="model.technicianName" placeholder="Please Enter Technician Name" />
             </nz-form-control>
           </nz-form-item>
         </div>
