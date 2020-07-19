@@ -27,12 +27,12 @@
         [width]="200"></dxi-column>
       <div *dxTemplate="let d of 'actionTemplate'">
         <button *ngIf="userInfo.role === 'Admin'" nz-button nzType="primary" nzSize="small"
-          (click)="showConfirm(d.data.RequestId)" [disabled]="d.data.Status !== 'Not Delivered'">
+          (click)="showConfirm(d.data.RequestId)" [disabled]="d.data.Status === 'Not Delivered'">
           Delivery
         </button>
         <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
         <button nz-button nzType="primary" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
-          [disabled]="d.data.Status !== 'Not Delivered'">
+          [disabled]="d.data.Status === 'Not Delivered'">
           Cancel
         </button>
       </div>

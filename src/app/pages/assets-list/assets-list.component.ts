@@ -13,9 +13,9 @@ export class AssetsListComponent implements OnInit {
 
   ngOnInit() {
     this.assetsService.getAllAssets().subscribe((data: any[]) => {
-      this.assetsList = data;
-      const table: any = $('#assets-list-table');
-      this.dataTable = table.DataTable();
+      // this.assetsList = data;
+      // const table: any = $('#assets-list-table');
+      // this.dataTable = table.DataTable();
     });
   }
 
