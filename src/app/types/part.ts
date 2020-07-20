@@ -12,7 +12,7 @@ export interface PartInterface {
   vendorName?: string;
   Manufacturer?: string;
   Model?: string;
-  images?: string;
+  Images?: string;
 }
 
 export class PartModel {
@@ -36,7 +36,7 @@ export class PartModel {
       vendorName: res.VendorName,
       Model: res.Model,
       Manufacturer: res.Manufacturer,
-      images: res.Images
+      Images: res.Images
     };
   }
 

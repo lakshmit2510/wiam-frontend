@@ -1,20 +1,25 @@
 <div>
   <nz-alert nzType="success" nzMessage="Success" nzDescription="Parts requested form created successfully" nzShowIcon>
   </nz-alert>
-  <h5 style="margin-top: 50px;">Your Parts Request Form No:</h5>
-  <nz-table #basicTable [nzData]="dataSet">
+  <h5 style="margin-top: 50px;">Your Parts Request Form No: {{orderDetails['RequestFormNo']}}</h5>
+  <qrcode *ngIf="orderDetails.RequestFormNo" [level]="1" [qrvalue]="orderDetails.RequestFormNo"></qrcode>
+  <nz-table #basicTable [nzData]="partsList" nzBordered>
     <thead>
       <tr>
-        <th>S/No.</th>
-        <th>Part Number</th>
-        <th>Description</th>
+        <!-- <th>Part Number</th> -->
+        <th>Item Number</th>
         <th>QTY Requested</th>
+        <th>Description</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data">
+      <tr *ngFor="let product of partsList">
+        <!-- <td>{{product['PartsID']}}</td> -->
+        <td>{{product['ItemNumber']}}</td>
+        <td>{{partsRequested[product['PartsID']]}}</td>
+        <td>{{product['Description']}}</td>
       </tr>
     </tbody>
   </nz-table>
-  <button nz-button nzType="primary">Next Request</button>
+  <button nz-button nzType="primary" (click)="handleNextResults()">Next Request</button>
 </div>

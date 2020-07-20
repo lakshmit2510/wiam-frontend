@@ -1,7 +1,8 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PartsService } from '../../services/parts-service/parts.service';
 import { PartModel } from '../../types/part';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-parts-list',
@@ -9,13 +10,14 @@ import { PartModel } from '../../types/part';
   styleUrls: ['./parts-list.component.less']
 })
 
-export class PartsListComponent implements OnInit {
+export class PartsListComponent implements OnInit, OnDestroy {
 
   sortName = '';
   sortValue = '';
   partsList: any[];
   dataTable: any;
   scannerVl = null;
+  subscription: Subscription;
 
   requestListColumns = [
     { key: 'PartsName', name: 'Product Name' },
@@ -39,13 +41,16 @@ export class PartsListComponent implements OnInit {
   ngOnInit() {
     const category = this.activatedRoute.snapshot.data;
     const type = category ? category.key : '';
-    this.partsService.getAllParts(type).subscribe((data: any[]) => {
+    this.subscription = this.partsService.getAllParts(type).subscribe((data: any[]) => {
       this.partsList = data;
       // const table: any = $('#parts-list-table');
       // this.dataTable = table.DataTable();
     });
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   handleScan(event) {
     if (!this.scannerVl) {
@@ -78,5 +83,9 @@ export class PartsListComponent implements OnInit {
       );
       this.partsList = sortList;
     }
+  }
+
+  getImage(file) {
+    return `http://localhost:8888/wiam-backend/uploads/${file}`;
   }
 }

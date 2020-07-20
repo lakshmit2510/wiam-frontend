@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class WorkOrderService {
 
@@ -12,7 +12,9 @@ export class WorkOrderService {
   public getAllRequestedList() {
     return this.httpClient.get(`${environment.apiUrl}/Product_Request_List/getAllRequests`);
   }
-
+  public getWorkOrderListById(requestId) {
+    return this.httpClient.get(`${environment.apiUrl}/Product_Request_List/getRequestListById?requestId=${requestId}`);
+  }
   public getAllmodelsList() {
     return this.httpClient.get(`${environment.apiUrl}/Product_Request_List/getAllVehicleModels`);
   }

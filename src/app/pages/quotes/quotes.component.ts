@@ -14,9 +14,9 @@ export class QuotesComponent implements OnInit {
 
   ngOnInit() {
     this.quotesService.getAllQuotes().subscribe((data: any[]) => {
-      this.quotesList = data;
-      const table: any = $('#Quotes-table');
-      this.dataTable = table.DataTable();
+      // this.quotesList = data;
+      // const table: any = $('#Quotes-table');
+      // this.dataTable = table.DataTable();
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { QuotesService } from "../../../services/quotes-service/quotes.service";
-import { WorkOrderService } from "../../../services/workOrder-service/work-order.service"
+import { WorkOrderService } from "../../../services/workOrder-service/work-order.service";
 
 interface QuoteInterface {
   item: string;
@@ -36,9 +36,9 @@ export class CreateWorkorderComponent implements OnInit {
     partsList: "",
     description: "",
     qtyRequested: "",
-    serviceType: '',
-    technicianName: '',
-    userName: '',
+    serviceType: "",
+    technicianName: "",
+    userName: "",
   };
 
   listOfData = [
@@ -52,7 +52,11 @@ export class CreateWorkorderComponent implements OnInit {
 
   listOfModels: Array<{ ModelName: string; ModelId: string }> = [];
 
-  constructor(private quotesService: QuotesService, private router: Router, private workOrderService: WorkOrderService) { }
+  constructor(
+    private quotesService: QuotesService,
+    private router: Router,
+    private workOrderService: WorkOrderService,
+  ) { }
 
   ngOnInit() {
     this.workOrderService.getAllmodelsList().subscribe((data: any[]) => {
@@ -72,7 +76,7 @@ export class CreateWorkorderComponent implements OnInit {
 
   handlePartsSelection(parts): void {
     const partsList = parts.map((item) => ({
-      item: item.ItemNumber,
+      item: item.PartsID,
       description: item.Description,
       unitPrice: item.SellingPrice,
       quantity: 1,
@@ -91,8 +95,8 @@ export class CreateWorkorderComponent implements OnInit {
     this.model.qtyRequested = this.listOfData
       .map((item) => item.quantity)
       .join(",");
-    this.quotesService.savePartsRequestForm(this.model).subscribe((res) => {
-      this.router.navigate(['/work-order-list/confirmation-page']);
+    this.quotesService.savePartsRequestForm(this.model).subscribe((res: any) => {
+      this.router.navigate(["/work-order-list/confirmation-page"], { queryParams: { workOrderId: res.insertId } });
     });
   }
 }

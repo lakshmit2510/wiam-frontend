@@ -16,7 +16,7 @@ const routes: Routes = [
     path: "",
     pathMatch: "full",
     canActivate: [AuthGuard],
-    redirectTo: "/parts-list",
+    redirectTo: "/work-order-list",
   },
   {
     path: "login",

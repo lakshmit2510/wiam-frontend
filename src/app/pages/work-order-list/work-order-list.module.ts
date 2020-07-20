@@ -8,6 +8,7 @@ import { FormsModule } from "@angular/forms";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { DxDataGridModule, DxTemplateModule } from "devextreme-angular";
 import { MatInputModule, MatSelectModule } from "@angular/material";
+import { AnQrcodeModule } from "an-qrcode";
 import { SharedModule } from "../../shared/shared.module";
 import { RequestConfirmComponent } from "./request-confirm/request-confirm.component";
 
@@ -28,8 +29,9 @@ import { RequestConfirmComponent } from "./request-confirm/request-confirm.compo
     DxDataGridModule,
     DxTemplateModule,
     SharedModule,
+    AnQrcodeModule
   ],
   exports: [WorkOrderListComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class WorkOrderListModule {}
+export class WorkOrderListModule { }

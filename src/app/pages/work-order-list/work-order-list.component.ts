@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { NzModalService } from "ng-zorro-antd/modal";
+import QrCode from "qrcode-reader";
 import { WorkOrderService } from "../../services/workOrder-service/work-order.service";
 import { AuthenticationService } from "../../services/authentication-service/authentication.service";
 
@@ -18,6 +19,8 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   workOrderList: any[];
 
   userInfo: any = {};
+
+  qrReader = new QrCode();
 
   requestListColumns = [
     { key: "RequestFormNo", name: "Parts Request Form No", width: "150px" },
@@ -39,11 +42,12 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     private workOrderService: WorkOrderService,
     private modal: NzModalService,
     private authenticationService: AuthenticationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getList();
     this.userInfo = this.authenticationService.getUserInfo();
+    this.qrReader.callback = this.qrCallback;
   }
   ngOnDestroy(): void {
     // // Do not forget to unsubscribe the event
@@ -82,5 +86,13 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
 
   getStatus(type) {
     return StatusClass[type];
+  }
+
+  qrCallback(error, result) {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    console.log(result);
   }
 }

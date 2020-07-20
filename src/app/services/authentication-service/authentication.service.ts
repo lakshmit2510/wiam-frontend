@@ -10,7 +10,7 @@ import { environment } from "../../../environments/environment";
 export class AuthenticationService {
   redirectUrl: string;
   @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
   public userlogin(data) {
     return this.httpClient
       .post<any>(`${environment.apiUrl}/Users/login`, data)
@@ -37,13 +37,13 @@ export class AuthenticationService {
 
   // token
   setToken(token: string) {
-    localStorage.setItem("token", token);
+    sessionStorage.setItem("token", token);
   }
   getToken() {
-    return localStorage.getItem("token");
+    return sessionStorage.getItem("token");
   }
   deleteToken() {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
   }
   isLoggedIn() {
     const usertoken = this.getToken();
@@ -55,7 +55,7 @@ export class AuthenticationService {
 
   getUserInfo() {
     const token = this.getToken();
-    if (token) return JSON.parse(atob(token));
+    if (token) { return JSON.parse(atob(token)); }
     return null;
   }
 }
