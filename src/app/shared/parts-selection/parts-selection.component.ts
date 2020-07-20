@@ -19,6 +19,8 @@ export class PartsSelectionComponent implements OnInit {
 
   @Input() selectionType = "single";
 
+  @Input() selectedModel = null;
+
   @Output() cancelModal: EventEmitter<any> = new EventEmitter();
 
   @Output() addItem: EventEmitter<any> = new EventEmitter();
@@ -51,7 +53,11 @@ export class PartsSelectionComponent implements OnInit {
   }
 
   getPartsList(): void {
-    this.partsService.getAllParts().subscribe((data) => {
+    const options: any = {};
+    if (this.selectedModel) {
+      options.model = this.selectedModel;
+    }
+    this.partsService.getAllParts(options).subscribe((data) => {
       this.partsList = data;
     });
   }

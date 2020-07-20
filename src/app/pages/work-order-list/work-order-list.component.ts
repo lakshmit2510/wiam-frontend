@@ -3,6 +3,7 @@ import { NzModalService } from "ng-zorro-antd/modal";
 import QrCode from "qrcode-reader";
 import { WorkOrderService } from "../../services/workOrder-service/work-order.service";
 import { AuthenticationService } from "../../services/authentication-service/authentication.service";
+import { PartsService } from "../../services/parts-service/parts.service";
 
 enum StatusClass {
   "Not Delivered" = "status-not-delivered",
@@ -17,6 +18,7 @@ enum StatusClass {
 })
 export class WorkOrderListComponent implements OnInit, OnDestroy {
   workOrderList: any[];
+  partsList: any = [];
 
   userInfo: any = {};
 
@@ -41,8 +43,9 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   constructor(
     private workOrderService: WorkOrderService,
     private modal: NzModalService,
-    private authenticationService: AuthenticationService
-  ) { }
+    private authenticationService: AuthenticationService,
+    private partsService: PartsService
+  ) {}
 
   ngOnInit() {
     this.getList();
@@ -61,10 +64,8 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   showDeleteConfirm(id: number): void {
     this.modal.confirm({
       nzTitle: "Are you sure to cancel this request?",
-      // nzContent: '<b style="color: red;">Some descriptions</b>',
       nzOkText: "Yes",
       nzOkType: "danger",
-      // nzOnOk: () => console.log('OK'),
       nzOnOk: () =>
         this.workOrderService.deleteRequestForm(id).subscribe((res) => {
           this.getList();
@@ -94,5 +95,12 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
       return;
     }
     console.log(result);
+  }
+
+  onRowExpanding(data) {
+    const { PartsList } = data.key;
+    this.partsService.getPartsByCommaId(PartsList).subscribe((partsRes) => {
+      this.partsList = partsRes;
+    });
   }
 }
