@@ -25,7 +25,7 @@ export class PartsSelectionComponent implements OnInit {
 
   @Output() addItem: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild(DxDataGridComponent, { static: false })
+  @ViewChild(DxDataGridComponent)
   dataGrid: DxDataGridComponent;
 
   partsList: any = [];

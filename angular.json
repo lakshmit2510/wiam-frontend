@@ -38,7 +38,9 @@
               "node_modules/devextreme/dist/css/dx.light.css",
               "src/styles.less"
             ],
-            "scripts": ["node_modules/jquery/dist/jquery.js"]
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -118,8 +120,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.less"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.less"
+            ],
             "scripts": []
           }
         },
@@ -131,7 +138,9 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -149,5 +158,8 @@
       }
     }
   },
-  "defaultProject": "wmsez"
+  "defaultProject": "wmsez",
+  "cli": {
+    "analytics": "2c7797ea-f1fc-4e7f-acd6-a8c4af78ff64"
+  }
 }

@@ -24,11 +24,11 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
 
   qrReader = new QrCode();
 
+  partsRequested: any = {};
+
   requestListColumns = [
     { key: "RequestFormNo", name: "Parts Request Form No", width: "150px" },
     { key: "VehicleNo", name: "Vehicle No", width: "150px" },
-    { key: "PartsList", name: "Parts List", width: "150px" },
-    { key: "QTYRequested", name: "QTY Requested", width: "150px" },
     { key: "ModelName", name: "Model/Make", width: "150px" },
     {
       key: "PartsRequestedDate",
@@ -98,7 +98,13 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   }
 
   onRowExpanding(data) {
-    const { PartsList } = data.key;
+    data.component.collapseAll(-1);
+    const { PartsList, QTYRequested } = data.key;
+    const partIds = PartsList.split(",");
+    const partQty = QTYRequested.split(",");
+    partIds.forEach((item, idx) => {
+      this.partsRequested[item] = partQty[idx];
+    });
     this.partsService.getPartsByCommaId(PartsList).subscribe((partsRes) => {
       this.partsList = partsRes;
     });

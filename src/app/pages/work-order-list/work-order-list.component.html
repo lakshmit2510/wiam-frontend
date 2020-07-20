@@ -83,7 +83,15 @@
           [columnAutoWidth]="true"
         >
           <dxi-column dataField="PartsName" caption="Parts Name"></dxi-column>
+          <dxi-column
+            caption="QTY Requested"
+            cellTemplate="qtyRequestedTemplate"
+          ></dxi-column>
           <dxi-column dataField="ItemNumber" caption="Item Number"></dxi-column>
+
+          <div *dxTemplate="let d of 'qtyRequestedTemplate'">
+            {{ partsRequested[d.data.PartsID] }}
+          </div>
         </dx-data-grid>
       </div>
     </dx-data-grid>
