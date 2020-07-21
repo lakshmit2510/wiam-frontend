@@ -7,6 +7,7 @@ import { NzMessageService } from "ng-zorro-antd/message";
 import { UploadFile } from "ng-zorro-antd/upload";
 import { Observable, Observer } from "rxjs";
 import { environment } from "../../../../environments/environment";
+import { NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   selector: "app-edit-products",
@@ -34,8 +35,12 @@ export class EditProductsComponent implements OnInit {
   loading = false;
   avatarUrl?: string;
   filePath: any = null;
-  // tslint:disable-next-line: max-line-length
-  constructor(private partsService: PartsService, private msg: NzMessageService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(
+    private partsService: PartsService,
+    private msg: NzMessageService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private modal: NzModalService) { }
 
   ngOnInit() {
     this.getPartsById();
@@ -103,5 +108,22 @@ export class EditProductsComponent implements OnInit {
 
   uploadUrl() {
     return `${environment.apiUrl}/Parts/upload_file`;
+  }
+
+  deletePart(): void {
+    const { partsID } = this.activatedRoute.snapshot.queryParams;
+    this.modal.confirm({
+      nzTitle: "Are you sure to delete this Part?",
+      // nzContent: '<b style="color: red;">Some descriptions</b>',
+      nzOkText: "Yes",
+      nzOkType: "danger",
+      nzOnOk: () => {
+        this.partsService.deletePartbyId(partsID).subscribe((res) => {
+          this.router.navigate(["/parts-list"]);
+        });
+      },
+      nzCancelText: "No",
+      nzOnCancel: () => console.log("Cancel"),
+    });
   }
 }

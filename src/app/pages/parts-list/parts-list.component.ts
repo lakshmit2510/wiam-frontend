@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { PartsService } from "../../services/parts-service/parts.service";
 import { PartModel } from "../../types/part";
 import { Subscription } from "rxjs";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: "app-parts-list",
@@ -18,43 +19,48 @@ export class PartsListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   requestListColumns = [
-    { key: "PartsName", name: "Product Name", width: "200px" },
-    { key: "ItemNumber", name: "Product part No.", width: "150px" },
-    { key: "SKUNo", name: "Location", width: "100px" },
-    { key: "Description", name: "Description", width: "200px" },
-    { key: "Category", name: "Product Category", width: "150px" },
+    { key: "PartsName", name: "Product Name", width: "150px" },
+    { key: "ItemNumber", name: "Product No.", width: "150px" },
+    { key: "SKUNo", name: "Location", width: "150px" },
+    { key: "Description", name: "Description", width: "150px" },
+    { key: "Category", name: "Product Category", width: "200px" },
     {
       key: "QTYInHand",
       name: "Quantity In Hand",
-      width: "200px",
+      width: "150px"
     },
-    {
-      key: "ManufacturingDate",
-      name: "Product Manufacturing Date",
-      width: "200px",
-    },
+    { key: "Model", name: "Model", width: "150px" },
+    { key: "ManufacturingDate", name: "Product Manufacturing Date", width: "150px" },
     { key: "ExpiryDate", name: "Product Expiry Date", width: "100px" },
     { key: "VendorName", name: "Vendor Name", width: "100px" },
     { key: "CostPrice", name: "Product Cost Price", width: "100px" },
     { key: "SellingPrice", name: "Product Selling Price", width: "100px" },
   ];
 
+  allowSearch: boolean;
+  columnChooserModes: any;
   constructor(
     private partsService: PartsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute) {
+    this.allowSearch = true;
+    this.columnChooserModes = [{
+      key: "dragAndDrop",
+      name: "Drag and drop"
+    }, {
+      key: "select",
+      name: "Select"
+    }];
+  }
 
   ngOnInit() {
     const category = this.activatedRoute.snapshot.data;
     const type = category ? category.key : "";
-    this.subscription = this.partsService
-      .getAllParts(type)
-      .subscribe((data: any[]) => {
-        this.partsList = data;
-        // const table: any = $('#parts-list-table');
-        // this.dataTable = table.DataTable();
-      });
+    this.subscription = this.partsService.getAllParts(type).subscribe((data: any[]) => {
+      this.partsList = data;
+      // const table: any = $("#parts-list-table");
+      // this.dataTable = table.DataTable();
+    });
   }
 
   ngOnDestroy() {
@@ -73,9 +79,7 @@ export class PartsListComponent implements OnInit, OnDestroy {
   }
 
   handleEdit(PartsID): void {
-    this.router.navigate(["/parts-list/edit-products"], {
-      queryParams: { partsID: PartsID },
-    });
+    this.router.navigate(["/parts-list/edit-products"], { queryParams: { partsID: PartsID } });
   }
   sortData(sort: { key: string; value: string }) {
     this.sortName = sort.key;
@@ -91,14 +95,14 @@ export class PartsListComponent implements OnInit, OnDestroy {
             ? 1
             : -1
           : b[this.sortName] > a[this.sortName]
-          ? 1
-          : -1
+            ? 1
+            : -1
       );
       this.partsList = sortList;
     }
   }
 
   getImage(file) {
-    return `http://localhost:8888/wiam-backend/uploads/${file}`;
+    return `${environment.apiUrl}/uploads/${file}`;
   }
 }

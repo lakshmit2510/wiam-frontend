@@ -44,4 +44,7 @@ export class PartsService {
       data
     );
   }
+  deletePartbyId(id) {
+    return this.httpClient.put(`${environment.apiUrl}/Parts/deletePartsById/${id}`, {});
+  }
 }

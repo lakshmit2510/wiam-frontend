@@ -50,7 +50,7 @@ export class CreateWorkorderComponent implements OnInit {
     }),
   ];
 
-  listOfModels: Array<{ ModelName: string; ModelId: string }> = [];
+  listOfModels: Array<{ Model: string; PartsID: string }> = [];
 
   constructor(
     private quotesService: QuotesService,

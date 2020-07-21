@@ -33,11 +33,11 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     {
       key: "PartsRequestedDate",
       name: "Parts Requested Date",
-      width: "150px",
+      width: "200px",
     },
     { key: "PartsIssueDate", name: "Parts Issue Date", width: "150px" },
     { key: "TechnicianName", name: "Technician Name", width: "150px" },
-    { key: "FirstName", name: "Created By", width: "150px" },
+    { key: "FirstName", name: "Created By", width: "100px" },
   ];
 
   constructor(
@@ -45,7 +45,7 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     private modal: NzModalService,
     private authenticationService: AuthenticationService,
     private partsService: PartsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getList();

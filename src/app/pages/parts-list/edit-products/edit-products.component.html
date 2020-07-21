@@ -3,9 +3,10 @@
     <nz-page-header nzBackIcon [nzGhost]="false">
       <nz-page-header-title>Edit Parts</nz-page-header-title>
       <nz-page-header-extra>
-        <button nz-button nzType="secon" nzSize="large" type="submit">
+        <button nz-button class="save-button" nzType="secon" nzSize="large" type="submit">
           <i nz-icon nzType="save" nzTheme="outline"></i> Save
         </button>
+
       </nz-page-header-extra>
       <nz-page-header-content>
         <div class="parts-content">
@@ -111,6 +112,11 @@
               </ng-container>
               <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
             </nz-upload>
+          </div>
+          <div nz-row style="float: right;">
+            <button nz-button nzType="danger" nzSize="large" (click)="deletePart()" type="button">
+              <i nz-icon nzType="delete" nzTheme="outline"></i> Delete
+            </button>
           </div>
         </div>
       </nz-page-header-content>
