@@ -1,24 +1,25 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { NzModalService } from "ng-zorro-antd/modal";
-import QrCode from "qrcode-reader";
-import { WorkOrderService } from "../../services/workOrder-service/work-order.service";
-import { AuthenticationService } from "../../services/authentication-service/authentication.service";
-import { PartsService } from "../../services/parts-service/parts.service";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import QrCode from 'qrcode-reader';
+import { WorkOrderService } from '../../services/workOrder-service/work-order.service';
+import { AuthenticationService } from '../../services/authentication-service/authentication.service';
+import { PartsService } from '../../services/parts-service/parts.service';
 
 enum StatusClass {
-  "Not Delivered" = "status-not-delivered",
-  "Delivered" = "status-delivered",
-  "Cancelled" = "status-cancelled",
+  'Not Delivered' = 'status-not-delivered',
+  'Delivered' = 'status-delivered',
+  'Cancelled' = 'status-cancelled',
 }
 
 @Component({
-  selector: "app-work-order-list",
-  templateUrl: "./work-order-list.component.html",
-  styleUrls: ["./work-order-list.component.less"],
+  selector: 'app-work-order-list',
+  templateUrl: './work-order-list.component.html',
+  styleUrls: ['./work-order-list.component.less'],
 })
 export class WorkOrderListComponent implements OnInit, OnDestroy {
   workOrderList: any[];
   partsList: any = [];
+  loadingData = false;
 
   userInfo: any = {};
 
@@ -57,27 +58,29 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     // this.workOrderService.unsubscribe();
   }
   getList() {
+    this.loadingData = true;
     this.workOrderService.getAllRequestedList().subscribe((data: any[]) => {
       this.workOrderList = data;
+      this.loadingData = false;
     });
   }
   showDeleteConfirm(id: number): void {
     this.modal.confirm({
-      nzTitle: "Are you sure to cancel this request?",
-      nzOkText: "Yes",
-      nzOkType: "danger",
+      nzTitle: 'Are you sure to cancel this request?',
+      nzOkText: 'Yes',
+      nzOkType: 'danger',
       nzOnOk: () =>
         this.workOrderService.deleteRequestForm(id).subscribe((res) => {
           this.getList();
         }),
-      nzCancelText: "No",
-      nzOnCancel: () => console.log("Cancel"),
+      nzCancelText: 'No',
+      nzOnCancel: () => console.log('Cancel'),
     });
   }
   showConfirm(id: number): void {
     this.modal.confirm({
-      nzTitle: "<i>Success!</i>",
-      nzContent: "<b>Your order is successfully deliverd to the Customer</b>",
+      nzTitle: '<i>Success!</i>',
+      nzContent: '<b>Your order is successfully deliverd to the Customer</b>',
       nzOnOk: () =>
         this.workOrderService.updateRequestForm(id).subscribe((res) => {
           this.getList();
@@ -100,8 +103,8 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   onRowExpanding(data) {
     data.component.collapseAll(-1);
     const { PartsList, QTYRequested } = data.key;
-    const partIds = PartsList.split(",");
-    const partQty = QTYRequested.split(",");
+    const partIds = PartsList.split(',');
+    const partQty = QTYRequested.split(',');
     partIds.forEach((item, idx) => {
       this.partsRequested[item] = partQty[idx];
     });

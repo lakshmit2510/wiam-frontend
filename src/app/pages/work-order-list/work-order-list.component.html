@@ -15,12 +15,11 @@
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
-    <dx-data-grid [dataSource]="workOrderList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
-      [rowAlternationEnabled]="true" [masterDetail]="{ enabled: true, template: 'partsListTemplate' }"
-      (onRowExpanding)="onRowExpanding($event)">
+    <dx-data-grid *ngIf="!loadingData" [dataSource]="workOrderList" [showColumnLines]="true" [showRowLines]="true"
+      [showBorders]="true" [rowAlternationEnabled]="true"
+      [masterDetail]="{ enabled: true, template: 'partsListTemplate' }" (onRowExpanding)="onRowExpanding($event)">
       <dxo-paging [pageSize]="10"></dxo-paging>
-      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
-      </dxo-pager>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true"> </dxo-pager>
       <dxo-search-panel [visible]="true"></dxo-search-panel>
       <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"></dxi-column>
       <dxi-column caption="Status" cellTemplate="statusTemplate"></dxi-column>
@@ -45,8 +44,8 @@
         <dx-data-grid [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
           [columnAutoWidth]="true">
           <dxi-column dataField="PartsName" caption="Parts Name"></dxi-column>
-          <dxi-column dataField="ItemNumber" caption="Item Number"></dxi-column>
           <dxi-column caption="QTY Requested" cellTemplate="qtyRequestedTemplate"></dxi-column>
+          <dxi-column dataField="ItemNumber" caption="Item Number"></dxi-column>
 
           <div *dxTemplate="let d of 'qtyRequestedTemplate'">
             {{ partsRequested[d.data.PartsID] }}

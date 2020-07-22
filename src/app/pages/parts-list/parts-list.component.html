@@ -21,8 +21,8 @@
       </nz-page-header-extra>
     </nz-page-header>
     <nz-page-header-content>
-      <dx-data-grid [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
-        [rowAlternationEnabled]="true" style="max-width: calc(100% - 30px); max-height: calc(100vh - 200px);">
+      <dx-data-grid *ngIf="!loadingData" [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true"
+        [showBorders]="true" [rowAlternationEnabled]="true" style="max-height: calc(100vh - 200px);">
         <dxo-selection mode="single"></dxo-selection>
         <dxo-paging [pageSize]="10"></dxo-paging>
         <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
@@ -37,11 +37,20 @@
           [width]="100"></dxi-column>
         <div *dxTemplate="let d of 'actionTemplate'">
           <a (click)="handleEdit(d.data.PartsID)">Edit</a>
+          <!-- <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
+          <button nz-button nzType="primary" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
+            [disabled]="d.data.Status !== 'Not Delivered'">
+            Cancel
+          </button> -->
         </div>
         <div *dxTemplate="let d of 'imageTemplate'">
           <nz-avatar nzIcon="file-image" [nzShape]="'circle'" [nzSize]="'large'" [nzSrc]="getImage(d.data.Images)">
           </nz-avatar>
         </div>
+        <!-- <div *dxTemplate="let d of 'statusTemplate'">
+          <nz-alert nzType="error" [nzMessage]="data.value"></nz-alert>
+          <span [ngClass]="getStatus(d.data.Status)">{{ d.data.Status }}</span>
+        </div> -->
       </dx-data-grid>
 
       <!-- <nz-table #basicTable [nzData]="partsList" nzBordered id="parts-list-table">
