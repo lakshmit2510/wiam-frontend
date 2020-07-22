@@ -1,88 +1,85 @@
 <app-scanner-detection (scan)="handleScan($event)">
-  <div>
-    <nz-page-header [nzGhost]="false">
-      <nz-page-header-title>
-        <!-- <div style="display: flex;">
+    <div>
+        <nz-page-header [nzGhost]="false">
+            <nz-page-header-title>
+                <!-- <div style="display: flex;">
           <h6 style="margin-right: 10px;">Total Parts:</h6>
           <nz-badge [nzCount]="25"></nz-badge>
         </div> -->
-      </nz-page-header-title>
-      <nz-page-header-extra>
-        <a routerLink="/parts-list/add-new-parts">
-          <button nz-button nzType="secon" nzSize="large">
-            <i nz-icon nzType="file-add" nzTheme="outline"></i> New
-          </button>
-        </a>
-        <!-- <a routerLink="">
+            </nz-page-header-title>
+            <nz-page-header-extra>
+                <a routerLink="/parts-list/add-new-parts">
+                    <button nz-button nzType="secon" nzSize="large">
+                        <i nz-icon nzType="file-add" nzTheme="outline"></i> New
+                    </button>
+                </a>
+                <!-- <a routerLink="">
           <button nz-button nzType="secon" nzSize="large">
             <i nz-icon nzType="printer" nzTheme="outline"></i> Print
           </button>
         </a> -->
-      </nz-page-header-extra>
-    </nz-page-header>
-    <nz-page-header-content>
-      <dx-data-grid
-        [dataSource]="partsList"
-        [showColumnLines]="true"
-        [showRowLines]="true"
-        [showBorders]="true"
-        [rowAlternationEnabled]="true"
-        style="max-height: calc(100vh - 200px);"
-      >
-        <dxo-selection mode="single"></dxo-selection>
-        <dxo-paging [pageSize]="10"></dxo-paging>
-        <dxo-pager
-          [showPageSizeSelector]="true"
-          [allowedPageSizes]="[5, 10, 20]"
-          [showInfo]="true"
-        >
-        </dxo-pager>
-        <dxo-search-panel [visible]="true"></dxo-search-panel>
-        <dxi-column
-          caption="Picture"
-          [allowFiltering]="false"
-          [allowSorting]="false"
-          cellTemplate="imageTemplate"
-          [width]="80"
-        ></dxi-column>
-        <dxi-column
-          *ngFor="let item of requestListColumns"
-          [dataField]="item.key"
-          [caption]="item.name"
-          [width]="item.width"
-        ></dxi-column>
-        <!-- <dxi-column caption="Status" cellTemplate="statusTemplate"></dxi-column> -->
-        <dxi-column
-          caption="Action"
-          [allowFiltering]="false"
-          [allowSorting]="false"
-          cellTemplate="actionTemplate"
-          [width]="100"
-        ></dxi-column>
-        <div *dxTemplate="let d of 'actionTemplate'">
-          <a (click)="handleEdit(d.data.PartsID)">Edit</a>
-          <!-- <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
+            </nz-page-header-extra>
+        </nz-page-header>
+        <nz-page-header-content>
+            <dx-data-grid
+                *ngIf="!loadingData"
+                [dataSource]="partsList"
+                [showColumnLines]="true"
+                [showRowLines]="true"
+                [showBorders]="true"
+                [rowAlternationEnabled]="true"
+                style="max-height: calc(100vh - 200px);"
+            >
+                <dxo-selection mode="single"></dxo-selection>
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                </dxo-pager>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxi-column
+                    caption="Picture"
+                    [allowFiltering]="false"
+                    [allowSorting]="false"
+                    cellTemplate="imageTemplate"
+                    [width]="80"
+                ></dxi-column>
+                <dxi-column
+                    *ngFor="let item of requestListColumns"
+                    [dataField]="item.key"
+                    [caption]="item.name"
+                    [width]="item.width"
+                ></dxi-column>
+                <!-- <dxi-column caption="Status" cellTemplate="statusTemplate"></dxi-column> -->
+                <dxi-column
+                    caption="Action"
+                    [allowFiltering]="false"
+                    [allowSorting]="false"
+                    cellTemplate="actionTemplate"
+                    [width]="100"
+                ></dxi-column>
+                <div *dxTemplate="let d of 'actionTemplate'">
+                    <a (click)="handleEdit(d.data.PartsID)">Edit</a>
+                    <!-- <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
           <button nz-button nzType="primary" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
             [disabled]="d.data.Status !== 'Not Delivered'">
             Cancel
           </button> -->
-        </div>
-        <div *dxTemplate="let d of 'imageTemplate'">
-          <nz-avatar
-            nzIcon="file-image"
-            [nzShape]="'circle'"
-            [nzSize]="'large'"
-            [nzSrc]="getImage(d.data.Images)"
-          >
-          </nz-avatar>
-        </div>
-        <!-- <div *dxTemplate="let d of 'statusTemplate'">
+                </div>
+                <div *dxTemplate="let d of 'imageTemplate'">
+                    <nz-avatar
+                        nzIcon="file-image"
+                        [nzShape]="'circle'"
+                        [nzSize]="'large'"
+                        [nzSrc]="getImage(d.data.Images)"
+                    >
+                    </nz-avatar>
+                </div>
+                <!-- <div *dxTemplate="let d of 'statusTemplate'">
           <nz-alert nzType="error" [nzMessage]="data.value"></nz-alert>
           <span [ngClass]="getStatus(d.data.Status)">{{ d.data.Status }}</span>
         </div> -->
-      </dx-data-grid>
+            </dx-data-grid>
 
-      <!-- <nz-table #basicTable [nzData]="partsList" nzBordered id="parts-list-table">
+            <!-- <nz-table #basicTable [nzData]="partsList" nzBordered id="parts-list-table">
         <thead (nzSortChange)="sortData($event)" nzSingleSort>
           <tr>
             <th nzSortKey="PartsName" nzShowSort>Product Name</th>
@@ -120,6 +117,6 @@
           </tr>
         </tbody>
       </nz-table> -->
-    </nz-page-header-content>
-  </div>
+        </nz-page-header-content>
+    </div>
 </app-scanner-detection>
