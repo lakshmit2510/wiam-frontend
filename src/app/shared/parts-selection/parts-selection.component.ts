@@ -33,20 +33,20 @@ export class PartsSelectionComponent implements OnInit {
   setOfCheckedId = new Set<number>();
 
   partsListColumns = [
-    { key: "ItemNumber", name: "Product Number" },
+    { key: "ItemNumber", name: "Product No" },
     { key: "PartsName", name: "Product Name" },
-    { key: "SKUNo", name: "Location No" },
+    { key: "SKUNo", name: "Location" },
     { key: "Description", name: "Description" },
     { key: "QTYInHand", name: "QTY In Hand" },
     {
-      key: "Manufacturer",
-      name: "Manufacturer/Model",
+      key: "Model",
+      name: "Model",
     },
     { key: "VendorName", name: "Vendor Name" },
     { key: "SellingPrice", name: "UnitPrice" },
   ];
 
-  constructor(private partsService: PartsService) {}
+  constructor(private partsService: PartsService) { }
 
   ngOnInit() {
     this.getPartsList();

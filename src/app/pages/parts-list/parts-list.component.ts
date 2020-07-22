@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { PartsService } from "../../services/parts-service/parts.service";
 import { PartModel } from "../../types/part";
 import { Subscription } from "rxjs";
-import { environment } from '../../../environments/environment';
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-parts-list",
@@ -20,21 +20,21 @@ export class PartsListComponent implements OnInit, OnDestroy {
 
   requestListColumns = [
     { key: "PartsName", name: "Product Name", width: "150px" },
-    { key: "ItemNumber", name: "Product No.", width: "150px" },
+    { key: "ItemNumber", name: "Part No.", width: "150px" },
     { key: "SKUNo", name: "Location", width: "150px" },
-    { key: "Description", name: "Description", width: "150px" },
+    { key: "Description", name: "Description", width: "200px" },
     { key: "Category", name: "Product Category", width: "200px" },
     {
       key: "QTYInHand",
       name: "Quantity In Hand",
       width: "150px"
     },
-    { key: "Model", name: "Model", width: "150px" },
-    { key: "ManufacturingDate", name: "Product Manufacturing Date", width: "150px" },
-    { key: "ExpiryDate", name: "Product Expiry Date", width: "100px" },
-    { key: "VendorName", name: "Vendor Name", width: "100px" },
-    { key: "CostPrice", name: "Product Cost Price", width: "100px" },
-    { key: "SellingPrice", name: "Product Selling Price", width: "100px" },
+    { key: "Model", name: "Model", width: "250px" },
+    // { key: "ManufacturingDate", name: "Product Manufacturing Date", width: "150px" },
+    // { key: "ExpiryDate", name: "Product Expiry Date", width: "100px" },
+    // { key: "VendorName", name: "Vendor Name", width: "100px" },
+    // { key: "CostPrice", name: "Product Cost Price", width: "100px" },
+    // { key: "SellingPrice", name: "Product Selling Price", width: "100px" },
   ];
 
   allowSearch: boolean;
@@ -54,9 +54,10 @@ export class PartsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const options: any = {};
     const category = this.activatedRoute.snapshot.data;
-    const type = category ? category.key : "";
-    this.subscription = this.partsService.getAllParts(type).subscribe((data: any[]) => {
+    options.category = category ? category.key : "";
+    this.subscription = this.partsService.getAllParts(options).subscribe((data: any[]) => {
       this.partsList = data;
       // const table: any = $("#parts-list-table");
       // this.dataTable = table.DataTable();

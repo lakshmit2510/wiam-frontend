@@ -16,7 +16,7 @@
         </a>
       </li> -->
       <li nz-submenu nzOpen nzTitle="Parts Requests" nzIcon="unordered-list"
-        *ngIf="isRouteEnabled(['Admin','Company'])">
+        *ngIf="isRouteEnabled(['Admin','Customer'])">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/work-order-list">
@@ -43,21 +43,21 @@
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/parts-list/category-b">
               <i nz-icon nzType="star" nzTheme="outline"></i>
-              <span>CategoryB (High Runner)</span>
+              <span>CategoryB (Normal Stock)</span>
             </a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/parts-list/category-c">
               <i nz-icon nzType="star" nzTheme="outline"></i>
-              <span>CategoryC (Rare Stock)</span>
+              <span>CategoryC (Dead Stock)</span>
             </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <!-- <li nz-menu-item nzMatchRouter>
             <a routerLink="/parts-list/category-d">
               <i nz-icon nzType="star" nzTheme="outline"></i>
               <span>CategoryD (Normal Stock)</span>
             </a>
-          </li>
+          </li> -->
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="Purchase Order" nzIcon="shopping-cart" *ngIf="isRouteEnabled(['Admin'])">

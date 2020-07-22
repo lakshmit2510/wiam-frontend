@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authenticationService.isLoggedIn()) {
-      this.router.navigate(["/parts-list"]);
+      this.router.navigate(["/work-order-list"]);
     }
   }
 
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         (data) => {
           const redirect = this.authenticationService.redirectUrl
             ? this.authenticationService.redirectUrl
-            : "/parts-list";
+            : "/work-order-list";
           this.router.navigate([redirect]);
         },
         (error) => {
