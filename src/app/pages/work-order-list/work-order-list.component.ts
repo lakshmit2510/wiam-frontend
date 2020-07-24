@@ -29,15 +29,16 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
 
   requestListColumns = [
     { key: "RequestFormNo", name: "Parts Request Form No", width: "150px" },
-    { key: "VehicleNo", name: "Vehicle No", width: "150px" },
-    { key: "ModelName", name: "Model/Make", width: "150px" },
+    { key: "VehicleNo", name: "Vehicle No", width: "100px" },
+    { key: "Brand", name: "Brand", width: "100px" },
+    { key: "Model", name: "Model", width: "150px" },
     {
       key: "PartsRequestedDate",
       name: "Parts Requested Date",
-      width: "200px",
+      width: "150px",
     },
     { key: "PartsIssueDate", name: "Parts Issue Date", width: "150px" },
-    { key: "TechnicianName", name: "Technician Name", width: "150px" },
+    { key: "TechnicianName", name: "Technician Name", width: "100px" },
     { key: "FirstName", name: "Created By", width: "100px" },
   ];
 
@@ -111,5 +112,9 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     this.partsService.getPartsByCommaId(PartsList).subscribe((partsRes) => {
       this.partsList = partsRes;
     });
+  }
+
+  printForm() {
+
   }
 }

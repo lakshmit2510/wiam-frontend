@@ -19,9 +19,9 @@ export class AddNewSupplierComponent implements OnInit {
 
   ngOnInit() {
   }
+
   submitForm() {
     this.suppliersService.addNewSupplier(this.model).subscribe(res => {
-      console.log(res);
       this.router.navigate(['/suppliers-list']);
     });
   }

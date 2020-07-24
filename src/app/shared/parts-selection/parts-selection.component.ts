@@ -5,19 +5,19 @@ import {
   Output,
   EventEmitter,
   ViewChild,
-} from "@angular/core";
-import { DxDataGridComponent } from "devextreme-angular";
-import { PartsService } from "../../services/parts-service/parts.service";
+} from '@angular/core';
+import { DxDataGridComponent } from 'devextreme-angular';
+import { PartsService } from '../../services/parts-service/parts.service';
 
 @Component({
-  selector: "app-parts-selection",
-  templateUrl: "./parts-selection.component.html",
-  styleUrls: ["./parts-selection.component.less"],
+  selector: 'app-parts-selection',
+  templateUrl: './parts-selection.component.html',
+  styleUrls: ['./parts-selection.component.less'],
 })
 export class PartsSelectionComponent implements OnInit {
   @Input() isVisible = false;
 
-  @Input() selectionType = "single";
+  @Input() selectionType = 'single';
 
   @Input() selectedModel = null;
 
@@ -33,17 +33,18 @@ export class PartsSelectionComponent implements OnInit {
   setOfCheckedId = new Set<number>();
 
   partsListColumns = [
-    { key: "ItemNumber", name: "Product No" },
-    { key: "PartsName", name: "Product Name" },
-    { key: "SKUNo", name: "Location" },
-    { key: "Description", name: "Description" },
-    { key: "QTYInHand", name: "QTY In Hand" },
+    { key: 'ItemNumber', name: 'Product No', width: '100px' },
+    { key: 'PartsName', name: 'Product Name', width: '150px' },
+    { key: 'SKUNo', name: 'Location', width: '70px' },
+    { key: 'Description', name: 'Description', width: '200px' },
+    { key: 'QTYInHand', name: 'QTY', width: '50px' },
     {
-      key: "Model",
-      name: "Model",
+      key: 'Model',
+      name: 'Model',
+      width: '150px',
     },
-    { key: "VendorName", name: "Vendor Name" },
-    { key: "SellingPrice", name: "UnitPrice" },
+    // { key: 'VendorName', name: 'Vendor Name' },
+    { key: 'SellingPrice', name: 'UnitPrice', width: '70px' },
   ];
 
   constructor(private partsService: PartsService) { }
@@ -53,11 +54,12 @@ export class PartsSelectionComponent implements OnInit {
   }
 
   getPartsList(): void {
-    const options: any = {};
-    if (this.selectedModel) {
-      options.model = this.selectedModel;
-    }
-    this.partsService.getAllParts(options).subscribe((data) => {
+    // const options: any = {};
+    // if (this.selectedModel) {
+    //   options.model = this.selectedModel;
+    // }
+    const category = '';
+    this.partsService.getAllParts(category).subscribe((data) => {
       this.partsList = data;
     });
   }

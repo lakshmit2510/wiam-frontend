@@ -16,37 +16,40 @@
   </nz-page-header>
   <nz-page-header-content>
     <dx-data-grid *ngIf="!loadingData" [dataSource]="workOrderList" [showColumnLines]="true" [showRowLines]="true"
-      [showBorders]="true" [rowAlternationEnabled]="true"
+      [showBorders]="true" [rowAlternationEnabled]="true" style="max-height: calc(100vh - 200px);"
       [masterDetail]="{ enabled: true, template: 'partsListTemplate' }" (onRowExpanding)="onRowExpanding($event)">
       <dxo-paging [pageSize]="10"></dxo-paging>
       <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true"> </dxo-pager>
       <dxo-search-panel [visible]="true"></dxo-search-panel>
-      <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"></dxi-column>
-      <dxi-column caption="Status" cellTemplate="statusTemplate"></dxi-column>
+      <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"
+        [width]="item.width"></dxi-column>
+      <dxi-column caption="Status" cellTemplate="statusTemplate" [width]="100"></dxi-column>
       <dxi-column caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
-        [width]="200"></dxi-column>
+        [width]="250"></dxi-column>
       <div *dxTemplate="let d of 'actionTemplate'">
         <button *ngIf="userInfo.role === 'Admin'" nz-button nzType="primary" nzSize="small"
           (click)="showConfirm(d.data.RequestId)" [disabled]="d.data.Status === 'Not Delivered'">
           Delivery
         </button>
         <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
-        <button nz-button nzType="primary" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
+        <button nz-button nzType="danger" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
           [disabled]="d.data.Status === 'Not Delivered'">
           Cancel
         </button>
+        <!-- <nz-divider nzType="vertical"></nz-divider>
+        <button nz-button nzType="primary" nzSize="small" (click)="printForm(d.data.RequestId)">
+          Print
+        </button> -->
       </div>
       <div *dxTemplate="let d of 'statusTemplate'">
-        <!-- <nz-alert nzType="error" [nzMessage]="data.value"></nz-alert> -->
         <span [ngClass]="getStatus(d.data.Status)">{{ d.data.Status }}</span>
       </div>
       <div *dxTemplate="let part of 'partsListTemplate'">
         <dx-data-grid [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
           [columnAutoWidth]="true">
           <dxi-column dataField="PartsName" caption="Parts Name"></dxi-column>
-          <dxi-column caption="QTY Requested" cellTemplate="qtyRequestedTemplate"></dxi-column>
           <dxi-column dataField="ItemNumber" caption="Item Number"></dxi-column>
-
+          <dxi-column caption="QTY Requested" cellTemplate="qtyRequestedTemplate"></dxi-column>
           <div *dxTemplate="let d of 'qtyRequestedTemplate'">
             {{ partsRequested[d.data.PartsID] }}
           </div>

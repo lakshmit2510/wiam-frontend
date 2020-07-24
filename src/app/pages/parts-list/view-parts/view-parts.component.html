@@ -1,0 +1,61 @@
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Part Details" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  [nzWidth]="800">
+  <div nz-row nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+    <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+      <table style="width:100%">
+        <tr>
+          <td><b>Product Name : </b></td>
+          <td>{{partData.PartsName}}</td>
+        </tr><br>
+        <tr>
+          <td><b>Part Number : </b></td>
+          <td>{{partData.ItemNumber}}</td>
+        </tr><br>
+        <tr>
+          <td><b>Description : </b></td>
+          <td>{{partData.Description}}</td>
+        </tr><br>
+        <tr>
+          <td><b>Location : </b></td>
+          <td>{{partData.SKUNo}}</td>
+        </tr><br>
+        <tr>
+          <td><b>Model : </b></td>
+          <td>{{partData.Model}}</td>
+        </tr><br>
+        <tr>
+          <td><b>Cost Price : </b></td>
+          <td>{{partData.CostPrice}}</td>
+        </tr><br>
+      </table>
+    </div>
+    <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+      <table style="width: 100%;">
+        <tr>
+          <td><b>QTY In Hand : </b></td>
+          <td>{{partData.QTYInHand}}</td>
+        </tr><br>
+        <tr>
+          <td><b>Category : </b></td>
+          <td>{{partData.Category}}</td>
+        </tr><br>
+        <tr>
+          <td><b> Manufacturing Date : </b></td>
+          <td>{{partData.ManufacturingDate}}</td>
+        </tr><br>
+        <tr>
+          <td><b>Expiry Date : </b></td>
+          <td>{{partData.ExpiryDate}}</td>
+        </tr><br>
+        <tr>
+          <td><b>Vendor Name : </b></td>
+          <td>{{partData.VendorName}}</td>
+        </tr><br>
+        <tr>
+          <td><b>Selling Price : </b></td>
+          <td>{{partData.SellingPrice}}</td>
+        </tr><br>
+      </table>
+    </div>
+  </div>
+</nz-modal>

@@ -23,6 +23,7 @@
           <th>Contact Number</th>
           <th>Company Name</th>
           <th>Company Address</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +35,11 @@
           <td>{{ usersList.PhoneNumber }}</td>
           <td>{{ usersList.CompanyName }}</td>
           <td>{{ usersList.CompanyAddress }}</td>
+          <td>
+            <!-- <a>Edit</a>
+            <nz-divider nzType="vertical"></nz-divider> -->
+            <a (click)="deleteUser(usersList.UserID)">Delete</a>
+          </td>
         </tr>
       </tbody>
     </nz-table>

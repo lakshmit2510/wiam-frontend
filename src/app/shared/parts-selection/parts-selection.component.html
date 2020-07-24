@@ -1,30 +1,13 @@
-<nz-modal
-  [(nzVisible)]="isVisible"
-  nzTitle="Parts List Modal"
-  nzWidth="1000"
-  (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleOk()"
->
-  <dx-data-grid
-    [dataSource]="partsList"
-    [showColumnLines]="true"
-    [showRowLines]="true"
-    [showBorders]="true"
-    [rowAlternationEnabled]="true"
-  >
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Parts List Modal" nzWidth="1000" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()">
+  <dx-data-grid [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
+    [rowAlternationEnabled]="true">
     <dxo-paging [pageSize]="10"></dxo-paging>
-    <dxo-pager
-      [showPageSizeSelector]="true"
-      [allowedPageSizes]="[5, 10, 20]"
-      [showInfo]="true"
-    >
+    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
     </dxo-pager>
     <dxo-search-panel [visible]="true"></dxo-search-panel>
-    <dxo-selection mode="multiple" [allowSelectAll]="false"></dxo-selection>
-    <dxi-column
-      *ngFor="let item of partsListColumns"
-      [dataField]="item.key"
-      [caption]="item.name"
-    ></dxi-column>
+    <dxo-selection mode="multiple" [allowSelectAll]="false" style="width: 50px;"></dxo-selection>
+    <dxi-column *ngFor="let item of partsListColumns" [dataField]="item.key" [caption]="item.name" [width]="item.width">
+    </dxi-column>
   </dx-data-grid>
 </nz-modal>

@@ -6,10 +6,6 @@
         <button class="button-style" nz-button nzType="secon" nzSize="large">
           <i nz-icon nzType="file-add" nzTheme="outline"></i> New</button>
       </a>
-      <!-- <a routerLink="">
-        <button nz-button nzType="secon" nzSize="large">
-          <i nz-icon nzType="printer" nzTheme="outline"></i> Print</button>
-      </a> -->
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
@@ -22,6 +18,7 @@
           <th>primary Contact</th>
           <th>Website Name</th>
           <th>Country</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +29,11 @@
           <td>{{ suppliers. PhoneNumber}}</td>
           <td>{{ suppliers.WebsiteName }}</td>
           <td>{{ suppliers.Country }}</td>
+          <td>
+            <!-- <a>Edit</a>
+            <nz-divider nzType="vertical"></nz-divider> -->
+            <a (click)="deleteSupplier(suppliers.SupplierID)">Delete</a>
+          </td>
         </tr>
       </tbody>
     </nz-table>

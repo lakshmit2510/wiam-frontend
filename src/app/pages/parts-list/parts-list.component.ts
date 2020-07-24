@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { PartsService } from "../../services/parts-service/parts.service";
-import { PartModel } from "../../types/part";
-import { Subscription } from "rxjs";
-import { environment } from "../../../environments/environment";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PartsService } from '../../services/parts-service/parts.service';
+import { PartModel } from '../../types/part';
+import { Subscription } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-parts-list',
@@ -18,7 +18,8 @@ export class PartsListComponent implements OnInit, OnDestroy {
   loadingData = false;
   scannerVl = null;
   subscription: Subscription;
-
+  isVisible = false;
+  viewPartID = null;
   requestListColumns = [
     { key: 'PartsName', name: 'Product Name', width: '200px' },
     { key: 'ItemNumber', name: 'Product part No.', width: '150px' },
@@ -27,31 +28,29 @@ export class PartsListComponent implements OnInit, OnDestroy {
     { key: 'Category', name: 'Product Category', width: '150px' },
     {
       key: 'QTYInHand',
-      name: 'Quantity In Hand',
-      width: '200px',
+      name: 'Quantity',
+      width: '100px',
     },
-    {
-      key: 'ManufacturingDate',
-      name: 'Product Manufacturing Date',
-      width: '200px',
-    },
-    { key: 'ExpiryDate', name: 'Product Expiry Date', width: '100px' },
-    { key: 'VendorName', name: 'Vendor Name', width: '100px' },
-    { key: 'CostPrice', name: 'Product Cost Price', width: '100px' },
-    { key: 'SellingPrice', name: 'Product Selling Price', width: '100px' },
+    { key: 'Model', name: 'Model', width: '200px' },
+    // { key: 'ManufacturingDate', name: 'Product Manufacturing Date',width: '200px' },
+    // { key: 'ExpiryDate', name: 'Product Expiry Date', width: '100px' },
+    // { key: 'VendorName', name: 'Vendor Name', width: '100px' },
+    // { key: 'CostPrice', name: 'Product Cost Price', width: '100px' },
+    // { key: 'SellingPrice', name: 'Product Selling Price', width: '100px' },
+
   ];
 
   constructor(private partsService: PartsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+
+    const options: any = {};
     const category = this.activatedRoute.snapshot.data;
-    const type = category ? category.key : '';
+    options.category = category ? category.key : '';
     this.loadingData = true;
-    this.subscription = this.partsService.getAllParts(type).subscribe((data: any[]) => {
+    this.subscription = this.partsService.getAllParts(options).subscribe((data: any[]) => {
       this.partsList = data;
       this.loadingData = false;
-      // const table: any = $('#parts-list-table');
-      // this.dataTable = table.DataTable();
     });
   }
 
@@ -73,6 +72,13 @@ export class PartsListComponent implements OnInit, OnDestroy {
       queryParams: { partsID: PartsID },
     });
   }
+
+  viewPart(PartsID): void {
+    this.viewPartID = PartsID;
+    this.isVisible = true;
+
+  }
+
   sortData(sort: { key: string; value: string }) {
     this.sortName = sort.key;
     this.sortValue = sort.value;
@@ -96,5 +102,15 @@ export class PartsListComponent implements OnInit, OnDestroy {
 
   getImage(file) {
     return `${environment.apiUrl}/uploads/${file}`;
+  }
+
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
   }
 }

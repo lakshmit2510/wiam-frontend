@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { QuotesService } from "../../../services/quotes-service/quotes.service";
-import { WorkOrderService } from "../../../services/workOrder-service/work-order.service";
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { QuotesService } from '../../../services/quotes-service/quotes.service';
+import { WorkOrderService } from '../../../services/workOrder-service/work-order.service';
 
 interface QuoteInterface {
   item: string;
@@ -17,38 +17,39 @@ class QuoteModel {
 }
 
 @Component({
-  selector: "app-create-workorder",
-  templateUrl: "./create-workorder.component.html",
-  styleUrls: ["./create-workorder.component.less"],
+  selector: 'app-create-workorder',
+  templateUrl: './create-workorder.component.html',
+  styleUrls: ['./create-workorder.component.less'],
 })
 export class CreateWorkorderComponent implements OnInit {
   isOpenParts = false;
 
-  inputValue: "";
+  inputValue: '';
 
-  date: "";
+  date: '';
 
   totalAmount = 0;
 
+  brandOptionList = [];
+
+  modelOptionList = [];
+
+  brandTagOptions = [];
+
+  modelTagOptions = [];
+
   model = {
-    vehicleNo: "",
-    vehicleModel: "",
-    partsList: "",
-    description: "",
-    qtyRequested: "",
-    serviceType: "",
-    technicianName: "",
-    userName: "",
+    vehicleNo: '',
+    vehicleModel: '',
+    partsList: '',
+    description: '',
+    qtyRequested: '',
+    serviceType: '',
+    technicianName: '',
+    brand: '',
   };
 
-  listOfData = [
-    QuoteModel.create({
-      item: "",
-      description: "",
-      quantity: 0,
-      unitPrice: 0,
-    }),
-  ];
+  listOfData = [];
 
   listOfModels: Array<{ Model: string; PartsID: string }> = [];
 
@@ -59,8 +60,17 @@ export class CreateWorkorderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.workOrderService.getAllmodelsList().subscribe((data: any[]) => {
-      this.listOfModels = data;
+    this.workOrderService.getAllRequestedList().subscribe((data: any[]) => {
+      data.forEach(item => {
+        const isBrandExists = this.brandOptionList.find(bItem => bItem.value === item.Brand);
+        const isModelExists = this.modelOptionList.find(mItem => mItem.value === item.Model);
+        if (item.Brand && item.Brand !== '' && !isBrandExists) {
+          this.brandOptionList.push({ label: item.Brand, value: item.Brand });
+        }
+        if (item.Model && item.Model !== '' && !isModelExists) {
+          this.modelOptionList.push({ label: item.Model, value: item.Model });
+        }
+      });
     });
   }
 
@@ -76,7 +86,8 @@ export class CreateWorkorderComponent implements OnInit {
 
   handlePartsSelection(parts): void {
     const partsList = parts.map((item) => ({
-      item: item.PartsID,
+      partId: item.PartsID,
+      itemNumber: item.ItemNumber,
       description: item.Description,
       unitPrice: item.SellingPrice,
       quantity: 1,
@@ -86,17 +97,27 @@ export class CreateWorkorderComponent implements OnInit {
     this.isOpenParts = false;
   }
 
+  handleBrandChange(val) {
+    this.brandTagOptions = val.length > 0 ? [val[val.length - 1]] : [];
+  }
+
+  handleModelChange(val) {
+    this.modelTagOptions = val.length > 0 ? [val[val.length - 1]] : [];
+  }
+
   removeLine(idx): void {
     this.listOfData.splice(idx, 1);
   }
 
   savePartsRequestForm(): void {
-    this.model.partsList = this.listOfData.map((item) => item.item).join(",");
+    this.model.partsList = this.listOfData.map((item) => item.partId).join(',');
     this.model.qtyRequested = this.listOfData
       .map((item) => item.quantity)
-      .join(",");
+      .join(',');
+    this.model.brand = this.brandTagOptions[0];
+    this.model.vehicleModel = this.modelTagOptions[0];
     this.quotesService.savePartsRequestForm(this.model).subscribe((res: any) => {
-      this.router.navigate(["/work-order-list/confirmation-page"], { queryParams: { workOrderId: res.insertId } });
+      this.router.navigate(['/work-order-list/confirmation-page'], { queryParams: { workOrderId: res.insertId } });
     });
   }
 }

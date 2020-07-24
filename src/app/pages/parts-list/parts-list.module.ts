@@ -8,16 +8,17 @@ import { FormsModule } from "@angular/forms";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-
 import { SharedModule } from "../../shared/shared.module";
 import { EditProductsComponent } from "./edit-products/edit-products.component";
 import { DxDataGridModule, DxTemplateModule } from "devextreme-angular";
+import { ViewPartsComponent } from './view-parts/view-parts.component';
 
 @NgModule({
   declarations: [
     PartsListComponent,
     AddNewPartsComponent,
     EditProductsComponent,
+    ViewPartsComponent,
   ],
   imports: [
     NzFormModule,
@@ -33,4 +34,4 @@ import { DxDataGridModule, DxTemplateModule } from "devextreme-angular";
   ],
   exports: [PartsListComponent],
 })
-export class PartsListModule {}
+export class PartsListModule { }

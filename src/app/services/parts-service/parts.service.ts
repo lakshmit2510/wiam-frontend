@@ -6,7 +6,7 @@ import { environment } from "../../../environments/environment";
   providedIn: "root",
 })
 export class PartsService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   public getAllParts(options?) {
     const cat = options.category ? options.category : "";

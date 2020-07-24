@@ -13,23 +13,41 @@
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
-    <nz-table #colSpanTable nzData="listOfData" nzBordered>
-        <thead>
-          <tr>
-            <th>S.No</th>
-            <th>Purchase Order No.</th>
-            <th>Requested Item No.</th>
-            <th>Requested QTY</th>
-            <th>Unit Price</th>
-            <th>Vendor Name</th>
-            <th>Created Date</th>
-            <th>Estimated Date Of Delivery</th>
-            <th>Received Date</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
+    <nz-table #colSpanTable nzData="purchaseOrdersList" nzBordered>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Purchase Order No.</th>
+          <th>Requested Item No.</th>
+          <th>Requested QTY</th>
+          <th>Unit Price</th>
+          <th>Vendor Name</th>
+          <th>Created Date</th>
+          <th>Estimated Date Of Delivery</th>
+          <th>Received Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of purchaseOrdersList let i=index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ data. PurchaseOrderNumber}}</td>
+          <td>{{ data. PartsNo}}</td>
+          <td>{{ data. RequestedQTY}}</td>
+          <td>{{ data.UnitPrice }}</td>
+          <td>{{ data.SupplierName }}</td>
+          <td>{{ data.CreatedOn }}</td>
+          <td>{{ data.EstimatedDateOfDelivery }}</td>
+          <td>{{ data.ReceivedDate }}</td>
+          <td>{{ data.Status }}</td>
+          <td>
+            <!-- <a>Edit</a>
+            <nz-divider nzType="vertical"></nz-divider> -->
+            <a (click)="deletePurchaseorder(data.PurchaseOrderID)">Delete</a>
+          </td>
+        </tr>
+      </tbody>
     </nz-table>
   </nz-page-header-content>
 </div>

@@ -23,7 +23,6 @@
     <nz-page-header-content>
       <dx-data-grid *ngIf="!loadingData" [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true"
         [showBorders]="true" [rowAlternationEnabled]="true" style="max-height: calc(100vh - 200px);">
-        <dxo-selection mode="single"></dxo-selection>
         <dxo-paging [pageSize]="10"></dxo-paging>
         <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
         </dxo-pager>
@@ -32,65 +31,20 @@
           [width]="80"></dxi-column>
         <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"
           [width]="item.width"></dxi-column>
-        <!-- <dxi-column caption="Status" cellTemplate="statusTemplate"></dxi-column> -->
         <dxi-column caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
-          [width]="100"></dxi-column>
+          [width]="150"></dxi-column>
         <div *dxTemplate="let d of 'actionTemplate'">
           <a (click)="handleEdit(d.data.PartsID)">Edit</a>
-          <!-- <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
-          <button nz-button nzType="primary" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
-            [disabled]="d.data.Status !== 'Not Delivered'">
-            Cancel
-          </button> -->
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="viewPart(d.data.PartsID)">View</a>
         </div>
         <div *dxTemplate="let d of 'imageTemplate'">
           <nz-avatar nzIcon="file-image" [nzShape]="'circle'" [nzSize]="'large'" [nzSrc]="getImage(d.data.Images)">
           </nz-avatar>
         </div>
-        <!-- <div *dxTemplate="let d of 'statusTemplate'">
-          <nz-alert nzType="error" [nzMessage]="data.value"></nz-alert>
-          <span [ngClass]="getStatus(d.data.Status)">{{ d.data.Status }}</span>
-        </div> -->
       </dx-data-grid>
-
-      <!-- <nz-table #basicTable [nzData]="partsList" nzBordered id="parts-list-table">
-        <thead (nzSortChange)="sortData($event)" nzSingleSort>
-          <tr>
-            <th nzSortKey="PartsName" nzShowSort>Product Name</th>
-            <th nzSortKey="ItemNumber" nzShowSort>Product part No.</th>
-            <th nzSortKey="SKUNo" nzShowSort>Location</th>
-            <th>Description</th>
-            <th>Product Category</th>
-            <th>Quantity In Hand</th>
-            <th>Product Manufacturing Date</th>
-            <th>Product Expiry Date</th>
-            <th>Vendor Name</th>
-            <th>Product Cost Price </th>
-            <th>Product Selling Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let parts of basicTable.data">
-            <td>{{ parts.PartsName }}</td>
-            <td>{{ parts.ItemNumber }}</td>
-            <td>{{ parts.SKUNo }}</td>
-            <td>{{ parts.Description }}</td>
-            <td>{{ parts.Category }}</td>
-            <td style="color: blue;">{{ parts.QTYInHand }}</td>
-            <td>{{ parts.ManufacturingDate }}</td>
-            <td>{{ parts.ExpiryDate }}</td>
-            <td>{{ parts.VendorName }}</td>
-            <td>{{ parts.CostPrice }}</td>
-            <td>{{ parts.SellingPrice }}</td>
-            <td>
-              <a (click)="handleEdit(parts)">Edit</a>
-              <nz-divider nzType="vertical"></nz-divider>
-              <a>Delete</a>
-            </td>
-          </tr>
-        </tbody>
-      </nz-table> -->
     </nz-page-header-content>
   </div>
 </app-scanner-detection>
+
+<app-view-parts *ngIf="isVisible" [isVisible]="isVisible" [partID]="viewPartID"></app-view-parts>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SuppliersService} from '../../services/suppliers-service/suppliers.service';
+import { SuppliersService } from '../../services/suppliers-service/suppliers.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-suppliers-list',
@@ -8,15 +9,35 @@ import {SuppliersService} from '../../services/suppliers-service/suppliers.servi
 })
 export class SuppliersListComponent implements OnInit {
 
-  suppliersList: any [];
+  suppliersList: any[];
   dataTable: any;
-  constructor(private suppliersService: SuppliersService) { }
+  loadingData = false;
+
+  constructor(private suppliersService: SuppliersService, private modal: NzModalService) { }
 
   ngOnInit() {
+    this.getSuppliersList();
+  }
+
+  getSuppliersList() {
+    this.loadingData = true;
     this.suppliersService.getAllSuppliers().subscribe((data: any[]) => {
       this.suppliersList = data;
-      // const table: any = $('#suppliers-list-table');
-      // this.dataTable = table.DataTable();
+      this.loadingData = false;
+    });
+  }
+
+  deleteSupplier(id: number): void {
+    this.modal.confirm({
+      nzTitle: 'Are you sure to delete supplier details?',
+      nzOkText: 'Yes',
+      nzOkType: 'danger',
+      nzOnOk: () =>
+        this.suppliersService.deleteSupplierbyId(id).subscribe((res) => {
+          this.getSuppliersList();
+        }),
+      nzCancelText: 'No',
+      nzOnCancel: () => console.log('Cancel'),
     });
   }
 

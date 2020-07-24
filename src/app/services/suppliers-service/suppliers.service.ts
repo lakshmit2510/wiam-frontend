@@ -16,4 +16,8 @@ export class SuppliersService {
   addNewSupplier(data) {
     return this.httpClient.post(`${environment.apiUrl}/Suppliers/addNewSupplier`, data);
   }
+
+  deleteSupplierbyId(id) {
+    return this.httpClient.put(`${environment.apiUrl}/Suppliers/deleteSupplierById/${id}`, {});
+  }
 }
