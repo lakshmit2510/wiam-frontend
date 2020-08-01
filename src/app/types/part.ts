@@ -3,6 +3,7 @@ export interface PartInterface {
   partDescription?: string;
   partNumber?: string;
   quantityInHand?: string;
+  units?: string;
   manufaturingDate?: string;
   expiryDate?: string;
   productCategory?: string;
@@ -27,6 +28,7 @@ export class PartModel {
       partDescription: res.Description,
       partNumber: res.ItemNumber,
       quantityInHand: res.QTYInHand,
+      units: res.Units,
       manufaturingDate: res.ManufacturingDate,
       expiryDate: res.ExpiryDate,
       productCategory: res.Category,

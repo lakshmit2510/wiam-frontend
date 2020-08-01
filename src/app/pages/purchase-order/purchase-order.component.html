@@ -42,8 +42,8 @@
           <td>{{ data.ReceivedDate }}</td>
           <td>{{ data.Status }}</td>
           <td>
-            <!-- <a>Edit</a>
-            <nz-divider nzType="vertical"></nz-divider> -->
+            <a (click)="updatePurchaseorder(data.PurchaseOrderID)">Update</a>
+            <nz-divider nzType="vertical"></nz-divider>
             <a (click)="deletePurchaseorder(data.PurchaseOrderID)">Delete</a>
           </td>
         </tr>

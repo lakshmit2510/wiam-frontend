@@ -10,54 +10,75 @@
         <div class="purchase-order-content">
           <div nz-row>
             <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <mat-form-field>
-                <mat-label>Parts Name</mat-label>
-                <input matInput name="PartsName" placeholder="Name" [(ngModel)]="model.partsName">
-              </mat-form-field>
+              <nz-form-item>
+                <nz-form-label>Parts Number</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Please select Parts Number" name="partsId"
+                    [ngModel]="model.partsNo">
+                    <nz-option *ngFor="let option of partsList" [nzLabel]="option.ItemNumber"
+                      [nzValue]="option.PartsID">
+                    </nz-option>
+                  </nz-select>
+                </nz-form-control>
+                <!-- <input nz-input name="PartsNumber" placeholder="number" [(ngModel)]="model.partsNo"> -->
+              </nz-form-item>
             </div>
             <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <mat-form-field>
-                <mat-label>Parts Number</mat-label>
-                <input matInput name="PartsNumber" placeholder="number" [(ngModel)]="model.partsNo">
-              </mat-form-field>
-            </div>
-          </div>
-          <div nz-row>
-            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <mat-form-field>
-                <mat-label>Unit Price</mat-label>
-                <input matInput name="UnitPrice" placeholder="Unitprice" [(ngModel)]="model.unitPrice">
-              </mat-form-field>
-            </div>
-            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <mat-form-field>
-                <mat-label>Quantity to Buy </mat-label>
-                <input matInput name="QuantitytoBuy" placeholder="Quantity" [(ngModel)]="model.QTYToBuy">
-              </mat-form-field>
+              <nz-form-item>
+                <nz-form-label>Parts Name</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input name="PartsName" placeholder="Name" [(ngModel)]="model.partsName">
+                </nz-form-control>
+              </nz-form-item>
             </div>
           </div>
           <div nz-row>
             <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <mat-form-field>
-                <mat-label>Purchase Order Number</mat-label>
-                <input matInput name="ShipToLocation" placeholder="Please Enter Purchase Order Number"
-                  [(ngModel)]="model.purchaseOrderNumber">
-              </mat-form-field>
+              <nz-form-item>
+                <nz-form-label>Unit Price</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input name="UnitPrice" placeholder="Unitprice" [(ngModel)]="model.unitPrice">
+                </nz-form-control>
+              </nz-form-item>
             </div>
             <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <mat-form-field>
-                <mat-label>Vendor Name</mat-label>
-                <input matInput name="VendorName" placeholder="Supplier Name" [(ngModel)]="model.vendorName">
-              </mat-form-field>
+              <nz-form-item>
+                <nz-form-label>Quantity to Buy </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input type="number" name="QuantitytoBuy" placeholder="Quantity"
+                    [(ngModel)]="model.QTYToBuy">
+                </nz-form-control>
+              </nz-form-item>
             </div>
           </div>
           <div nz-row>
             <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <mat-form-field>
-                <mat-label>Estimated Date of Delivery</mat-label>
-                <input matInput type="date" name="estimatedDataOfDelivery" placeholder="Estimated Date of Delivery"
-                  [(ngModel)]="model.estimatedDateOfDelivery">
-              </mat-form-field>
+              <nz-form-item>
+                <nz-form-label>Purchase Order Number</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input name="ShipToLocation" placeholder="Please Enter Purchase Order Number"
+                    [(ngModel)]="model.purchaseOrderNumber">
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <nz-form-item>
+                <nz-form-label>Vendor Name</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input name="VendorName" placeholder="Supplier Name" [(ngModel)]="model.vendorName">
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <div nz-row>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <nz-form-item>
+                <nz-form-label>Estimated Date of Delivery</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input type="date" name="estimatedDataOfDelivery" placeholder="Estimated Date of Delivery"
+                    [(ngModel)]="model.estimatedDateOfDelivery">
+                </nz-form-control>
+              </nz-form-item>
             </div>
           </div>
         </div>

@@ -94,7 +94,7 @@
                   <td>{{ data.itemNumber }}</td>
                   <td>{{ data.description }}</td>
                   <td>
-                    <nz-input-number [(ngModel)]="data.quantity" [nzStep]="1" [nzMin]="1">
+                    <nz-input-number [(ngModel)]="data.quantity" [nzStep]="1" [nzMin]="1" [nzMax]="data.quantityInHand">
                     </nz-input-number>
                   </td>
                   <td>
@@ -125,7 +125,8 @@
               </div>
             </ng-template>
             <app-parts-selection *ngIf="isOpenParts" [isVisible]="isOpenParts" (cancelModal)="closePartsModal()"
-              (addItem)="handlePartsSelection($event)" [selectedModel]="model.vehicleModel">
+              (addItem)="handlePartsSelection($event)" [selectedModel]="model.vehicleModel"
+              [selectedRows]="selectedRows">
             </app-parts-selection>
           </div>
         </nz-tab>

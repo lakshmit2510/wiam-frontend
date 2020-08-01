@@ -28,17 +28,17 @@
         [width]="250"></dxi-column>
       <div *dxTemplate="let d of 'actionTemplate'">
         <button *ngIf="userInfo.role === 'Admin'" nz-button nzType="primary" nzSize="small"
-          (click)="showConfirm(d.data.RequestId)" [disabled]="d.data.Status === 'Not Delivered'">
+          (click)="showConfirm(d.data.RequestId)" [disabled]="d.data.Status !== 'Not Delivered'">
           Delivery
         </button>
         <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
         <button nz-button nzType="danger" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
-          [disabled]="d.data.Status === 'Not Delivered'">
+          [disabled]="d.data.Status === 'Delivered'">
           Cancel
         </button>
         <!-- <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button nzType="primary" nzSize="small" (click)="printForm(d.data.RequestId)">
-          Print
+        <button nz-button nzType="primary" nzSize="small" (click)="viewForm(d.data.RequestId)">
+          View
         </button> -->
       </div>
       <div *dxTemplate="let d of 'statusTemplate'">
@@ -58,3 +58,7 @@
     </dx-data-grid>
   </nz-page-header-content>
 </div>
+
+<!-- <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+
+</nz-modal> -->

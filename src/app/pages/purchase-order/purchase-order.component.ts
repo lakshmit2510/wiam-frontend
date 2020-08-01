@@ -39,4 +39,18 @@ export class PurchaseOrderComponent implements OnInit {
       nzOnCancel: () => console.log('Cancel'),
     });
   }
+
+  updatePurchaseorder(id: number): void {
+    this.modal.confirm({
+      nzTitle: 'Update Purchase Order Details',
+      nzContent: '<b>Purchase Order Received Date and Status updated successfully </b>',
+      nzOkText: 'Yes',
+      nzOnOk: () =>
+        this.purchaseOrderService.updatePurchaseOrderbyId(id).subscribe((res) => {
+          this.getPurchaseordersList();
+        }),
+      nzCancelText: 'No',
+      nzOnCancel: () => console.log('Cancel'),
+    });
+  }
 }

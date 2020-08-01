@@ -21,6 +21,8 @@ export class PartsSelectionComponent implements OnInit {
 
   @Input() selectedModel = null;
 
+  @Input() selectedRows = [];
+
   @Output() cancelModal: EventEmitter<any> = new EventEmitter();
 
   @Output() addItem: EventEmitter<any> = new EventEmitter();
@@ -44,7 +46,7 @@ export class PartsSelectionComponent implements OnInit {
       width: '150px',
     },
     // { key: 'VendorName', name: 'Vendor Name' },
-    { key: 'SellingPrice', name: 'UnitPrice', width: '70px' },
+    { key: 'SellingPrice', name: 'UnitPrice', width: '100px' },
   ];
 
   constructor(private partsService: PartsService) { }
@@ -102,5 +104,17 @@ export class PartsSelectionComponent implements OnInit {
     // });
 
     this.addItem.emit(selectedIdList);
+  }
+
+  onCellPrepared(e: any) {
+    if (e.rowType === 'data' && e.column.command === 'select') {
+      const QTYInHand = parseInt(e.data.QTYInHand, 10);
+      if (!QTYInHand || QTYInHand === 0) {
+        const instance = e.cellElement.querySelector('.dx-select-checkbox .dx-checkbox-container');
+        instance.style.display = 'none';
+        // e.cellElement.off();
+      }
+
+    }
   }
 }

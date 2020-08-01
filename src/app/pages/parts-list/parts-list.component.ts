@@ -22,7 +22,7 @@ export class PartsListComponent implements OnInit, OnDestroy {
   viewPartID = null;
   requestListColumns = [
     { key: 'PartsName', name: 'Product Name', width: '200px' },
-    { key: 'ItemNumber', name: 'Product part No.', width: '150px' },
+    { key: 'ItemNumber', name: 'Part No.', width: '150px' },
     { key: 'SKUNo', name: 'Location', width: '100px' },
     { key: 'Description', name: 'Description', width: '200px' },
     { key: 'Category', name: 'Product Category', width: '150px' },
@@ -31,6 +31,7 @@ export class PartsListComponent implements OnInit, OnDestroy {
       name: 'Quantity',
       width: '100px',
     },
+    { key: 'Units', name: 'Units', width: '80px' },
     { key: 'Model', name: 'Model', width: '200px' },
     // { key: 'ManufacturingDate', name: 'Product Manufacturing Date',width: '200px' },
     // { key: 'ExpiryDate', name: 'Product Expiry Date', width: '100px' },
@@ -77,6 +78,10 @@ export class PartsListComponent implements OnInit, OnDestroy {
     this.viewPartID = PartsID;
     this.isVisible = true;
 
+  }
+
+  handleVisibleChange(val) {
+    this.isVisible = val;
   }
 
   sortData(sort: { key: string; value: string }) {

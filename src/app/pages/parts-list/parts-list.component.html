@@ -47,4 +47,5 @@
   </div>
 </app-scanner-detection>
 
-<app-view-parts *ngIf="isVisible" [isVisible]="isVisible" [partID]="viewPartID"></app-view-parts>
+<app-view-parts *ngIf="isVisible" [isVisible]="isVisible" [partID]="viewPartID"
+  (visibleChange)="handleVisibleChange($event)"></app-view-parts>

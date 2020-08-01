@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PartsService } from '../../../services/parts-service/parts.service';
 @Component({
   selector: 'app-view-parts',
@@ -9,6 +9,9 @@ export class ViewPartsComponent implements OnInit {
 
   @Input() isVisible = false;
   @Input() partID = null;
+
+  @Output() visibleChange = new EventEmitter();
+
   partData: any = {};
   gridStyle = {
     width: '250px',
@@ -22,14 +25,10 @@ export class ViewPartsComponent implements OnInit {
       this.partData = data[0];
     });
   }
+
   handleOk(): void {
     console.log('Button ok clicked!');
-    this.isVisible = false;
-  }
-
-  handleCancel(): void {
-    console.log('Button cancel clicked!');
-    this.isVisible = false;
+    this.visibleChange.emit(false);
   }
 
 }

@@ -21,6 +21,8 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   partsList: any = [];
   loadingData = false;
 
+  isVisible = false;
+
   userInfo: any = {};
 
   qrReader = new QrCode();
@@ -28,25 +30,25 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   partsRequested: any = {};
 
   requestListColumns = [
-    { key: "RequestFormNo", name: "Parts Request Form No", width: "150px" },
-    { key: "VehicleNo", name: "Vehicle No", width: "100px" },
-    { key: "Brand", name: "Brand", width: "100px" },
-    { key: "Model", name: "Model", width: "150px" },
+    { key: 'RequestFormNo', name: 'Parts Request Form No', width: '150px' },
+    { key: 'VehicleNo', name: 'Vehicle No', width: '100px' },
+    { key: 'Brand', name: 'Brand', width: '100px' },
+    { key: 'Model', name: 'Model', width: '150px' },
     {
-      key: "PartsRequestedDate",
-      name: "Parts Requested Date",
-      width: "150px",
+      key: 'PartsRequestedDate',
+      name: 'Parts Requested Date',
+      width: '150px',
     },
-    { key: "PartsIssueDate", name: "Parts Issue Date", width: "150px" },
-    { key: "TechnicianName", name: "Technician Name", width: "100px" },
-    { key: "FirstName", name: "Created By", width: "100px" },
+    { key: 'PartsIssueDate', name: 'Parts Issue Date', width: '150px' },
+    { key: 'TechnicianName', name: 'Technician Name', width: '150px' },
+    { key: 'FirstName', name: 'Created By', width: '100px' },
   ];
 
   constructor(
     private workOrderService: WorkOrderService,
     private modal: NzModalService,
     private authenticationService: AuthenticationService,
-    private partsService: PartsService
+    private partsService: PartsService,
   ) { }
 
   ngOnInit() {
@@ -114,7 +116,17 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     });
   }
 
-  printForm() {
+  viewForm(): void {
+    this.isVisible = true;
+  }
 
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
   }
 }

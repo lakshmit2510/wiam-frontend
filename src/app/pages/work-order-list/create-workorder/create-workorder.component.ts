@@ -30,6 +30,8 @@ export class CreateWorkorderComponent implements OnInit {
 
   totalAmount = 0;
 
+  selectedRows = [];
+
   brandOptionList = [];
 
   modelOptionList = [];
@@ -85,14 +87,20 @@ export class CreateWorkorderComponent implements OnInit {
   }
 
   handlePartsSelection(parts): void {
-    const partsList = parts.map((item) => ({
-      partId: item.PartsID,
-      itemNumber: item.ItemNumber,
-      description: item.Description,
-      unitPrice: item.SellingPrice,
-      quantity: 1,
-    }));
+    const partsList = parts.map((item) => {
+      if (item.QTYInHand && parseInt(item.QTYInHand, 10) > 0) {
+        return {
+          partId: item.PartsID,
+          itemNumber: item.ItemNumber,
+          description: item.Description,
+          unitPrice: item.SellingPrice,
+          quantity: 1,
+          quantityInHand: item.QTYInHand
+        };
+      }
+    }).filter(item => item);
     this.listOfData = [...partsList];
+    this.selectedRows = partsList.map(item => item.partId);
 
     this.isOpenParts = false;
   }

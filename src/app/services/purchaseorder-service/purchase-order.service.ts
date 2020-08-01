@@ -20,4 +20,8 @@ export class PurchaseOrderService {
   deletePurchaseOrderbyId(id) {
     return this.httpClient.put(`${environment.apiUrl}/PurchaseOrders/deletePurchaseorderById/${id}`, {});
   }
+
+  updatePurchaseOrderbyId(id) {
+    return this.httpClient.put(`${environment.apiUrl}/PurchaseOrders/updatePurchaseordersById/${id}`, {});
+  }
 }
