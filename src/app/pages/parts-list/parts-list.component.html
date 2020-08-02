@@ -1,51 +1,84 @@
 <app-scanner-detection (scan)="handleScan($event)">
-  <div>
-    <nz-page-header [nzGhost]="false">
-      <nz-page-header-title>
-        <!-- <div style="display: flex;">
+    <div>
+        <nz-page-header [nzGhost]="false">
+            <nz-page-header-title>
+                <!-- <div style="display: flex;">
           <h6 style="margin-right: 10px;">Total Parts:</h6>
           <nz-badge [nzCount]="25"></nz-badge>
         </div> -->
-      </nz-page-header-title>
-      <nz-page-header-extra>
-        <a routerLink="/parts-list/add-new-parts">
-          <button nz-button nzType="secon" nzSize="large">
-            <i nz-icon nzType="file-add" nzTheme="outline"></i> New
-          </button>
-        </a>
-        <!-- <a routerLink="">
+            </nz-page-header-title>
+            <nz-page-header-extra>
+                <a routerLink="/parts-list/add-new-parts">
+                    <button nz-button nzType="secon" nzSize="large">
+                        <i nz-icon nzType="file-add" nzTheme="outline"></i> New
+                    </button>
+                </a>
+                <!-- <a routerLink="">
           <button nz-button nzType="secon" nzSize="large">
             <i nz-icon nzType="printer" nzTheme="outline"></i> Print
           </button>
         </a> -->
-      </nz-page-header-extra>
-    </nz-page-header>
-    <nz-page-header-content>
-      <dx-data-grid *ngIf="!loadingData" [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true"
-        [showBorders]="true" [rowAlternationEnabled]="true" style="max-height: calc(100vh - 200px);">
-        <dxo-paging [pageSize]="10"></dxo-paging>
-        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
-        </dxo-pager>
-        <dxo-search-panel [visible]="true"></dxo-search-panel>
-        <dxi-column caption="Picture" [allowFiltering]="false" [allowSorting]="false" cellTemplate="imageTemplate"
-          [width]="80"></dxi-column>
-        <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"
-          [width]="item.width"></dxi-column>
-        <dxi-column caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
-          [width]="150"></dxi-column>
-        <div *dxTemplate="let d of 'actionTemplate'">
-          <a (click)="handleEdit(d.data.PartsID)">Edit</a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <a (click)="viewPart(d.data.PartsID)">View</a>
-        </div>
-        <div *dxTemplate="let d of 'imageTemplate'">
-          <nz-avatar nzIcon="file-image" [nzShape]="'circle'" [nzSize]="'large'" [nzSrc]="getImage(d.data.Images)">
-          </nz-avatar>
-        </div>
-      </dx-data-grid>
-    </nz-page-header-content>
-  </div>
+            </nz-page-header-extra>
+        </nz-page-header>
+        <nz-page-header-content>
+            <dx-data-grid
+                *ngIf="!loadingData"
+                [dataSource]="partsList"
+                [showColumnLines]="true"
+                [showRowLines]="true"
+                [showBorders]="true"
+                [rowAlternationEnabled]="true"
+                style="max-height: calc(100vh - 210px); width: 100%;"
+                (onExporting)="onExporting($event)"
+                (onToolbarPreparing)="onToolbarPreparing($event)"
+            >
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                </dxo-pager>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxi-column
+                    caption="Picture"
+                    [allowFiltering]="false"
+                    [allowSorting]="false"
+                    cellTemplate="imageTemplate"
+                    [width]="80"
+                ></dxi-column>
+                <dxi-column
+                    *ngFor="let item of requestListColumns"
+                    [dataField]="item.key"
+                    [caption]="item.name"
+                    [width]="item.width"
+                ></dxi-column>
+                <dxi-column
+                    caption="Action"
+                    [allowFiltering]="false"
+                    [allowSorting]="false"
+                    cellTemplate="actionTemplate"
+                    [width]="100"
+                ></dxi-column>
+                <div *dxTemplate="let d of 'actionTemplate'">
+                    <a (click)="handleEdit(d.data.PartsID)">Edit</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a (click)="viewPart(d.data.PartsID)">View</a>
+                </div>
+                <div *dxTemplate="let d of 'imageTemplate'">
+                    <nz-avatar
+                        nzIcon="file-image"
+                        [nzShape]="'circle'"
+                        [nzSize]="'large'"
+                        [nzSrc]="getImage(d.data.Images)"
+                    >
+                    </nz-avatar>
+                </div>
+                <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export>
+            </dx-data-grid>
+        </nz-page-header-content>
+    </div>
 </app-scanner-detection>
 
-<app-view-parts *ngIf="isVisible" [isVisible]="isVisible" [partID]="viewPartID"
-  (visibleChange)="handleVisibleChange($event)"></app-view-parts>
+<app-view-parts
+    *ngIf="isVisible"
+    [isVisible]="isVisible"
+    [partID]="viewPartID"
+    (visibleChange)="handleVisibleChange($event)"
+></app-view-parts>

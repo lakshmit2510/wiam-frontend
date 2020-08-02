@@ -1,0 +1,62 @@
+<div style="width: 100%;">
+    <div class="action-wrapper">
+        <a
+            class="print-btn"
+            nz-button
+            nzType="primary"
+            target="_blank"
+            [routerLink]="['/print']"
+            [queryParams]="{ type: 'work-order', requestId: requestId }"
+            >Print</a
+        >
+        <!-- <button nz-button nzType="primary"><i nz-icon nzType="download"></i>Download</button> -->
+    </div>
+
+    <div id="requestPrint" style="width: 100%;">
+        <div nz-row>
+            <div nz-col class="gutter-row" [nzSpan]="20">
+                <h3>
+                    Your Parts Request Form No:
+                    <span style="font-weight: 400;">{{ orderDetails['RequestFormNo'] }}</span>
+                </h3>
+                <h4 style="margin-top: 20px;">
+                    Vehicle Number: <span style="font-weight: 400;">{{ orderDetails['VehicleNo'] }}</span>
+                </h4>
+                <h5 style="margin-top: 20px;">
+                    Brand: <span style="font-weight: 400;">{{ orderDetails['Brand'] }}</span>
+                </h5>
+                <h5 style="margin-top: 20px;">
+                    Model: <span style="font-weight: 400;">{{ orderDetails['Model'] }}</span>
+                </h5>
+                <h5 style="margin-top: 20px;">
+                    Service Type: <span style="font-weight: 400;">{{ orderDetails['ServiceType'] }}</span>
+                </h5>
+                <h5 style="margin-top: 20px;">
+                    Technician Name: <span style="font-weight: 400;">{{ orderDetails['TechnicianName'] }}</span>
+                </h5>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <qrcode *ngIf="orderDetails.RequestFormNo" [level]="1" [qrvalue]="orderDetails.RequestFormNo"></qrcode>
+            </div>
+        </div>
+
+        <nz-table #basicTable [nzData]="partsList" nzBordered>
+            <thead>
+                <tr>
+                    <!-- <th>Part Number</th> -->
+                    <th>Item Number</th>
+                    <th>QTY Requested</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of partsList">
+                    <!-- <td>{{product['PartsID']}}</td> -->
+                    <td>{{ product['ItemNumber'] }}</td>
+                    <td>{{ partsRequested[product['PartsID']] }}</td>
+                    <td>{{ product['Description'] }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

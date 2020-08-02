@@ -1,64 +1,151 @@
 <div>
-  <nz-page-header [nzGhost]="false">
-    <nz-page-header-title> Parts Request List</nz-page-header-title>
-    <nz-page-header-extra>
-      <a routerLink="create-workorder">
-        <button nz-button class="button-styles" nzType="secon" nzSize="large">
-          <i nz-icon nzType="file-add" nzTheme="outline"></i> New Request Form
-        </button>
-      </a>
-      <!-- <a routerLink="">
-        <button nz-button class="button-styles" nzType="secon" nzSize="large">
-          <i nz-icon nzType="printer" nzTheme="outline"></i> Print
-        </button>
-      </a> -->
-    </nz-page-header-extra>
-  </nz-page-header>
-  <nz-page-header-content>
-    <dx-data-grid *ngIf="!loadingData" [dataSource]="workOrderList" [showColumnLines]="true" [showRowLines]="true"
-      [showBorders]="true" [rowAlternationEnabled]="true" style="max-height: calc(100vh - 200px);"
-      [masterDetail]="{ enabled: true, template: 'partsListTemplate' }" (onRowExpanding)="onRowExpanding($event)">
-      <dxo-paging [pageSize]="10"></dxo-paging>
-      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true"> </dxo-pager>
-      <dxo-search-panel [visible]="true"></dxo-search-panel>
-      <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"
-        [width]="item.width"></dxi-column>
-      <dxi-column caption="Status" cellTemplate="statusTemplate" [width]="100"></dxi-column>
-      <dxi-column caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
-        [width]="250"></dxi-column>
-      <div *dxTemplate="let d of 'actionTemplate'">
-        <button *ngIf="userInfo.role === 'Admin'" nz-button nzType="primary" nzSize="small"
-          (click)="showConfirm(d.data.RequestId)" [disabled]="d.data.Status !== 'Not Delivered'">
-          Delivery
-        </button>
-        <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
-        <button nz-button nzType="danger" nzSize="small" (click)="showDeleteConfirm(d.data.RequestId)"
-          [disabled]="d.data.Status === 'Delivered'">
-          Cancel
-        </button>
-        <!-- <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button nzType="primary" nzSize="small" (click)="viewForm(d.data.RequestId)">
-          View
-        </button> -->
-      </div>
-      <div *dxTemplate="let d of 'statusTemplate'">
-        <span [ngClass]="getStatus(d.data.Status)">{{ d.data.Status }}</span>
-      </div>
-      <div *dxTemplate="let part of 'partsListTemplate'">
-        <dx-data-grid [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
-          [columnAutoWidth]="true">
-          <dxi-column dataField="PartsName" caption="Parts Name"></dxi-column>
-          <dxi-column dataField="ItemNumber" caption="Item Number"></dxi-column>
-          <dxi-column caption="QTY Requested" cellTemplate="qtyRequestedTemplate"></dxi-column>
-          <div *dxTemplate="let d of 'qtyRequestedTemplate'">
-            {{ partsRequested[d.data.PartsID] }}
-          </div>
+    <nz-page-header [nzGhost]="false">
+        <nz-page-header-title> Parts Request List</nz-page-header-title>
+        <nz-page-header-extra>
+            <a routerLink="create-workorder">
+                <button nz-button class="button-styles" nzType="secon" nzSize="large">
+                    <i nz-icon nzType="file-add" nzTheme="outline"></i> New Request Form
+                </button>
+            </a>
+            <!-- <button
+                nz-dropdown
+                nzTrigger="click"
+                [nzDropdownMenu]="menu"
+                nz-button
+                nzType="primary"
+                nzSize="large"
+                nzType="secon"
+            >
+                <i nz-icon nzType="download"></i>
+                Download
+                <i nz-icon nzType="down"></i>
+            </button> -->
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item>CSV</li>
+                    <li nz-menu-item>PDF</li>
+                </ul>
+            </nz-dropdown-menu>
+        </nz-page-header-extra>
+    </nz-page-header>
+    <nz-page-header-content>
+        <dx-data-grid
+            *ngIf="!loadingData"
+            [dataSource]="workOrderList"
+            [showColumnLines]="true"
+            [showRowLines]="true"
+            [showBorders]="true"
+            [rowAlternationEnabled]="true"
+            style="max-height: calc(100vh - 200px); width: 100%;"
+            [masterDetail]="{ enabled: true, template: 'partsListTemplate' }"
+            (onRowExpanding)="onRowExpanding($event)"
+            (onExporting)="onExporting($event)"
+            (onToolbarPreparing)="onToolbarPreparing($event)"
+        >
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true"> </dxo-pager>
+            <dxo-search-panel [visible]="true"></dxo-search-panel>
+            <dxi-column
+                *ngFor="let item of requestListColumns"
+                [dataField]="item.key"
+                [caption]="item.name"
+                [width]="item.width"
+            ></dxi-column>
+            <dxi-column caption="Status" cellTemplate="statusTemplate" [width]="100"></dxi-column>
+            <dxi-column
+                caption="Action"
+                [allowFiltering]="false"
+                [allowSorting]="false"
+                cellTemplate="actionTemplate"
+                [width]="200"
+            ></dxi-column>
+            <div *dxTemplate="let d of 'actionTemplate'">
+                <button
+                    *ngIf="userInfo.role === 'Admin'"
+                    nz-button
+                    nzType="primary"
+                    nzSize="small"
+                    (click)="showConfirm(d.data.RequestId)"
+                    [disabled]="d.data.Status !== 'Not Delivered'"
+                >
+                    Delivery
+                </button>
+                <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
+                <button
+                    nz-button
+                    nzType="danger"
+                    nzSize="small"
+                    (click)="showDeleteConfirm(d.data.RequestId)"
+                    [disabled]="d.data.Status === 'Delivered'"
+                >
+                    Cancel
+                </button>
+                <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
+                <button
+                    nz-button
+                    nzType="link"
+                    nzSize="small"
+                    (click)="handleView(d.data.RequestId)"
+                    [disabled]="d.data.Status === 'Delivered'"
+                >
+                    View
+                </button>
+            </div>
+            <div *dxTemplate="let d of 'statusTemplate'">
+                <span [ngClass]="getStatus(d.data.Status)">{{ d.data.Status }}</span>
+            </div>
+            <div *dxTemplate="let part of 'partsListTemplate'">
+                <dx-data-grid
+                    [dataSource]="partsList"
+                    [showColumnLines]="true"
+                    [showRowLines]="true"
+                    [showBorders]="true"
+                    [columnAutoWidth]="true"
+                >
+                    <dxi-column dataField="PartsName" caption="Parts Name"></dxi-column>
+                    <dxi-column dataField="ItemNumber" caption="Item Number"></dxi-column>
+                    <dxi-column caption="QTY Requested" cellTemplate="qtyRequestedTemplate"></dxi-column>
+                    <div *dxTemplate="let d of 'qtyRequestedTemplate'">
+                        {{ partsRequested[d.data.PartsID] }}
+                    </div>
+                </dx-data-grid>
+            </div>
+            <!-- <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export> -->
+            <div *dxTemplate="let data of 'totalGroupCount'">
+                <div class="informer">
+                    <nz-range-picker
+                        [nzRanges]="ranges1"
+                        [ngModel]="dateRange"
+                        (ngModelChange)="handleDateChange($event)"
+                    ></nz-range-picker>
+                    <nz-select
+                        nzShowSearch
+                        nzAllowClear
+                        nzPlaceHolder="Select a Vehicle No"
+                        style="margin-left: 20px; width: 150px;"
+                        [(ngModel)]="selectedVehicleNo"
+                        (ngModelChange)="handleVNoChange($event)"
+                    >
+                        <nz-option nzLabel="all" nzValue="all"></nz-option>
+                        <nz-option
+                            *ngFor="let item of vehicleNoList"
+                            [nzLabel]="item.VehicleNo"
+                            [nzValue]="item.VehicleNo"
+                        ></nz-option>
+                    </nz-select>
+                </div>
+            </div>
         </dx-data-grid>
-      </div>
-    </dx-data-grid>
-  </nz-page-header-content>
+    </nz-page-header-content>
 </div>
 
-<!-- <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-
-</nz-modal> -->
+<nz-modal
+    [nzVisible]="viewRequestId"
+    nzTitle="Modal Title"
+    (nzOnCancel)="handleViewClose()"
+    [nzOkText]="null"
+    nzCancelText="Close"
+    nzWidth="1000px"
+>
+    <app-work-order-view-modal *ngIf="viewRequestId" [requestId]="viewRequestId"></app-work-order-view-modal>
+</nz-modal>
