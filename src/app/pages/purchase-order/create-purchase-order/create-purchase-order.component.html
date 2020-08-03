@@ -1,88 +1,122 @@
 <div>
-  <form nz-form #addsuppliersForm="ngForm" (ngSubmit)="submitForm()">
-    <nz-page-header nzBackIcon [nzGhost]="false">
-      <nz-page-header-title>Create New Purchase Order</nz-page-header-title>
-      <nz-page-header-extra>
-        <button nz-button nzType="secon" nzSize="large">
-          <i nz-icon nzType="save" nzTheme="outline"></i> Save</button>
-      </nz-page-header-extra>
-      <nz-page-header-content>
-        <div class="purchase-order-content">
-          <div nz-row>
-            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <nz-form-item>
-                <nz-form-label>Parts Number</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Please select Parts Number" name="partsId"
-                    [ngModel]="model.partsNo">
-                    <nz-option *ngFor="let option of partsList" [nzLabel]="option.ItemNumber"
-                      [nzValue]="option.PartsID">
-                    </nz-option>
-                  </nz-select>
-                </nz-form-control>
-                <!-- <input nz-input name="PartsNumber" placeholder="number" [(ngModel)]="model.partsNo"> -->
-              </nz-form-item>
-            </div>
-            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <nz-form-item>
-                <nz-form-label>Parts Name</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <input nz-input name="PartsName" placeholder="Name" [(ngModel)]="model.partsName">
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-          </div>
-          <div nz-row>
-            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <nz-form-item>
-                <nz-form-label>Unit Price</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <input nz-input name="UnitPrice" placeholder="Unitprice" [(ngModel)]="model.unitPrice">
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <nz-form-item>
-                <nz-form-label>Quantity to Buy </nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <input nz-input type="number" name="QuantitytoBuy" placeholder="Quantity"
-                    [(ngModel)]="model.QTYToBuy">
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-          </div>
-          <div nz-row>
-            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <nz-form-item>
-                <nz-form-label>Purchase Order Number</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <input nz-input name="ShipToLocation" placeholder="Please Enter Purchase Order Number"
-                    [(ngModel)]="model.purchaseOrderNumber">
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <nz-form-item>
-                <nz-form-label>Vendor Name</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <input nz-input name="VendorName" placeholder="Supplier Name" [(ngModel)]="model.vendorName">
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-          </div>
-          <div nz-row>
-            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
-              <nz-form-item>
-                <nz-form-label>Estimated Date of Delivery</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <input nz-input type="date" name="estimatedDataOfDelivery" placeholder="Estimated Date of Delivery"
-                    [(ngModel)]="model.estimatedDateOfDelivery">
-                </nz-form-control>
-              </nz-form-item>
-            </div>
-          </div>
-        </div>
-      </nz-page-header-content>
-    </nz-page-header>
-  </form>
+    <form nz-form #addsuppliersForm="ngForm" (ngSubmit)="submitForm()">
+        <nz-page-header nzBackIcon [nzGhost]="false">
+            <nz-page-header-title>Create New Purchase Order</nz-page-header-title>
+            <nz-page-header-extra>
+                <button nz-button nzType="secon" nzSize="large">
+                    <i nz-icon nzType="save" nzTheme="outline"></i> Save
+                </button>
+            </nz-page-header-extra>
+            <nz-page-header-content>
+                <div class="purchase-order-content">
+                    <div nz-row>
+                        <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+                            <nz-form-item>
+                                <nz-form-label>Parts Number</nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24">
+                                    <nz-select
+                                        nzShowSearch
+                                        nzAllowClear
+                                        nzPlaceHolder="Please select Parts Number"
+                                        name="partsId"
+                                        [(ngModel)]="model.partsNo"
+                                        (ngModelChange)="handlePartsNoChange()"
+                                    >
+                                        <nz-option
+                                            *ngFor="let option of partsList"
+                                            [nzLabel]="option.ItemNumber"
+                                            [nzValue]="option.PartsID"
+                                        >
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                                <!-- <input nz-input name="PartsNumber" placeholder="number" [(ngModel)]="model.partsNo"> -->
+                            </nz-form-item>
+                        </div>
+                        <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+                            <nz-form-item>
+                                <nz-form-label>Parts Name</nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24">
+                                    <input nz-input name="PartsName" placeholder="Name" [(ngModel)]="model.partsName" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div nz-row>
+                        <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+                            <nz-form-item>
+                                <nz-form-label>Unit Price</nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24">
+                                    <input
+                                        nz-input
+                                        name="UnitPrice"
+                                        placeholder="Unitprice"
+                                        [(ngModel)]="model.unitPrice"
+                                    />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+                            <nz-form-item>
+                                <nz-form-label>Quantity to Buy </nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24">
+                                    <input
+                                        nz-input
+                                        type="number"
+                                        name="QuantitytoBuy"
+                                        placeholder="Quantity"
+                                        [(ngModel)]="model.QTYToBuy"
+                                    />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div nz-row>
+                        <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+                            <nz-form-item>
+                                <nz-form-label>Purchase Order Number</nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24">
+                                    <input
+                                        nz-input
+                                        name="ShipToLocation"
+                                        placeholder="Please Enter Purchase Order Number"
+                                        [(ngModel)]="model.purchaseOrderNumber"
+                                    />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+                            <nz-form-item>
+                                <nz-form-label>Vendor Name</nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24">
+                                    <input
+                                        nz-input
+                                        name="VendorName"
+                                        placeholder="Supplier Name"
+                                        [(ngModel)]="model.vendorName"
+                                    />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div nz-row>
+                        <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+                            <nz-form-item>
+                                <nz-form-label>Estimated Date of Delivery</nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24">
+                                    <input
+                                        nz-input
+                                        type="date"
+                                        name="estimatedDataOfDelivery"
+                                        placeholder="Estimated Date of Delivery"
+                                        [(ngModel)]="model.estimatedDateOfDelivery"
+                                    />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </div>
+            </nz-page-header-content>
+        </nz-page-header>
+    </form>
 </div>

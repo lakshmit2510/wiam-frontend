@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import QrCode from 'qrcode-reader';
-import { exportDataGrid } from 'devextreme/excel_exporter';
-import * as ExcelJS from 'exceljs/dist/exceljs.min.js';
-import { saveAs } from 'file-saver';
 import { subMonths } from 'date-fns';
 import moment from 'moment';
 import { WorkOrderService } from '../../services/work-order-service/work-order.service';
 import { AuthenticationService } from '../../services/authentication-service/authentication.service';
 import { PartsService } from '../../services/parts-service/parts.service';
+import { environment } from '../../../environments/environment';
+import { convertJsonToQueryParams } from '../../utils/query-param.util';
 
 enum StatusClass {
     'Not Delivered' = 'status-not-delivered',
@@ -77,10 +76,16 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     }
     getList() {
         this.loadingData = true;
-        const from = moment(this.dateRange[0]);
-        const to = moment(this.dateRange[1]);
+        let [from, to]: any = this.dateRange;
+        if (from) {
+            from = moment(from).unix();
+        }
+        if (to) {
+            to = moment(to).unix();
+        }
+
         this.workOrderService
-            .getRequestListByDateAndVNo({ from: from.unix(), to: to.unix(), vNo: this.selectedVehicleNo })
+            .getRequestListByDateAndVNo({ from, to, vNo: this.selectedVehicleNo })
             .subscribe((data: any[]) => {
                 this.workOrderList = data;
                 this.loadingData = false;
@@ -169,17 +174,16 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     }
 
     onExporting(e) {
-        const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet('Main sheet');
-        exportDataGrid({
-            component: e.component,
-            worksheet: worksheet,
-        }).then(function () {
-            workbook.xlsx.writeBuffer().then((buffer) => {
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'DataGrid.xlsx');
-            });
-        });
         e.cancel = true;
+        let [from, to]: any = this.dateRange;
+        if (from) {
+            from = moment(from).unix();
+        }
+        if (to) {
+            to = moment(to).unix();
+        }
+        const params = { from, to, vNo: this.selectedVehicleNo };
+        window.open(`${environment.apiUrl}/export/workOrderList?${convertJsonToQueryParams(params)}`, '_blank');
     }
 
     onToolbarPreparing(e) {

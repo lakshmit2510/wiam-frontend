@@ -4,43 +4,50 @@ import { PurchaseOrderService } from '../../../services/purchaseorder-service/pu
 import { PartsService } from '../../../services/parts-service/parts.service';
 
 @Component({
-  selector: 'app-create-purchase-order',
-  templateUrl: './create-purchase-order.component.html',
-  styleUrls: ['./create-purchase-order.component.less']
+    selector: 'app-create-purchase-order',
+    templateUrl: './create-purchase-order.component.html',
+    styleUrls: ['./create-purchase-order.component.less'],
 })
 export class CreatePurchaseOrderComponent implements OnInit {
+    model = {
+        purchaseOrderNumber: '',
+        partsName: '',
+        partsNo: '',
+        QTYToBuy: '',
+        unitPrice: '',
+        vendorName: '',
+        estimatedDateOfDelivery: '',
+    };
 
-  model = {
-    purchaseOrderNumber: '',
-    partsName: '',
-    partsNo: '',
-    QTYToBuy: '',
-    unitPrice: '',
-    vendorName: '',
-    estimatedDateOfDelivery: '',
-  };
+    selectedPart: any = {};
+    partsList: any = [];
 
-  selectedValue = '';
-  partsList: any = [];
+    constructor(
+        private purchaseOrderService: PurchaseOrderService,
+        private router: Router,
+        private partsService: PartsService,
+    ) {}
 
-  constructor(private purchaseOrderService: PurchaseOrderService, private router: Router, private partsService: PartsService) { }
+    ngOnInit() {
+        const category = '';
+        this.partsService.getAllParts(category).subscribe((data) => {
+            this.partsList = data;
+        });
+    }
 
-  ngOnInit() {
-    const category = '';
-    this.partsService.getAllParts(category).subscribe((data) => {
-      this.partsList = data;
-    });
-  }
+    submitForm() {
+        this.purchaseOrderService.addNewPurchaseOrder(this.model).subscribe(() => {
+            this.router.navigate(['/purchase-order']);
+        });
+    }
 
-  submitForm() {
-    // this.model.partsNo = this.selectedValue;
-    this.purchaseOrderService.addNewPurchaseOrder(this.model).subscribe(res => {
-      this.router.navigate(['/purchase-order']);
-    });
-  }
+    handlePartsNoChange() {
+        this.selectedPart = this.partsList.find((item) => {
+            if (item.PartsID === this.model.partsNo) {
+                return true;
+            }
+        });
 
-  partsNoChange(value) {
-    console.log(value);
-  }
-
+        this.model.partsName = this.selectedPart.PartsName;
+    }
 }

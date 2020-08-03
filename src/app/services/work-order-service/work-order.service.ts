@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { PartsService } from '../parts-service/parts.service';
+import { convertJsonToQueryParams } from '../../utils/query-param.util';
 
 @Injectable({
     providedIn: 'root',
@@ -24,10 +25,9 @@ export class WorkOrderService {
     }
 
     public getRequestListByDateAndVNo(options) {
-        const params = Object.keys(options)
-            .map((key) => key + '=' + options[key])
-            .join('&');
-        return this.httpClient.get(`${environment.apiUrl}/Product_Request_List/getRequestListByDate?${params}`);
+        return this.httpClient.get(
+            `${environment.apiUrl}/Product_Request_List/getRequestListByDate?${convertJsonToQueryParams(options)}`,
+        );
     }
 
     public getAllVNos() {
