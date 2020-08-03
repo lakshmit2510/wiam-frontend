@@ -13,15 +13,33 @@
     </nz-page-header-extra>
   </nz-page-header>
   <nz-page-header-content>
-    <nz-table #colSpanTable nzData="purchaseOrdersList" nzBordered>
+
+    <dx-data-grid *ngIf="!loadingData" [dataSource]="purchaseOrdersList" [showColumnLines]="true" [showRowLines]="true"
+      [showBorders]="true" [rowAlternationEnabled]="true" style="max-height: calc(100vh - 210px); width: 100%;">
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+      </dxo-pager>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxi-column *ngFor="let item of requestListColumns" [dataField]="item.key" [caption]="item.name"
+        [width]="item.width"></dxi-column>
+      <dxi-column caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
+        [width]="100"></dxi-column>
+      <div *dxTemplate="let d of 'actionTemplate'">
+        <a (click)="updatePurchaseorder(d.data.PurchaseOrderID)">Update</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deletePurchaseorder(d.data.PurchaseOrderID)">Delete</a>
+      </div>
+      <!-- <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export> -->
+    </dx-data-grid>
+    <!-- <nz-table #colSpanTable nzData="purchaseOrdersList" nzBordered>
       <thead>
         <tr>
           <th>S.No</th>
           <th>Purchase Order No.</th>
           <th>Requested Item No.</th>
+          <th>Parts Name</th>
           <th>Requested QTY</th>
           <th>Unit Price</th>
-          <th>Vendor Name</th>
           <th>Created Date</th>
           <th>Estimated Date Of Delivery</th>
           <th>Received Date</th>
@@ -32,11 +50,11 @@
       <tbody>
         <tr *ngFor="let data of purchaseOrdersList let i=index">
           <td>{{ i + 1 }}</td>
-          <td>{{ data. PurchaseOrderNumber}}</td>
-          <td>{{ data. PartsNo}}</td>
-          <td>{{ data. RequestedQTY}}</td>
+          <td>{{ data.PurchaseOrderNumber}}</td>
+          <td>{{ data.ItemNumber}}</td>
+          <td>{{ data.PartName }}</td>
+          <td>{{ data.RequestedQTY}}</td>
           <td>{{ data.UnitPrice }}</td>
-          <td>{{ data.SupplierName }}</td>
           <td>{{ data.CreatedOn }}</td>
           <td>{{ data.EstimatedDateOfDelivery }}</td>
           <td>{{ data.ReceivedDate }}</td>
@@ -48,6 +66,6 @@
           </td>
         </tr>
       </tbody>
-    </nz-table>
+    </nz-table> -->
   </nz-page-header-content>
 </div>

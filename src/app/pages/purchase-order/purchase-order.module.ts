@@ -1,12 +1,13 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { PurchaseOrderComponent } from "./purchase-order.component";
-import { PurchaseOrderRoutingModule } from "./purchase-order-routing.module";
-import { CreatePurchaseOrderComponent } from "./create-purchase-order/create-purchase-order.component";
-import { NgZorroAntdModule } from "ng-zorro-antd";
-import { FormsModule } from "@angular/forms";
-import { MatInputModule } from "@angular/material/input";
-import { MatSelectModule } from "@angular/material/select";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PurchaseOrderComponent } from './purchase-order.component';
+import { PurchaseOrderRoutingModule } from './purchase-order-routing.module';
+import { CreatePurchaseOrderComponent } from './create-purchase-order/create-purchase-order.component';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { DxDataGridModule, DxTemplateModule } from 'devextreme-angular';
 
 @NgModule({
   declarations: [PurchaseOrderComponent, CreatePurchaseOrderComponent],
@@ -17,7 +18,9 @@ import { MatSelectModule } from "@angular/material/select";
     FormsModule,
     MatInputModule,
     MatSelectModule,
+    DxDataGridModule,
+    DxTemplateModule
   ],
   exports: [PurchaseOrderComponent],
 })
-export class PurchaseOrderModule {}
+export class PurchaseOrderModule { }

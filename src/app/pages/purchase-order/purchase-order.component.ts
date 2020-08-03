@@ -12,6 +12,22 @@ export class PurchaseOrderComponent implements OnInit {
   purchaseOrdersList: any[];
   loadingData = false;
 
+  requestListColumns = [
+    { key: 'PurchaseOrderNumber', name: 'Purchase Order No.', width: '150px' },
+    { key: 'ItemNumber', name: 'Requested Item No.', width: '150px' },
+    { key: 'PartName', name: 'Parts Name', width: '100px' },
+    { key: 'RequestedQTY', name: 'Requested QTY', width: '150px' },
+    { key: 'UnitPrice', name: 'Unit Price', width: '80px' },
+    {
+      key: 'CreatedOn',
+      name: 'Created Date',
+      width: '100px',
+    },
+    { key: 'EstimatedDateOfDelivery', name: 'Estimated Date Of Delivery', width: '200px' },
+    { key: 'ReceivedDate', name: 'Received Date', width: '150px' },
+    { key: 'Status', name: 'Status', width: '150px' },
+  ];
+
   constructor(private purchaseOrderService: PurchaseOrderService, private modal: NzModalService) { }
 
   ngOnInit() {
