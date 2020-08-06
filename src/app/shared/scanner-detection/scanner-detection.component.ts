@@ -39,19 +39,19 @@ export class ScannerDetectionComponent implements OnInit {
     }
     this.inputStr += ev.key;
     setTimeout(() => {
-      if (this.checkRegex.test(this.inputStr)) {
-        const replace: RegExp =
-          this.configObj.replaceNotNumber ?
-            new RegExp(`\\D${this.configObj.scannerStartsWith.length ? '\|' + this.configObj.scannerStartsWith : ''}
+      // if (this.checkRegex.test(this.inputStr)) {
+      const replace: RegExp =
+        this.configObj.replaceNotNumber ?
+          new RegExp(`\\D${this.configObj.scannerStartsWith.length ? '\|' + this.configObj.scannerStartsWith : ''}
             ${this.configObj.scannerEndsWith.length ? '\|' + this.configObj.scannerEndsWith : ''}`, 'g') :
-            new RegExp(`${this.configObj.scannerStartsWith}${this.configObj.scannerEndsWith.length ? '\|' +
-              this.configObj.scannerEndsWith : ''}`, 'g');
+          new RegExp(`${this.configObj.scannerStartsWith}${this.configObj.scannerEndsWith.length ? '\|' +
+            this.configObj.scannerEndsWith : ''}`, 'g');
 
-        const barcode = this.inputStr.replace(replace, '');
-        const length = barcode.length;
-        const valid = (new Barcoder(this.configObj.barcodeType).validate(barcode) as boolean);
-        this.scan.emit({ barcode, length, valid });
-      }
+      const barcode = this.inputStr.replace(replace, '');
+      const length = barcode.length;
+      const valid = (new Barcoder(this.configObj.barcodeType).validate(barcode) as boolean);
+      this.scan.emit({ barcode, length, valid });
+      // }
       // this.inputStr = '';
     }, this.configObj.scanTimeout);
   }
