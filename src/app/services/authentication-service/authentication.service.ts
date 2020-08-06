@@ -1,11 +1,11 @@
-import { Injectable, Output, EventEmitter } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
+import { Injectable, Output, EventEmitter } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
-import { environment } from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthenticationService {
   redirectUrl: string;
@@ -16,7 +16,7 @@ export class AuthenticationService {
       .post<any>(`${environment.apiUrl}/Users/login`, data)
       .pipe(
         map((data) => {
-          if (data.status === "ok") {
+          if (data.status === 'ok') {
             this.setToken(data.token);
             this.getLoggedInName.emit(true);
           }
@@ -37,13 +37,13 @@ export class AuthenticationService {
 
   // token
   setToken(token: string) {
-    sessionStorage.setItem("token", token);
+    sessionStorage.setItem('token', token);
   }
   getToken() {
-    return sessionStorage.getItem("token");
+    return sessionStorage.getItem('token');
   }
   deleteToken() {
-    sessionStorage.removeItem("token");
+    sessionStorage.removeItem('token');
   }
   isLoggedIn() {
     const usertoken = this.getToken();

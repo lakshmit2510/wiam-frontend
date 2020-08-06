@@ -1,0 +1,114 @@
+<div>
+  <nz-page-header nzBackIcon [nzGhost]="false">
+    <nz-page-header-title> Parts Request Form</nz-page-header-title>
+    <nz-page-header-extra>
+      <button nz-button nzType="secon" nzSize="large" (click)="savePartsRequestForm()">
+        <i nz-icon nzType="save" nzTheme="outline"></i> Save
+      </button>
+    </nz-page-header-extra>
+    <nz-page-header-content>
+      <div nz-row [nzGutter]="16" class="edit-workorder-content">
+        <div nz-col class="gutter-row" [nzSpan]="10">
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="vehicleNo">Vehicle No</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="vehicleNo" [(ngModel)]="model.vehicleNo" placeholder="Please Enter Vehicle Number" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="brand">Brand</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <nz-select nzMode="tags" nzPlaceHolder="Tag Mode" (ngModelChange)="handleBrandChange($event)"
+                [ngModel]="brandTagOptions">
+                <nz-option *ngFor="let option of brandOptionList" [nzLabel]="option.label" [nzValue]="option.value">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="brand">Model/Make</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <nz-select nzMode="tags" nzPlaceHolder="Tag Mode" (ngModelChange)="handleModelChange($event)"
+                [ngModel]="modelTagOptions">
+                <nz-option *ngFor="let option of modelOptionList" [nzLabel]="option.label" [nzValue]="option.value">
+                </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Service Type</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <nz-select nzPlaceHolder="Please select service type" [(ngModel)]="model.serviceType">
+                <nz-option nzLabel="PM A" nzValue="PM A"></nz-option>
+                <nz-option nzLabel="PM B" nzValue="PM B"></nz-option>
+                <nz-option nzLabel="PM C" nzValue="PM C"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="technicianName">Technician Name</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input id="technicianName" [(ngModel)]="model.technicianName"
+                placeholder="Please Enter Technician Name" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <nz-tabset>
+        <nz-tab nzTitle="Parts">
+          <div>
+            <nz-table #colSpanTable [nzData]="listOfData" nzBordered [nzFooter]="addPartsFormFooter">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Description</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of listOfData; let i = index">
+                  <td>{{ data.itemNumber }}</td>
+                  <td>{{ data.description }}</td>
+                  <td>
+                    <nz-input-number [ngModel]="data.quantity" [nzStep]="1" [nzMin]="1" [nzMax]="data.quantityInHand">
+                    </nz-input-number>
+                  </td>
+                  <td>
+                    {{ data.unitPrice }}
+                    <!-- <nz-input-number [(ngModel)]="data.unitPrice" [nzStep]="1">
+                    </nz-input-number> -->
+                  </td>
+                  <td>
+                    <button nz-button nzType="default" nzShape="circle" nzSize="small" *ngIf="listOfData.length > 1"
+                      style="
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      " (click)="removeLine(i)">
+                      <i nz-icon nzType="close" nzTheme="outline"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </nz-table>
+            <ng-template #addPartsFormFooter>
+              <div style="display: flex; align-items: center;">
+                <button nz-button nzType="primary" (click)="openPartsModal()"
+                  style="display: flex; align-items: center;">
+                  <i nz-icon nzType="plus" nzTheme="outline"></i>Add Parts
+                </button>
+                <div style="flex: 1;"></div>
+              </div>
+            </ng-template>
+            <app-parts-selection *ngIf="isOpenParts" [isVisible]="isOpenParts" (cancelModal)="closePartsModal()"
+              (addItem)="handlePartsSelection($event)" [selectedModel]="model.vehicleModel"
+              [selectedRows]="selectedRows">
+            </app-parts-selection>
+          </div>
+        </nz-tab>
+      </nz-tabset>
+    </nz-page-header-content>
+  </nz-page-header>
+</div>

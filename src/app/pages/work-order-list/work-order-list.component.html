@@ -40,7 +40,7 @@
         [width]="item.width"></dxi-column>
       <dxi-column caption="Status" cellTemplate="statusTemplate" [width]="100"></dxi-column>
       <dxi-column caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
-        [width]="200"></dxi-column>
+        [width]="300"></dxi-column>
       <div *dxTemplate="let d of 'actionTemplate'">
         <button *ngIf="userInfo.role === 'Admin'" nz-button nzType="primary" nzSize="small"
           (click)="showConfirm(d.data.RequestId)" [disabled]="d.data.Status !== 'Not Delivered'">
@@ -54,6 +54,10 @@
         <button nz-button nzType="primary" nzSize="small" (click)="handleView(d.data.RequestId)">
           View
         </button>
+        <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
+        <button nz-button nzType="primary" nzSize="small" (click)="handleEdit(d.data.RequestId)">
+          Edit
+        </button>
       </div>
       <div *dxTemplate="let d of 'statusTemplate'">
         <span [ngClass]="getStatus(d.data.Status)">{{ d.data.Status }}</span>
@@ -62,7 +66,7 @@
         <dx-data-grid [dataSource]="partsList" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
           [columnAutoWidth]="true">
           <dxi-column dataField="PartsName" caption="Parts Name"></dxi-column>
-          <dxi-column dataField="ItemNumber" caption="Item Number"></dxi-column>
+          <dxi-column dataField="ItemNumber" caption="Parts No"></dxi-column>
           <dxi-column caption="QTY Requested" cellTemplate="qtyRequestedTemplate"></dxi-column>
           <div *dxTemplate="let d of 'qtyRequestedTemplate'">
             {{ partsRequested[d.data.PartsID] }}

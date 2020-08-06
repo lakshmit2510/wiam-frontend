@@ -15,8 +15,7 @@
           <span>Dashboard</span>
         </a>
       </li> -->
-      <li nz-submenu nzOpen nzTitle="Parts Requests" nzIcon="unordered-list"
-        *ngIf="isRouteEnabled(['Admin','Customer'])">
+      <li nz-submenu nzOpen nzTitle="Parts Requests" nzIcon="form" *ngIf="isRouteEnabled(['Admin','Customer'])">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/work-order-list">
@@ -25,6 +24,12 @@
             </a>
           </li>
         </ul>
+      </li>
+      <li nz-menu-item nzMatchRouter nzIcon="form" *ngIf="isRouteEnabled(['Admin'])">
+        <a routerLink="/work-order-list/delivered-orders">
+          <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+          <span>Deliverd Orders</span>
+        </a>
       </li>
       <li nz-submenu nzOpen nzTitle="Products list" nzIcon="snippets" *ngIf="isRouteEnabled(['Admin'])">
         <ul>

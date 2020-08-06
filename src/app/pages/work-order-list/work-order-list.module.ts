@@ -12,12 +12,14 @@ import { WorkOrderListRoutingModule } from './work-order-list-routing.module';
 import { CreateWorkorderComponent } from './create-workorder/create-workorder.component';
 import { SharedModule } from '../../shared/shared.module';
 import { RequestConfirmComponent } from './request-confirm/request-confirm.component';
+import { EditWorkorderComponent } from './edit-workorder/edit-workorder.component';
 
 @NgModule({
   declarations: [
     WorkOrderListComponent,
     CreateWorkorderComponent,
     RequestConfirmComponent,
+    EditWorkorderComponent,
   ],
   imports: [
     CommonModule,

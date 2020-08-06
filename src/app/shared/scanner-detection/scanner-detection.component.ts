@@ -25,8 +25,7 @@ export class ScannerDetectionComponent implements OnInit {
     barcodeType: 'ean13'
   };
 
-  private checkRegex: RegExp = new RegExp(`^${this.configObj.scannerStartsWith}${this.configObj.allowNotNumber ? '.' : '\\d'}
-  {${this.configObj.minLength},${this.configObj.maxLength}}${this.configObj.scannerEndsWith}$`);
+  private checkRegex: RegExp = new RegExp(`^8[0-9]{11}([0-9]{2})?$`);
 
   private inputStr = '';
 

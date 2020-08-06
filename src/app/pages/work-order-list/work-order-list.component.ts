@@ -8,6 +8,7 @@ import { AuthenticationService } from '../../services/authentication-service/aut
 import { PartsService } from '../../services/parts-service/parts.service';
 import { environment } from '../../../environments/environment';
 import { convertJsonToQueryParams } from '../../utils/query-param.util';
+import { Router, ActivatedRoute } from '@angular/router';
 
 enum StatusClass {
   'Not Delivered' = 'status-not-delivered',
@@ -49,8 +50,8 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
       width: '150px',
     },
     { key: 'PartsIssueDate', name: 'Parts Issue Date', width: '150px' },
-    { key: 'TechnicianName', name: 'Technician Name', width: '100px' },
-    { key: 'FirstName', name: 'Created By', width: '70px' },
+    { key: 'TechnicianName', name: 'Technician Name', width: '120px' },
+    { key: 'FirstName', name: 'Created By', width: '100px' },
   ];
 
   ranges1 = { Today: [new Date(), new Date()], 'This Month': [subMonths(new Date(), 1), new Date()] };
@@ -60,6 +61,8 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     private modal: NzModalService,
     private authenticationService: AuthenticationService,
     private partsService: PartsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -84,8 +87,11 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
       to = moment(to).unix();
     }
 
+    const status = this.activatedRoute.snapshot.data;
+    const type = status ? status.key : '';
+
     this.workOrderService
-      .getRequestListByDateAndVNo({ from, to, vNo: this.selectedVehicleNo })
+      .getRequestListByDateAndVNo({ from, to, vNo: this.selectedVehicleNo, type })
       .subscribe((data: any[]) => {
         this.workOrderList = data;
         this.loadingData = false;
@@ -188,5 +194,11 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
 
   onToolbarPreparing(e) {
     e.toolbarOptions.items.unshift({ location: 'before', template: 'totalGroupCount' });
+  }
+
+  handleEdit(RequestId) {
+    this.router.navigate(['/work-order-list/edit-workorder'], {
+      queryParams: { requestId: RequestId },
+    });
   }
 }

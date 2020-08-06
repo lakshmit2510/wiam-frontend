@@ -42,4 +42,25 @@ export class PartModel {
     };
   }
 
+  static mapFormValues(res) {
+    return {
+      vehicleNo: res.VehicleNo,
+      vehicleModel: res.Model,
+      serviceType: res.ServiceType,
+      technicianName: res.TechnicianName,
+      brand: res.Brand,
+      partsList: '',
+      description: '',
+      qtyRequested: '',
+
+    };
+  }
+  // static mapFormPartsListValues(res) {
+  //   return {
+  //     partsList: res.ItemNumber,
+  //     description: res.Description,
+  //     unitPrice: res.SellingPrice,
+  //   };
+  // }
+
 }
