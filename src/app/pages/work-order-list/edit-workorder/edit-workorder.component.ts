@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { QuotesService } from '../../../services/quotes-service/quotes.service';
 import { WorkOrderService } from '../../../services/work-order-service/work-order.service';
 import { PartModel } from '../../../types/part';
 
@@ -58,12 +57,11 @@ export class EditWorkorderComponent implements OnInit {
 
   partsRequested: any = {};
 
-  partsList: any = [];
+  partsListArry: any = [];
 
   listOfModels: Array<{ Model: string; PartsID: string }> = [];
 
   constructor(
-    private quotesService: QuotesService,
     private router: Router,
     private workOrderService: WorkOrderService,
     private activatedRoute: ActivatedRoute,
@@ -91,7 +89,7 @@ export class EditWorkorderComponent implements OnInit {
       const { orderDetails, partsRequested, partsList } = data;
       this.orderDetails = orderDetails;
       this.partsRequested = partsRequested;
-      this.partsList = partsList;
+      this.partsListArry = partsList;
       this.model = PartModel.mapFormValues(orderDetails);
       this.brandTagOptions = [this.model.brand];
       this.modelTagOptions = [this.model.vehicleModel];
@@ -110,7 +108,7 @@ export class EditWorkorderComponent implements OnInit {
   }
 
   handlePartsSelection(parts): void {
-    const partsList = parts
+    const partsData = parts
       .map((item) => {
         if (item.QTYInHand && parseInt(item.QTYInHand, 10) > 0) {
           return {
@@ -124,8 +122,8 @@ export class EditWorkorderComponent implements OnInit {
         }
       })
       .filter((item) => item);
-    this.listOfData = [...partsList];
-    this.selectedRows = partsList.map((item) => item.partId);
+    this.listOfData = [...partsData];
+    this.selectedRows = partsData.map((item) => item.partId);
 
     this.isOpenParts = false;
   }
@@ -143,15 +141,13 @@ export class EditWorkorderComponent implements OnInit {
   }
 
   savePartsRequestForm(): void {
-    // this.model.partsList = this.listOfData.map((item) => item.partId).join(',');
-    // this.model.qtyRequested = this.listOfData.map((item) => item.quantity).join(',');
-    // this.model.brand = this.brandTagOptions[0];
-    // this.model.vehicleModel = this.modelTagOptions[0];
-    // this.quotesService.savePartsRequestForm(this.model).subscribe((res: any) => {
-    //   this.router.navigate(['/work-order-list/confirmation-page'], {
-    //     queryParams: { workOrderId: res.insertId },
-    //   });
-    // });
+    const { requestId } = this.activatedRoute.snapshot.queryParams;
+    this.model.partsList = this.listOfData.map((item) => item.partId).join(',');
+    this.model.qtyRequested = this.listOfData.map((item) => item.quantity).join(',');
+    this.model.brand = this.brandTagOptions[0];
+    this.model.vehicleModel = this.modelTagOptions[0];
+    this.workOrderService.updateEditForm(requestId, this.model).subscribe((res: any) => {
+      this.router.navigate(['/work-order-list']);
+    });
   }
-
 }

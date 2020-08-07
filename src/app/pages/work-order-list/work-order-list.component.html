@@ -55,7 +55,8 @@
           View
         </button>
         <nz-divider *ngIf="userInfo.role === 'Admin'" nzType="vertical"></nz-divider>
-        <button nz-button nzType="primary" nzSize="small" (click)="handleEdit(d.data.RequestId)">
+        <button nz-button nzType="primary" nzSize="small" (click)="handleEdit(d.data.RequestId)"
+          [disabled]="d.data.Status !== 'Not Delivered'">
           Edit
         </button>
       </div>

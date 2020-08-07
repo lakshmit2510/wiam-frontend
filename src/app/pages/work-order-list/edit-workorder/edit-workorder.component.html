@@ -72,7 +72,7 @@
                   <td>{{ data.itemNumber }}</td>
                   <td>{{ data.description }}</td>
                   <td>
-                    <nz-input-number [ngModel]="data.quantity" [nzStep]="1" [nzMin]="1" [nzMax]="data.quantityInHand">
+                    <nz-input-number [(ngModel)]="data.quantity" [nzStep]="1" [nzMin]="1" [nzMax]="data.quantityInHand">
                     </nz-input-number>
                   </td>
                   <td>

@@ -88,10 +88,10 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     }
 
     const status = this.activatedRoute.snapshot.data;
-    const type = status ? status.key : '';
+    const statusType = status ? status.key : '';
 
     this.workOrderService
-      .getRequestListByDateAndVNo({ from, to, vNo: this.selectedVehicleNo, type })
+      .getRequestListByDateAndVNo({ from, to, vNo: this.selectedVehicleNo, statusType })
       .subscribe((data: any[]) => {
         this.workOrderList = data;
         this.loadingData = false;
@@ -180,6 +180,9 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
   }
 
   onExporting(e) {
+    const status = this.activatedRoute.snapshot.data;
+    const statusType = status ? status.key : '';
+
     e.cancel = true;
     let [from, to]: any = this.dateRange;
     if (from) {
@@ -188,7 +191,7 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
     if (to) {
       to = moment(to).unix();
     }
-    const params = { from, to, vNo: this.selectedVehicleNo };
+    const params = { from, to, vNo: this.selectedVehicleNo, statusType };
     window.open(`${environment.apiUrl}/export/workOrderList?${convertJsonToQueryParams(params)}`, '_blank');
   }
 
