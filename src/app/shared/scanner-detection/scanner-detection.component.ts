@@ -1,63 +1,65 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { ScanDetected, ScannerConfiguration } from './types';
-import { Barcoder } from './barcodeValidator';
 
 @Component({
-  selector: 'app-scanner-detection',
-  templateUrl: './scanner-detection.component.html',
-  styleUrls: ['./scanner-detection.component.less']
+    selector: 'app-scanner-detection',
+    templateUrl: './scanner-detection.component.html',
+    styleUrls: ['./scanner-detection.component.less'],
 })
-export class ScannerDetectionComponent implements OnInit {
-
-  @Input() set config(input: ScannerConfiguration) {
-    this.configObj = Object.assign(this.configObj, input);
-  }
-
-  private configObj: ScannerConfiguration = {
-    minLength: 7,
-    maxLength: 14,
-    scannerStartsWith: '',
-    scannerEndsWith: '',
-    scanTimeout: 100,
-    allowNotNumber: true,
-    replaceNotNumber: true,
-    ignoreOverElement: ['INPUT'],
-    barcodeType: 'ean13'
-  };
-
-  private checkRegex: RegExp = new RegExp(`^8[0-9]{11}([0-9]{2})?$`);
-
-  private inputStr = '';
-
-  @Output() scan: EventEmitter<ScanDetected> = new EventEmitter();
-
-  @HostListener('document:keyup', ['$event'])
-  onKeyUp(ev: KeyboardEvent) {
-    const target: any = ev.target;
-    if (this.configObj.ignoreOverElement.includes(target.tagName)) {
-      return;
+export class ScannerDetectionComponent implements OnInit, OnDestroy {
+    @Input() set config(input: ScannerConfiguration) {
+        this.configObj = Object.assign(this.configObj, input);
     }
-    this.inputStr += ev.key;
-    setTimeout(() => {
-      // if (this.checkRegex.test(this.inputStr)) {
-      const replace: RegExp =
-        this.configObj.replaceNotNumber ?
-          new RegExp(`\\D${this.configObj.scannerStartsWith.length ? '\|' + this.configObj.scannerStartsWith : ''}
-            ${this.configObj.scannerEndsWith.length ? '\|' + this.configObj.scannerEndsWith : ''}`, 'g') :
-          new RegExp(`${this.configObj.scannerStartsWith}${this.configObj.scannerEndsWith.length ? '\|' +
-            this.configObj.scannerEndsWith : ''}`, 'g');
 
-      const barcode = this.inputStr.replace(replace, '');
-      const length = barcode.length;
-      const valid = (new Barcoder(this.configObj.barcodeType).validate(barcode) as boolean);
-      this.scan.emit({ barcode, length, valid });
-      // }
-      // this.inputStr = '';
-    }, this.configObj.scanTimeout);
-  }
-  constructor() { }
+    private configObj: ScannerConfiguration = {
+        zeroCode: 48,
+        nineCode: 57,
+        enterCode: 13,
+        minLength: 3,
+        scanTimeout: 300, // ms
+    };
 
-  ngOnInit() {
-  }
+    chars = [];
+    startTime = undefined;
+    endTime = undefined;
+    enterPressedLast = false;
+    setTimer = null;
 
+    @Output() scan: EventEmitter<ScanDetected> = new EventEmitter();
+
+    @HostListener('document:keyup', ['$event'])
+    onKeyUp(ev: KeyboardEvent) {
+        if (this.setTimer) {
+            clearTimeout(this.setTimer);
+        }
+        if (this.chars.length === 0) {
+            this.startTime = new Date().getTime();
+        } else {
+            this.endTime = new Date().getTime();
+        }
+
+        // Register characters and enter key
+        if (ev.which >= this.configObj.zeroCode && ev.which <= this.configObj.nineCode) {
+            this.chars.push(String.fromCharCode(ev.which));
+        }
+
+        this.enterPressedLast = ev.which === this.configObj.enterCode;
+
+        this.setTimer = setTimeout(() => {
+            if (this.chars.length >= this.configObj.minLength && this.enterPressedLast) {
+                const barcode = this.chars.join('');
+                this.scan.emit({ barcode });
+            }
+            this.chars = [];
+        }, 300);
+    }
+    constructor() {}
+
+    ngOnInit() {}
+
+    ngOnDestroy() {
+        if (this.setTimer) {
+            clearTimeout(this.setTimer);
+        }
+    }
 }
