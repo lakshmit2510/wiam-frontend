@@ -113,7 +113,7 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
             nzOnCancel: () => console.log('Cancel'),
         });
     }
-    showConfirm(id: number): void {
+    showConfirm(id: any): void {
         this.modal.confirm({
             nzTitle: '<i>Success!</i>',
             nzContent: '<b>Your order is successfully deliverd to the Customer</b>',
@@ -138,8 +138,7 @@ export class WorkOrderListComponent implements OnInit, OnDestroy {
 
     qrCallback(val) {
         if (val) {
-            console.log(val);
-            return;
+            this.showConfirm(val);
         }
     }
 
