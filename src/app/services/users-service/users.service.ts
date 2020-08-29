@@ -16,7 +16,19 @@ export class UsersService {
     return this.httpClient.post(`${environment.apiUrl}/Users/addNewUser`, data);
   }
 
+  public newLoginDetails(data) {
+    return this.httpClient.post(`${environment.apiUrl}/Users/addNewLoginDetails`, data);
+  }
+
   deleteUserbyId(id) {
     return this.httpClient.put(`${environment.apiUrl}/Users/deleteUserById/${id}`, {});
+  }
+
+  getUserDetailsById(id) {
+    return this.httpClient.get(`${environment.apiUrl}/Users/getUserDetailsById/${id}`);
+  }
+
+  updateUserDetailsById(id, data) {
+    return this.httpClient.put(`${environment.apiUrl}/Users/updateEditedUserDetails/${id}`, data);
   }
 }

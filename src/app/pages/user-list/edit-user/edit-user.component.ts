@@ -5,33 +5,43 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { UsersService } from '../../../services/users-service/users.service';
 
 @Component({
-  selector: 'app-add-new-user',
-  templateUrl: './add-new-user.component.html',
-  styleUrls: ['./add-new-user.component.less']
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.less']
 })
-export class AddNewUserComponent implements OnInit {
+export class EditUserComponent implements OnInit {
 
-  accountCreateForm: FormGroup;
+  editForm: FormGroup;
+
+  model = {
+    FirstName: '',
+    LastName: '',
+    Email: '',
+    PhoneNumber: '',
+    Role: '',
+    CompanyName: '',
+    CompanyAddress: '',
+  };
 
   constructor(
     private fb: FormBuilder,
     private usersService: UsersService,
     private modalService: NzModalService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.accountCreateForm = this.fb.group({
+    this.getUserDataById();
+    this.editForm = this.fb.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
       email: [null, [Validators.email, Validators.required]],
-      password: [null, [Validators.required]],
-      checkPassword: [null, [Validators.required, this.confirmationValidator]],
       phoneNumberPrefix: ['+65'],
       phoneNumber: [null, [Validators.required]],
       companyName: [null, [Validators.required]],
@@ -40,10 +50,18 @@ export class AddNewUserComponent implements OnInit {
     });
   }
 
+  getUserDataById(): void {
+    const { userID } = this.activatedRoute.snapshot.queryParams;
+
+    this.usersService.getUserDetailsById(userID).subscribe(res => {
+      this.model = res[0];
+    });
+  }
+
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
-    } else if (control.value !== this.accountCreateForm.controls.password.value) {
+    } else if (control.value !== this.editForm.controls.password.value) {
       return { confirm: true, error: true };
     }
     return {};
@@ -52,22 +70,24 @@ export class AddNewUserComponent implements OnInit {
   updateConfirmValidator(): void {
     /** wait for refresh value */
     Promise.resolve().then(() =>
-      this.accountCreateForm.controls.checkPassword.updateValueAndValidity()
+      this.editForm.controls.checkPassword.updateValueAndValidity()
     );
   }
 
   submitForm(): void {
-    for (const i in this.accountCreateForm.controls) {
-      this.accountCreateForm.controls[i].markAsDirty();
-      this.accountCreateForm.controls[i].updateValueAndValidity();
+    // tslint:disable-next-line: forin
+    for (const i in this.editForm.controls) {
+      this.editForm.controls[i].markAsDirty();
+      this.editForm.controls[i].updateValueAndValidity();
     }
-    if (this.accountCreateForm.valid) {
-      const values = this.accountCreateForm.getRawValue();
-      this.usersService.newLoginDetails(values).subscribe((res: any) => {
+    if (this.editForm.valid) {
+      const values = this.editForm.getRawValue();
+      const { userID } = this.activatedRoute.snapshot.queryParams;
+      this.usersService.updateUserDetailsById(userID, values).subscribe((res: any) => {
         if (res.status === 'ok') {
           this.modalService.success({
             nzTitle: 'Success',
-            nzContent: 'User has been successfully created.',
+            nzContent: 'User details has been successfully Updated.',
             nzOkText: 'Ok',
             // nzCancelText: 'Close',
             nzOnOk: () => {
@@ -77,7 +97,7 @@ export class AddNewUserComponent implements OnInit {
         } else {
           this.modalService.error({
             nzTitle: 'Error',
-            nzContent: 'The email entered is already exsits. please try login.',
+            nzContent: 'The email entered is already exsits. please try login (or) use another Email.',
           });
         }
       });

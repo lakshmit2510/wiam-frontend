@@ -1,0 +1,6 @@
+<nz-card [nzTitle]="config.title" style="width: 300px;border-radius: 10px;">
+  <p *ngFor="let item of config.list"><b>{{item.labelName}}: </b>
+    <nz-badge nzCount={{data[item.key]}} [nzOverflowCount]="999999" [nzStyle]="{ backgroundColor: '#52c41a' }">
+    </nz-badge>
+  </p>
+</nz-card>

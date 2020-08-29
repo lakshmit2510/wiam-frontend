@@ -36,8 +36,8 @@
           <td>{{ usersList.CompanyName }}</td>
           <td>{{ usersList.CompanyAddress }}</td>
           <td>
-            <!-- <a>Edit</a>
-            <nz-divider nzType="vertical"></nz-divider> -->
+            <a (click)="editUser(usersList.UserID)">Edit</a>
+            <nz-divider nzType="vertical"></nz-divider>
             <a (click)="deleteUser(usersList.UserID)">Delete</a>
           </td>
         </tr>

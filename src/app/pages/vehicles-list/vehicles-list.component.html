@@ -1,0 +1,36 @@
+<div>
+  <nz-page-header [nzGhost]="false">
+    <nz-page-header-title>Vehicles List</nz-page-header-title>
+    <nz-page-header-extra>
+      <a routerLink="add-new-vehicle">
+        <button nz-button nzType="primary" nzSize="large">
+          <i nz-icon nzType="file-add" nzTheme="outline"></i> Add Vehicle Details
+        </button>
+      </a>
+    </nz-page-header-extra>
+  </nz-page-header>
+  <nz-page-header-content>
+    <dx-data-grid id="gridContainer" [dataSource]="vehiclesList" [columnAutoWidth]="true" [showBorders]="true"
+      [allowColumnReordering]="true">
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxi-column caption="S.No" dataField="1" width=50px></dxi-column>
+      <dxi-column caption="Vehicle Number" dataField="VehicleNo" width=200px></dxi-column>
+      <dxi-column caption="Status" dataField="Status" width=150px></dxi-column>
+      <dxi-column caption="Corrective Maintanance">
+        <dxi-column caption="Issue" dataField="Issue" width=250px>
+        </dxi-column>
+        <dxi-column caption="Date" dataField="CorrectiveMaintenanceDate" width=200px>
+        </dxi-column>
+      </dxi-column>
+      <dxi-column style="text-align: center;" caption="preventive Maintanance">
+        <dxi-column caption="Date" dataField="PreventiveMaintenanceDate" width=250px></dxi-column>
+        <dxi-column caption="Remarks" dataField="Remarks" width=200px></dxi-column>
+      </dxi-column>
+      <dxi-column caption="Action" dataField="Action" headerCellTemplate="actionTemplate" width=200px>
+      </dxi-column>
+      <div *dxTemplate="let data of 'actionTemplate'">
+        <div>Action</div>
+      </div>
+    </dx-data-grid>
+  </nz-page-header-content>
+</div>

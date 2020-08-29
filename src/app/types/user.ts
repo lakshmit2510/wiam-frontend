@@ -8,6 +8,11 @@ export class User {
 }
 
 export enum Role {
-  Customer = "Customer",
-  Admin = "Admin",
+  Customer = 'Customer',
+  Admin = 'Admin',
+}
+
+export class Data {
+  day: string;
+  oranges: number;
 }

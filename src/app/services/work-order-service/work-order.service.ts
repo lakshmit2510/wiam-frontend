@@ -53,6 +53,11 @@ export class WorkOrderService {
         map((data) => ({ orderDetails, partsRequested, partsList: data })),
       );
   }
+
+  public getListByRequestFormNo(id) {
+    return this.httpClient.get(`${environment.apiUrl}/Product_Request_List/getListByRequestFormNo?requestFormNo=${id}`);
+  }
+
   deleteRequestForm(id) {
     return this.httpClient.put(`${environment.apiUrl}/Product_Request_List/cancelRequestById/${id}`, {});
   }

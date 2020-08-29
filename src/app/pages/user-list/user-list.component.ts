@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users-service/users.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -10,7 +11,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class UserListComponent implements OnInit {
 
   listOfCustomersData: any[];
-  constructor(private usersService: UsersService, private modal: NzModalService) { }
+  constructor(private usersService: UsersService, private modal: NzModalService, private router: Router) { }
 
   ngOnInit() {
     this.usersList();
@@ -33,6 +34,12 @@ export class UserListComponent implements OnInit {
         }),
       nzCancelText: 'No',
       nzOnCancel: () => console.log('Cancel'),
+    });
+  }
+
+  editUser(UserID): void {
+    this.router.navigate(['/user-list/edit-user'], {
+      queryParams: { userID: UserID },
     });
   }
 

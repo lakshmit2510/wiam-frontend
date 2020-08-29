@@ -58,4 +58,8 @@ export class AuthenticationService {
     if (token) { return JSON.parse(atob(token)); }
     return null;
   }
+
+  public forgotPassword(data) {
+    return this.httpClient.post(`${environment.apiUrl}/Users/resetpassword`, data);
+  }
 }

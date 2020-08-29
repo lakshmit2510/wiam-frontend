@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { first } from "rxjs/operators";
-import { Router } from "@angular/router";
-import { AuthenticationService } from "../../../services/authentication-service/authentication.service";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../services/authentication-service/authentication.service';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.less"],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.less'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authenticationService.isLoggedIn()) {
-      this.router.navigate(["/work-order-list"]);
+      this.router.navigate(['/work-order-list']);
     }
   }
 
@@ -37,18 +37,18 @@ export class LoginComponent implements OnInit {
         (data) => {
           const redirect = this.authenticationService.redirectUrl
             ? this.authenticationService.redirectUrl
-            : "/work-order-list";
+            : '/work-order-list';
           this.router.navigate([redirect]);
         },
         (error) => {
-          alert("User name or password is incorrect");
+          alert('User name or password is incorrect');
         }
       );
   }
   get username() {
-    return this.loginForm.get("username");
+    return this.loginForm.get('username');
   }
   get password() {
-    return this.loginForm.get("password");
+    return this.loginForm.get('password');
   }
 }

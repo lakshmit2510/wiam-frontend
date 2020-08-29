@@ -1,36 +1,18 @@
 <div class="login-form-styles">
   <div>
-    <form
-      [formGroup]="loginForm"
-      (ngSubmit)="postdata()"
-      autocomplete="off"
-      nz-form
-      class="login-form"
-    >
+    <form [formGroup]="loginForm" (ngSubmit)="postdata()" autocomplete="off" nz-form class="login-form">
       <img src="./assets/user icon.png" alt="UserIcon" />
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your email!">
           <nz-input-group nzPrefixIcon="user" nzSize="large">
-            <input
-              type="text"
-              nz-input
-              formControlName="email"
-              name="email"
-              placeholder="Email"
-            />
+            <input type="text" nz-input formControlName="email" name="email" placeholder="Email" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your Password!">
           <nz-input-group nzPrefixIcon="lock" nzSize="large">
-            <input
-              type="password"
-              nz-input
-              formControlName="password"
-              name="password"
-              placeholder="Password"
-            />
+            <input type="password" nz-input formControlName="password" name="password" placeholder="Password" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
@@ -42,7 +24,7 @@
             </button>
           </div>
           Or
-          <a class="login-form-forgot">Forgot password</a>
+          <a class="login-form-forgot" routerLink="/forgot-password">Forgot password</a>
           <a routerLink="/register">register now!</a>
         </nz-form-control>
       </nz-form-item>

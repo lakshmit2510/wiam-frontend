@@ -7,9 +7,10 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddNewUserComponent } from './add-new-user/add-new-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
-  declarations: [UserListComponent, AddNewUserComponent],
+  declarations: [UserListComponent, AddNewUserComponent, EditUserComponent],
   imports: [
     CommonModule,
     UserListRoutingModule,

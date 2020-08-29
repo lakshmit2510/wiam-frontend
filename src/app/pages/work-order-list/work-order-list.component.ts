@@ -12,197 +12,223 @@ import { convertJsonToQueryParams } from '../../utils/query-param.util';
 import { Router, ActivatedRoute } from '@angular/router';
 
 enum StatusClass {
-    'Not Delivered' = 'status-not-delivered',
-    'Delivered' = 'status-delivered',
-    'Cancelled' = 'status-cancelled',
+  'Not Delivered' = 'status-not-delivered',
+  'Delivered' = 'status-delivered',
+  'Cancelled' = 'status-cancelled',
 }
 
 @Component({
-    selector: 'app-work-order-list',
-    templateUrl: './work-order-list.component.html',
-    styleUrls: ['./work-order-list.component.less'],
+  selector: 'app-work-order-list',
+  templateUrl: './work-order-list.component.html',
+  styleUrls: ['./work-order-list.component.less'],
 })
 export class WorkOrderListComponent implements OnInit, OnDestroy {
-    workOrderList: any[];
-    partsList: any = [];
-    loadingData = false;
-    selectedVehicleNo = 'all';
-    vehicleNoList = [];
-    dateRange = [subMonths(new Date(), 1), new Date()];
+  workOrderList: any[];
+  partsList: any = [];
+  loadingData = false;
+  selectedVehicleNo = 'all';
+  vehicleNoList = [];
+  dateRange = [subMonths(new Date(), 1), new Date()];
 
-    viewRequestId = null;
+  viewRequestId = null;
 
-    isVisible = false;
+  isVisible = false;
 
-    userInfo: any = {};
+  userInfo: any = {};
 
-    qrReader = new QrCode();
+  qrReader = new QrCode();
 
-    partsRequested: any = {};
+  partsRequested: any = {};
 
-    requestListColumns = [
-        { key: 'RequestFormNo', name: 'Parts Request Form No', width: '200px' },
-        { key: 'VehicleNo', name: 'Vehicle No', width: '100px' },
-        { key: 'Brand', name: 'Brand', width: '100px' },
-        { key: 'Model', name: 'Model', width: '150px' },
-        {
-            key: 'PartsRequestedDate',
-            name: 'Parts Requested Date',
-            width: '150px',
-        },
-        { key: 'PartsIssueDate', name: 'Parts Issue Date', width: '150px' },
-        { key: 'TechnicianName', name: 'Technician Name', width: '120px' },
-        { key: 'FirstName', name: 'Created By', width: '100px' },
-    ];
+  scannerObj = null;
 
-    ranges1 = { Today: [new Date(), new Date()], 'This Month': [subMonths(new Date(), 1), new Date()] };
+  requestListColumns = [
+    { key: 'RequestFormNo', name: 'Parts Request Form No', width: '200px' },
+    { key: 'VehicleNo', name: 'Vehicle No', width: '100px' },
+    { key: 'Brand', name: 'Brand', width: '100px' },
+    { key: 'Model', name: 'Model', width: '150px' },
+    {
+      key: 'PartsRequestedDate',
+      name: 'Parts Requested Date',
+      width: '150px',
+    },
+    { key: 'PartsIssueDate', name: 'Parts Issue Date', width: '150px' },
+    { key: 'TechnicianName', name: 'Received By', width: '120px' },
+    { key: 'FirstName', name: 'Created By', width: '100px' },
+  ];
 
-    constructor(
-        private workOrderService: WorkOrderService,
-        private modal: NzModalService,
-        private authenticationService: AuthenticationService,
-        private partsService: PartsService,
-        private activatedRoute: ActivatedRoute,
-        private router: Router,
-    ) {}
+  ranges1 = { Today: [new Date(), new Date()], 'This Month': [subMonths(new Date(), 1), new Date()] };
 
-    ngOnInit() {
-        this.getList();
-        this.userInfo = this.authenticationService.getUserInfo();
-        // this.qrReader.callback = this.qrCallback;
-        this.workOrderService.getAllVNos().subscribe((data: any[]) => {
-            this.vehicleNoList = data;
-        });
-        // Scanner detection
-        new ScannerDetector({ onComplete: this.qrCallback.bind(this) });
+  constructor(
+    private workOrderService: WorkOrderService,
+    private modal: NzModalService,
+    private authenticationService: AuthenticationService,
+    private partsService: PartsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+  ) { }
+
+  ngOnInit() {
+    this.getList();
+    this.userInfo = this.authenticationService.getUserInfo();
+    // this.qrReader.callback = this.qrCallback;
+    this.workOrderService.getAllVNos().subscribe((data: any[]) => {
+      this.vehicleNoList = data;
+    });
+    // Scanner detection
+    this.scannerObj = new ScannerDetector({ onComplete: this.qrCallback.bind(this) });
+  }
+  ngOnDestroy(): void {
+    // // Do not forget to unsubscribe the event
+    // this.workOrderService.unsubscribe();
+  }
+  getList() {
+    this.loadingData = true;
+    let [from, to]: any = this.dateRange;
+    if (from) {
+      from = moment(from).unix();
     }
-    ngOnDestroy(): void {
-        // // Do not forget to unsubscribe the event
-        // this.workOrderService.unsubscribe();
+    if (to) {
+      to = moment(to).unix();
     }
-    getList() {
-        this.loadingData = true;
-        let [from, to]: any = this.dateRange;
-        if (from) {
-            from = moment(from).unix();
-        }
-        if (to) {
-            to = moment(to).unix();
-        }
 
-        const status = this.activatedRoute.snapshot.data;
-        const statusType = status ? status.key : '';
+    const status = this.activatedRoute.snapshot.data;
+    const statusType = status ? status.key : '';
 
-        this.workOrderService
-            .getRequestListByDateAndVNo({ from, to, vNo: this.selectedVehicleNo, statusType })
-            .subscribe((data: any[]) => {
-                this.workOrderList = data;
-                this.loadingData = false;
-            });
-    }
-    showDeleteConfirm(id: number): void {
-        this.modal.confirm({
-            nzTitle: 'Are you sure to cancel this request?',
-            nzOkText: 'Yes',
-            nzOkType: 'danger',
-            nzOnOk: () =>
-                this.workOrderService.deleteRequestForm(id).subscribe((res) => {
-                    this.getList();
-                }),
-            nzCancelText: 'No',
-            nzOnCancel: () => console.log('Cancel'),
-        });
-    }
-    showConfirm(id: any): void {
-        this.modal.confirm({
-            nzTitle: '<i>Success!</i>',
+    this.workOrderService
+      .getRequestListByDateAndVNo({ from, to, vNo: this.selectedVehicleNo, statusType })
+      .subscribe((data: any[]) => {
+        this.workOrderList = data;
+        this.loadingData = false;
+      });
+  }
+  showDeleteConfirm(id: number): void {
+    this.modal.confirm({
+      nzTitle: 'Are you sure to cancel this request?',
+      nzOkText: 'Yes',
+      nzOkType: 'danger',
+      nzOnOk: () =>
+        this.workOrderService.deleteRequestForm(id).subscribe((res) => {
+          this.getList();
+        }),
+      nzCancelText: 'No',
+      nzOnCancel: () => console.log('Cancel'),
+    });
+  }
+  showConfirm(id: any): void {
+    this.modal.confirm({
+      nzTitle: `Are you sure, you want to deliver this order?`,
+      nzContent: `Order Number: <b>${id}</b>`,
+      nzOnOk: () => {
+        this.workOrderService.updateRequestForm(id).subscribe((res) => {
+          this.modal.success({
+            nzTitle: 'Success!',
             nzContent: '<b>Your order is successfully deliverd to the Customer</b>',
-            nzOnOk: () =>
-                this.workOrderService.updateRequestForm(id).subscribe((res) => {
-                    this.getList();
-                }),
+            nzOnOk: () => {
+              this.getList();
+            }
+          });
         });
-    }
+      }
+    });
+  }
 
-    handleView(requestId) {
-        this.viewRequestId = requestId;
-    }
+  handleView(requestId) {
+    this.viewRequestId = requestId;
+  }
 
-    handleViewClose() {
-        this.viewRequestId = null;
-    }
+  handleViewClose() {
+    this.viewRequestId = null;
+  }
 
-    getStatus(type) {
-        return StatusClass[type];
-    }
+  getStatus(type) {
+    return StatusClass[type];
+  }
 
-    qrCallback(val) {
-        if (val) {
-            this.showConfirm(val);
-        }
-    }
-
-    onRowExpanding(data) {
-        data.component.collapseAll(-1);
-        const { PartsList, QTYRequested } = data.key;
-        const partIds = PartsList.split(',');
-        const partQty = QTYRequested.split(',');
-        partIds.forEach((item, idx) => {
-            this.partsRequested[item] = partQty[idx];
+  qrCallback(val) {
+    if (val) {
+      const isExists = this.workOrderList.find(item => item.RequestFormNo === val);
+      if (isExists) {
+        this.showConfirm(val);
+      } else {
+        this.workOrderService.getListByRequestFormNo(val).subscribe((res: any) => {
+          const [orderObj] = res;
+          if (orderObj.Status === 'Delivered') {
+            this.modal.info({
+              nzTitle: `Order No ${val} is already Delivered.`,
+            });
+          }
+          if (orderObj.Status === 'Cancelled') {
+            this.modal.error({
+              nzTitle: `Order No ${val} is cancelled.`,
+            });
+          }
         });
-        this.partsService.getPartsByCommaId(PartsList).subscribe((partsRes) => {
-            this.partsList = partsRes;
-        });
+      }
     }
+  }
 
-    viewForm(): void {
-        this.isVisible = true;
+  onRowExpanding(data) {
+    data.component.collapseAll(-1);
+    const { PartsList, QTYRequested } = data.key;
+    const partIds = PartsList.split(',');
+    const partQty = QTYRequested.split(',');
+    partIds.forEach((item, idx) => {
+      this.partsRequested[item] = partQty[idx];
+    });
+    this.partsService.getPartsByCommaId(PartsList).subscribe((partsRes) => {
+      this.partsList = partsRes;
+    });
+  }
+
+  viewForm(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+
+  handleDateChange(result: Date[]): void {
+    if (this.dateRange[0] !== result[0] || this.dateRange[1] !== result[1]) {
+      this.dateRange = result;
+      this.getList();
     }
+  }
 
-    handleOk(): void {
-        console.log('Button ok clicked!');
-        this.isVisible = false;
+  handleVNoChange(): void {
+    this.getList();
+  }
+
+  onExporting(e) {
+    const status = this.activatedRoute.snapshot.data;
+    const statusType = status ? status.key : '';
+
+    e.cancel = true;
+    let [from, to]: any = this.dateRange;
+    if (from) {
+      from = moment(from).unix();
     }
-
-    handleCancel(): void {
-        console.log('Button cancel clicked!');
-        this.isVisible = false;
+    if (to) {
+      to = moment(to).unix();
     }
+    const params = { from, to, vNo: this.selectedVehicleNo, statusType };
+    window.open(`${environment.apiUrl}/export/workOrderList?${convertJsonToQueryParams(params)}`, '_blank');
+  }
 
-    handleDateChange(result: Date[]): void {
-        if (this.dateRange[0] !== result[0] || this.dateRange[1] !== result[1]) {
-            this.dateRange = result;
-            this.getList();
-        }
-    }
+  onToolbarPreparing(e) {
+    e.toolbarOptions.items.unshift({ location: 'before', template: 'totalGroupCount' });
+  }
 
-    handleVNoChange(): void {
-        this.getList();
-    }
-
-    onExporting(e) {
-        const status = this.activatedRoute.snapshot.data;
-        const statusType = status ? status.key : '';
-
-        e.cancel = true;
-        let [from, to]: any = this.dateRange;
-        if (from) {
-            from = moment(from).unix();
-        }
-        if (to) {
-            to = moment(to).unix();
-        }
-        const params = { from, to, vNo: this.selectedVehicleNo, statusType };
-        window.open(`${environment.apiUrl}/export/workOrderList?${convertJsonToQueryParams(params)}`, '_blank');
-    }
-
-    onToolbarPreparing(e) {
-        e.toolbarOptions.items.unshift({ location: 'before', template: 'totalGroupCount' });
-    }
-
-    handleEdit(RequestId) {
-        this.router.navigate(['/work-order-list/edit-workorder'], {
-            queryParams: { requestId: RequestId },
-        });
-    }
+  handleEdit(RequestId) {
+    this.router.navigate(['/work-order-list/edit-workorder'], {
+      queryParams: { requestId: RequestId },
+    });
+  }
 }

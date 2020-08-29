@@ -1,1 +1,30 @@
-<p>dashboard works!</p>
+<div class="dashboard_style">
+  <h3>{{config.title}}</h3>
+  <div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="6" *ngFor="let cardData of config.cards">
+      <app-dashboard-card [config]="cardData"></app-dashboard-card>
+    </div>
+  </div>
+
+  <div class="dashboard_style" style="margin-top: 50px; float: left; width: 60%;">
+    <h3>Vehicle Due Date Details</h3>
+    <dx-chart id="chart" [dataSource]="dataSource" style="background-color: white;">
+      <dxi-series argumentField="day" valueField="oranges" name="Vehicles Count" type="bar" color="#ffaa66">
+      </dxi-series>
+    </dx-chart>
+  </div>
+
+  <div class="dashboard_style" style="margin-top: 50px; float: right; width: 35%; height: 500px">
+    <dx-pie-chart id="pie" type="doughnut" title="Vehicle Details" palette="Soft Pastel"
+      [dataSource]="populationByRegions" style="background-color: white;">
+      <dxi-series argumentField="region">
+        <!-- <dxo-label [visible]="true" format="millions">
+        <dxo-connector [visible]="true"></dxo-connector>
+      </dxo-label> -->
+      </dxi-series>
+      <!-- <dxo-export [enabled]="true"></dxo-export> -->
+      <!-- <dxo-legend [margin]="0" horizontalAlignment="right" verticalAlignment="top"></dxo-legend> -->
+      <!-- <dxo-tooltip [enabled]="true" format="millions"> -->
+      <!-- </dxo-tooltip> -->
+    </dx-pie-chart>
+  </div>

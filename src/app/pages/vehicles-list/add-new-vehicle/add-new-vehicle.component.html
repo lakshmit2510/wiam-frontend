@@ -1,0 +1,84 @@
+<div>
+  <form nz-form (ngSubmit)="submitForm()">
+    <nz-page-header nzBackIcon [nzGhost]="false">
+      <nz-page-header-title>Add New Vehicle Details</nz-page-header-title>
+      <nz-page-header-extra>
+        <button nz-button nzType="secon" nzSize="large">
+          <i nz-icon nzType="save" nzTheme="outline"></i> Save
+        </button>
+      </nz-page-header-extra>
+      <nz-page-header-content>
+        <div class="vehicles-list-content">
+          <div nz-row>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <nz-form-item>
+                <nz-form-label>Vehicle Number</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input name="VehicleNo" placeholder="Vehicle Number" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <nz-form-item>
+                <nz-form-label>Issue</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input name="Issue" placeholder="Issue" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <div nz-row>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <nz-form-item>
+                <nz-form-label>Status</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <nz-select nzPlaceHolder="Please Select the Status">
+                    <nz-option nzValue="Active" nzLabel="Active"></nz-option>
+                    <nz-option nzValue="Not Active" nzLabel="Not Active"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <nz-form-item>
+                <nz-form-label>Corrective Maintenance Date </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input type="date" name="date" placeholder="Quantity" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <div nz-row>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <nz-form-item>
+                <nz-form-label>Preventive Maintenance Date</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input type="date" name="PreventiveMaintenanceDate" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" nzXl="12">
+              <nz-form-item>
+                <nz-form-label>Remarks</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input nz-input name="remarks" placeholder="Enter Remarks" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-row>
+              <h5>Please Upload Vehicle Image </h5>
+              <nz-upload class="avatar-uploader" nzName="avatar" nzListType="picture-card" [nzShowUploadList]="false"
+                [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)">
+                <ng-container *ngIf="!avatarUrl">
+                  <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                  <div class="ant-upload-text">Upload</div>
+                </ng-container>
+                <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+              </nz-upload>
+            </div>
+          </div>
+        </div>
+      </nz-page-header-content>
+    </nz-page-header>
+  </form>
+</div>
