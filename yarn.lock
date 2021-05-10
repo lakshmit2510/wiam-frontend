@@ -10,6 +10,14 @@
     "@angular-devkit/core" "8.3.18"
     rxjs "6.4.0"
 
+"@angular-devkit/architect@0.803.29":
+  version "0.803.29"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.803.29.tgz#0399969087ac77876b8e429cb26eebd20596607b"
+  integrity sha512-yHBud/fZHTelX24yjQg5lefZrfIebruoFTGeOwF0JdX8+KiHcTIxS4LOnUTYriasfHarcHRFXBAV/bRm+wv5ow==
+  dependencies:
+    "@angular-devkit/core" "8.3.29"
+    rxjs "6.4.0"
+
 "@angular-devkit/build-angular@~0.803.10":
   version "0.803.18"
   resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-0.803.18.tgz#ee1007caac586fbe69ccd3a1f85b3cd095e8837e"
@@ -103,12 +111,31 @@
     rxjs "6.4.0"
     source-map "0.7.3"
 
+"@angular-devkit/core@8.3.29":
+  version "8.3.29"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-8.3.29.tgz#3477edd6458653f83e6d78684b100c1bef81382f"
+  integrity sha512-4jdja9QPwR6XG14ZSunyyOWT3nE2WtZC5IMDIBZADxujXvhzOU0n4oWpy6/JVHLUAxYNNgzLz+/LQORRWndcPg==
+  dependencies:
+    ajv "6.12.3"
+    fast-json-stable-stringify "2.0.0"
+    magic-string "0.25.3"
+    rxjs "6.4.0"
+    source-map "0.7.3"
+
 "@angular-devkit/schematics@8.3.18":
   version "8.3.18"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-8.3.18.tgz#946eedb52194cb1f29216eaf6942075d12394d11"
   integrity sha512-J9sf/6cSUx2kdXppo/69uZ1gBeM5fcXfnP7MCJCVnsk09QCD9Kr+Xeh8h4WEmLtne7XzI9dcCttHQ5WDNuRulA==
   dependencies:
     "@angular-devkit/core" "8.3.18"
+    rxjs "6.4.0"
+
+"@angular-devkit/schematics@8.3.29":
+  version "8.3.29"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-8.3.29.tgz#b3ba658b90fb3226a80ff12977be7dd583e99c49"
+  integrity sha512-AFJ9EK0XbcNlO5Dm9vr0OlBo1Nw6AaFXPR+DmHGBdcDDHxqEmYYLWfT+JU/8U2YFIdgrtlwvdtf6UQ3V2jdz1g==
+  dependencies:
+    "@angular-devkit/core" "8.3.29"
     rxjs "6.4.0"
 
 "@angular/animations@~8.2.11":
@@ -126,6 +153,32 @@
     tslib "^1.7.1"
   optionalDependencies:
     parse5 "^5.0.0"
+
+"@angular/cli@^8.0.2":
+  version "8.3.29"
+  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-8.3.29.tgz#481eb04a8240932adfb19049a5fb524f85453037"
+  integrity sha512-pW+iU0eKHIae+A1b9W5g8DKefMQcehZ+drGKs4Hryh8G+XGFS00BIWkmh6c1mydWTEhdsFlhdjD/rXCem7MAQQ==
+  dependencies:
+    "@angular-devkit/architect" "0.803.29"
+    "@angular-devkit/core" "8.3.29"
+    "@angular-devkit/schematics" "8.3.29"
+    "@schematics/angular" "8.3.29"
+    "@schematics/update" "0.803.29"
+    "@yarnpkg/lockfile" "1.1.0"
+    ansi-colors "4.1.1"
+    debug "^4.1.1"
+    ini "1.3.5"
+    inquirer "6.5.1"
+    npm-package-arg "6.1.0"
+    npm-pick-manifest "3.0.2"
+    open "6.4.0"
+    pacote "9.5.5"
+    read-package-tree "5.3.1"
+    rimraf "3.0.0"
+    semver "6.3.0"
+    symbol-observable "1.2.0"
+    universal-analytics "^0.4.20"
+    uuid "^3.3.2"
 
 "@angular/cli@~8.3.10":
   version "8.3.18"
@@ -904,6 +957,14 @@
     "@angular-devkit/core" "8.3.18"
     "@angular-devkit/schematics" "8.3.18"
 
+"@schematics/angular@8.3.29":
+  version "8.3.29"
+  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-8.3.29.tgz#da747539230dae16111c56422339c02dbb17681d"
+  integrity sha512-If+UhCsQzCgnQymiiF8dQRoic34+RgJ6rV0n4k7Tm4N2xNYJOG7ajjzKM7PIeafsF50FKnFP8dqaNGxCMyq5Ew==
+  dependencies:
+    "@angular-devkit/core" "8.3.29"
+    "@angular-devkit/schematics" "8.3.29"
+
 "@schematics/update@0.803.18":
   version "0.803.18"
   resolved "https://registry.yarnpkg.com/@schematics/update/-/update-0.803.18.tgz#c071e891accb003070d3b2ea99e0df57e07dbd59"
@@ -917,6 +978,27 @@
     rxjs "6.4.0"
     semver "6.3.0"
     semver-intersect "1.4.0"
+
+"@schematics/update@0.803.29":
+  version "0.803.29"
+  resolved "https://registry.yarnpkg.com/@schematics/update/-/update-0.803.29.tgz#ad3c9bfe8c6d877a0ea692ae4760f0d72f3e0cc9"
+  integrity sha512-Syf6h6DYeu1WU9aLihMwIgVASpcHCxUYqhZyHfQABiK8NkdlZ+KAp4cOxihsZyDqIJNLWON+0/FLPAQF3BXh5Q==
+  dependencies:
+    "@angular-devkit/core" "8.3.29"
+    "@angular-devkit/schematics" "8.3.29"
+    "@yarnpkg/lockfile" "1.1.0"
+    ini "1.3.5"
+    pacote "9.5.5"
+    rxjs "6.4.0"
+    semver "6.3.0"
+    semver-intersect "1.4.0"
+
+"@types/datatables.net@^1.10.18":
+  version "1.10.19"
+  resolved "https://registry.yarnpkg.com/@types/datatables.net/-/datatables.net-1.10.19.tgz#17c5f94433f761086131c6c8dc055a0e1099d1f9"
+  integrity sha512-WuzgytEmsIpVYZbkce+EvK1UqBI7/cwcC/WgYeAtXdq2zi+yWzJwMT5Yb6irAiOi52DBjeAEeRt3bYzFYvHWCQ==
+  dependencies:
+    "@types/jquery" "*"
 
 "@types/events@*":
   version "3.0.0"
@@ -949,6 +1031,13 @@
   dependencies:
     "@types/jasmine" "*"
 
+"@types/jquery@*", "@types/jquery@^3.3.31":
+  version "3.5.5"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.5.tgz#2c63f47c9c8d96693d272f5453602afd8338c903"
+  integrity sha512-6RXU9Xzpc6vxNrS6FPPapN1SxSHgQ336WC6Jj/N8q30OiaBZ00l1GBgeP7usjVZPivSkGUfL1z/WW6TX989M+w==
+  dependencies:
+    "@types/sizzle" "*"
+
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -973,6 +1062,11 @@
   version "3.0.16"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-3.0.16.tgz#50a4755f8e33edacd9c406729e9b930d2451902a"
   integrity sha512-lMC2G0ItF2xv4UCiwbJGbnJlIuUixHrioOhNGHSCsYCJ8l4t9hMCUimCytvFv7qy6AfSzRxhRHoGa+UqaqwyeA==
+
+"@types/sizzle@*":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.3.tgz#ff5e2f1902969d305225a047c8a0fd5c915cebef"
+  integrity sha512-JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ==
 
 "@types/source-list-map@*":
   version "0.1.2"
@@ -1226,6 +1320,16 @@ ajv@6.10.2, ajv@^6.1.0, ajv@^6.10.2, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+ajv@6.12.3:
+  version "6.12.3"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.3.tgz#18c5af38a111ddeb4f2697bd78d68abc1cabd706"
+  integrity sha512-4K0cK3L1hsqk9xIb2z9vs/XU+PGJZ9PNpJRDS9YLzmNdX6jmVPfamLvTJr0aDAusnHyCHO6MjzlkAsgtqp9teA==
+  dependencies:
+    fast-deep-equal "^3.1.1"
+    fast-json-stable-stringify "^2.0.0"
+    json-schema-traverse "^0.4.1"
+    uri-js "^4.2.2"
+
 ajv@^5.0.0:
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
@@ -1240,6 +1344,13 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+angular-datatables@^8.0.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/angular-datatables/-/angular-datatables-8.1.0.tgz#793cd45d3475e31cfb05360695bb47bdc1bfb5d7"
+  integrity sha512-UJmF8qLdxIALyabwslvMvJ8zjkJWIfn/IfzEKO1vv6z+DhwfHlTS7oFOF40x0ZbSGfq0E1Yyscl7MOl71AulHw==
+  dependencies:
+    "@angular/cli" "^8.0.2"
 
 ansi-colors@4.1.1:
   version "4.1.1"
@@ -2527,6 +2638,21 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+datatables.net-dt@^1.10.20:
+  version "1.10.24"
+  resolved "https://registry.yarnpkg.com/datatables.net-dt/-/datatables.net-dt-1.10.24.tgz#64397d6842052afab9dedf9ba160849954fb4cc3"
+  integrity sha512-O7c/Fhqz9hZG8LkXLr9k3M2rZPFjqY6tylOnFl3UaTZfBp5TeCc1AXZbFmv3Y7aNkcNS2UVJRiYAk7bkQhxR+w==
+  dependencies:
+    datatables.net "1.10.24"
+    jquery ">=1.7"
+
+datatables.net@1.10.24, datatables.net@^1.10.20:
+  version "1.10.24"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.10.24.tgz#370e02f1e201de8334fdc92e7515c1624191573c"
+  integrity sha512-CwXixvOdinvBCLXvcTloDinWiEM7Geaz+GwyjPrZL+MXIGPcLv4Op1bbWn8ErsI1JWMIWC8Cuf1rnDU2RrFV5w==
+  dependencies:
+    jquery ">=1.7"
+
 date-fns@^1.30.1:
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
@@ -3179,6 +3305,11 @@ fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
   integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
+
+fast-deep-equal@^3.1.1:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
+  integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
 fast-json-stable-stringify@2.0.0, fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
@@ -4422,6 +4553,11 @@ jest-worker@24.9.0:
     merge-stream "^2.0.0"
     supports-color "^6.1.0"
 
+jquery@>=1.7, jquery@^3.4.1:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+
 js-levenshtein@^1.1.3:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/js-levenshtein/-/js-levenshtein-1.1.6.tgz#c6cee58eb3550372df8deb85fad5ce66ce01d59d"
@@ -4720,9 +4856,9 @@ lodash.clonedeep@^4.5.0:
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
 
 lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.17.5:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 log4js@^4.0.0:
   version "4.5.1"
